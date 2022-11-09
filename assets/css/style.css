@@ -151,7 +151,7 @@ h6 {
 }
 
 #header .logo img {
-  max-height: 120px;
+  max-height: auto;
 }
 
 /*--------------------------------------------------------------
@@ -174,11 +174,13 @@ h6 {
 
 .navbar li {
   position: relative;
+    
 }
 
 .navbar>ul>li {
   white-space: nowrap;
   padding: 8px 12px;
+    
 }
 
 .navbar a,
@@ -201,6 +203,7 @@ h6 {
   font-size: 12px;
   line-height: 0;
   margin-left: 5px;
+  
 }
 
 .navbar>ul>li>a:before {
@@ -214,6 +217,7 @@ h6 {
   visibility: hidden;
   width: 0px;
   transition: all 0.3s ease-in-out 0s;
+    
 }
 
 .navbar a:hover:before,
@@ -429,10 +433,13 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/hero-bg.jpg") top center;
   background-size: cover;
   position: relative;
   padding: 0;
+    overflow: hidden;
+background-repeat: no-repeat;
+animation: change 30s infinite ease-in-out;
+    
 }
 
 #hero:before {
@@ -533,6 +540,39 @@ h6 {
     margin-bottom: 30px;
   }
 }
+@keyframes change{
+0%
+    {
+        background-image: url("../img/hero-bg.jpg");
+    }
+20%
+    {
+        background-image: url(../img/bg/hero-1.jpg);
+    }
+40%
+    {
+        background-image: url(../img/bg/hero-2.jpg);
+    }
+60%
+    {
+        background-image: url(../img/bg/hero-3.jpg);
+    }
+80%
+    {
+        background-image: url(../img/bg/hero-4.jpg);
+    }
+100%
+    {
+        background-image: url(../img/bg/hero-6.jpg);
+    }
+/*
+100%
+    {
+        background-image: url(../img/bg/hero-6.jpg);
+    }
+*/
+}
+
 
 /*--------------------------------------------------------------
 # Sections General
