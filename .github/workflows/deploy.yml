@@ -3,7 +3,7 @@ on:
     branches:
       - main
 name: Publish Website to CPanel
-  jobs:
+jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
