@@ -1,3 +1,18 @@
+name: 
+on:
+  push:
+    branches:
+      - main-2.0
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.1.0
+      with:
+        fetch-depth: 2
+
+
         on: push
           branches:
           - main
