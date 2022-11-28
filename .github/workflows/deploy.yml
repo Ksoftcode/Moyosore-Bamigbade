@@ -2,8 +2,8 @@
           push:
             branches:
               - main
-name: 🚀 Publish Website to CPanel
-jobs:
+name: Publish Website to CPanel
+  jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
@@ -17,4 +17,4 @@ jobs:
         server: ${{ secrets.MB_FTP_SERVER }}
         username: ${{ secrets.MB_FTP_USERNAME }}
         password: ${{ secrets.MB_FTP_CONNECT }}
-        server-dir: moyosore-bamigbade.com/mb_ftp_connect/
+        server-dir: mb_ftp_connect/
