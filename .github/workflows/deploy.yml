@@ -17,4 +17,4 @@ jobs:
         server: ${{ secrets.MB_FTP_SERVER }}
         username: ${{ secrets.MB_FTP_USERNAME }}
         password: ${{ secrets.MB_FTP_CONNECT }}
-        server-dir: mb_ftp_connect/
+        server-dir: public_html/
