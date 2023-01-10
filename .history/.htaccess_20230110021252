@@ -13,7 +13,6 @@
 # Insert filters / compress text, html, javascript, css, xml:
 # mod_deflate can be used for Apache v2 and later and is the recommended GZip mechanism to use
 
-
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/javascript
 AddOutputFilterByType DEFLATE text/html
@@ -51,8 +50,7 @@ BrowserMatch ^Mozilla/4 gzip-only-text/html
 BrowserMatch ^Mozilla/4\.0[678] no-gzip
 BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
 
-# Make sure proxies dont deliver the wrong content
-
+# Make sure proxies don't deliver the wrong content
 <IfModule mod_headers.c>
 Header append Vary User-Agent env=!dont-vary
 </IfModule>
@@ -176,8 +174,7 @@ Header set Cache-Control "max-age=7200, must-revalidate"
     Header set Connection keep-alive
 </IfModule>
 
-# If your server dont support ETags deactivate with "None" (and remove header)
-
+# If your server don't support ETags deactivate with "None" (and remove header)
 <IfModule mod_expires.c> 
   <IfModule mod_headers.c> 
     Header unset ETag 

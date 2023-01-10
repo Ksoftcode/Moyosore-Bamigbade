@@ -13,7 +13,6 @@
 # Insert filters / compress text, html, javascript, css, xml:
 # mod_deflate can be used for Apache v2 and later and is the recommended GZip mechanism to use
 
-
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/javascript
 AddOutputFilterByType DEFLATE text/html
@@ -177,7 +176,6 @@ Header set Cache-Control "max-age=7200, must-revalidate"
 </IfModule>
 
 # If your server dont support ETags deactivate with "None" (and remove header)
-
 <IfModule mod_expires.c> 
   <IfModule mod_headers.c> 
     Header unset ETag 
