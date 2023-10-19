@@ -7,9 +7,7 @@ trigger:
 - main
 
 pool:
-  name: Linux-Agent  # Define a custom agent pool name
-  demands:
-    - Agent.OS -equals Linux  # Ensure that the agent is a Linux-based one
+  name: Linux-Agent  # Specify the name of your custom agent pool
 
 steps:
 - script: echo Hello, world!
