@@ -7,7 +7,9 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: Linux-Agent  # Define a custom agent pool name
+  demands:
+    - Agent.OS -equals Linux  # Ensure that the agent is a Linux-based one
 
 steps:
 - script: echo Hello, world!
@@ -17,3 +19,5 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+# Add more steps as needed for your specific build and deployment process.
