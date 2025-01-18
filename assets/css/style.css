@@ -151,7 +151,7 @@ h6 {
 }
 
 #header .logo img {
-  max-height: auto;
+  max-height: 120px;
 }
 
 /*--------------------------------------------------------------
@@ -444,18 +444,21 @@ animation: change 30s infinite ease-in-out;
 
 #hero:before {
   content: "";
-  background: rgba(13, 20, 26, 0.7);
+  /* background: rgba(13, 20, 26, 0.7); */
+  background-color: rgba(13, 20, 26, 0.3);
   position: absolute;
-  bottom: 0;
+  inset: 0;
+  /* bottom: 0;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0; */
 }
 
 #hero .hero-container {
   position: absolute;
+  z-index: 1;
   bottom: 0;
-  top: 0;
+  top: 30%;
   left: 0;
   right: 0;
   display: flex;
@@ -522,6 +525,25 @@ animation: change 30s infinite ease-in-out;
   color: #ff4a17;
 }
 
+.hero-description {
+  position: absolute; /* or absolute if you prefer */
+  bottom: 60px;  /* adjust as desired */
+  left: 0;
+  right: 0;
+  /* margin-top: 20px; */
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-description::after {
+  content: var(--heroText);
+  /* Additional styling here */
+  display: inline-block;
+  /* If you want transitions in/out, you can play with opacity or transitions */
+}
+
 @media (min-width: 1024px) {
   #hero {
     background-attachment: fixed;
@@ -540,37 +562,35 @@ animation: change 30s infinite ease-in-out;
     margin-bottom: 30px;
   }
 }
-@keyframes change{
-0%
-    {
-        background-image: url("../img/hero-bg.jpg");
-    }
-20%
-    {
-        background-image: url(../img/bg/hero-1.jpg);
-    }
-40%
-    {
-        background-image: url(../img/bg/hero-2.jpg);
-    }
-60%
-    {
-        background-image: url(../img/bg/hero-3.jpg);
-    }
-80%
-    {
-        background-image: url(../img/bg/hero-4.jpg);
-    }
-100%
-    {
-        background-image: url(../img/bg/hero-6.jpg);
-    }
-/*
-100%
-    {
-        background-image: url(../img/bg/hero-6.jpg);
-    }
-*/
+@keyframes change {
+  0% {
+    background-image: url("../img/bg/hero-bg.jpg");
+    --heroText: "Mabushi Development | Abuja, Nigeria";
+  }
+  20% {
+    background-image: url("../img/bg/hero-7.jpg");
+    --heroText: "Summerwood Villa";
+  }
+  40% {
+    background-image: url("../img/bg/hero-1.jpg");
+    --heroText: "House Cicaleto | Italy";
+  }
+  60% {
+    background-image: url("../img/bg/hero-2.jpg");
+    --heroText: "Kitisuru Residence | Nairobi, Kenya";
+  }
+  80% {
+    background-image: url("../img/bg/hero-3.jpg");
+    --heroText: "Luštica Bay Villa | Luštica Peninsula";
+  }
+  90% {
+    background-image: url("../img/bg/hero-4.jpg");
+    --heroText: "Kloof Road House | Bedfordview, Johannesburg";
+  }
+  100% {
+    background-image: url("../img/bg/hero-6.jpg");
+    --heroText: "Singapore Residence | Singapore";
+  }
 }
 
 
