@@ -604,6 +604,7 @@ section {
 
 .section-bg {
   background-color: #f0f4f8;
+  /* background: #fff; */
 }
 
 .section-title {
@@ -914,7 +915,9 @@ section {
 # Clients
 --------------------------------------------------------------*/
 .clients {
-  background: #f0f4f8;
+  /* background: #f0f4f8; */
+  background-color: #bfd7e7;
+
   padding: 15px 0;
   text-align: center;
 }
@@ -1190,7 +1193,8 @@ section {
   color: #444444;
   margin: 0 3px 10px 3px;
   transition: all ease-in-out 0.3s;
-  background: #e5edf3;
+  /* background: #e5edf3; */
+  background: #fff;
   border-radius: 4px;
 }
 
