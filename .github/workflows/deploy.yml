@@ -17,3 +17,5 @@ jobs:
         server: ${{ secrets.MB_FTP_SERVER }}
         username: ${{ secrets.MB_FTP_USERNAME }}
         password: ${{ secrets.MB_FTP_CONNECT }}
+        protocol: ftps                            # ⬅ important for many cPanel hosts
+        port: 21
