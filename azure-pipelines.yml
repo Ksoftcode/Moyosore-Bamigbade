@@ -9,13 +9,22 @@ trigger:
 pool:
   name: Linux-Agent  # Specify the name of your custom agent pool
 
+# Static site — cPanel-style flat layout. index.html lives at the repo root.
+# /legacy and /assets are archived and excluded from the published artifact.
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo "Staging site from repo root, excluding legacy/ and assets/"
+    mkdir -p $(Build.ArtifactStagingDirectory)/site
+    rsync -a --exclude 'legacy/' --exclude 'assets/' --exclude '.git/' \
+      --exclude '.github/' --exclude '.vscode/' --exclude 'node_modules/' \
+      --exclude '*.md' --exclude 'package.json' --exclude 'amplify.yml' \
+      --exclude 'azure-pipelines.yml' --exclude 'changelog.txt' --exclude 'LICENSE' \
+      ./ $(Build.ArtifactStagingDirectory)/site/
+  displayName: 'Stage deployable site'
 
-# Add more steps as needed for your specific build and deployment process.
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/site'
+    artifact: 'site'
+    publishLocation: 'pipeline'
+  displayName: 'Publish site as pipeline artifact'

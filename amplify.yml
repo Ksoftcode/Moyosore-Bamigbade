@@ -1,13 +1,20 @@
 version: 1
 frontend:
   phases:
-    # IMPORTANT - Please verify your build commands
     build:
       commands: []
   artifacts:
-    # IMPORTANT - Please verify your build output directory
+    # cPanel-style flat layout — index.html lives at the repo root.
     baseDirectory: /
     files:
       - '**/*'
+      - '!legacy/**'
+      - '!assets/**'
+      - '!**/*.md'
+      - '!package.json'
+      - '!amplify.yml'
+      - '!azure-pipelines.yml'
+      - '!changelog.txt'
+      - '!LICENSE'
   cache:
     paths: []

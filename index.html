@@ -17,10 +17,127 @@
       transform: rotate(-5deg);
       display: inline-block;
     }
+
+    /* Inline portfolio filter: button reset + filtered grid */
+    .pf-filter {
+      background: none;
+      border: 0;
+      cursor: pointer;
+      padding: 6px 0;
+      font: inherit;
+    }
+    .pf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .pf-grid > .pf-tile { height: 320px; }
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .pf-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .pf-grid { grid-template-columns: 1fr; }
+      .pf-grid > .pf-tile { height: 260px; }
+    }
+
+    /* Inline Gallery / Index view toggle */
+    .pf-view {
+      background: none; border: 0; cursor: pointer; font: inherit;
+      color: inherit;
+    }
+
+    /* Inline list (Index) view rendered from the same grid */
+    .pf-list { display: none; margin-top: 8px; }
+    #portfolio.is-list-view .pf-featured,
+    #portfolio.is-list-view .pf-grid { display: none !important; }
+    #portfolio.is-list-view .pf-list { display: block; }
+    .pf-list-header {
+      display: grid;
+      grid-template-columns: 60px 200px 1.6fr 1fr 110px 90px 130px;
+      gap: 18px; padding: 12px 8px;
+      font-family: var(--font-nav); font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--mb-muted);
+      border-top: 2px solid var(--mb-heading);
+      border-bottom: 1px solid var(--mb-line);
+      align-items: center;
+    }
+    .pf-list-row {
+      display: grid;
+      grid-template-columns: 60px 200px 1.6fr 1fr 110px 90px 130px;
+      gap: 18px; align-items: center;
+      padding: 18px 8px;
+      border-bottom: 1px solid var(--mb-line);
+      color: var(--mb-heading);
+      transition: background .15s;
+    }
+    .pf-list-row:hover { background: #fafbfd; }
+    .pf-list-row .lr-num {
+      font-family: var(--font-display); font-weight: 800; font-size: 14px;
+      color: var(--mb-muted);
+    }
+    .pf-list-row .lr-thumb {
+      width: 200px; height: 120px; overflow: hidden; background: #15222b; display: block;
+    }
+    .pf-list-row .lr-thumb img,
+    .pf-list-row .lr-thumb .ph {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .pf-list-row .lr-title {
+      font-family: var(--font-display); font-weight: 800; font-size: 22px;
+      text-transform: uppercase; line-height: 1.05;
+    }
+    .pf-list-row .lr-title .sub {
+      font-size: 13px; font-weight: 500; color: var(--mb-muted);
+      text-transform: none; letter-spacing: 0.005em; margin-top: 4px;
+    }
+    .pf-list-row .lr-loc { font-size: 13px; color: var(--mb-body, #555); }
+    .pf-list-row .lr-typ,
+    .pf-list-row .lr-year,
+    .pf-list-row .lr-status {
+      font-family: var(--font-nav); font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mb-muted);
+    }
+    .pf-list-row .lr-status .pill {
+      display: inline-block; padding: 3px 8px; font-size: 10px;
+      background: var(--mb-bg-soft, #eee); color: var(--mb-heading);
+    }
+    .pf-list-row .lr-status .pill.concept { background: #fef3c7; color: #92400e; }
+    .pf-list-row .lr-status .pill.construction { background: #dbeafe; color: #1e3a8a; }
+    .pf-list-row .lr-status .pill.completed { background: #d1fae5; color: #065f46; }
+    .pf-list-row .lr-status .pill.published { background: #ede9fe; color: #5b21b6; }
+    @media (max-width: 900px) {
+      .pf-list-header { display: none; }
+      .pf-list-row {
+        grid-template-columns: 60px 1fr;
+        grid-template-areas:
+          "num title"
+          "num loc"
+          "thumb thumb";
+      }
+      .pf-list-row .lr-thumb { width: 100%; height: 180px; grid-area: thumb; }
+      .pf-list-row .lr-num { grid-area: num; }
+      .pf-list-row .lr-title { grid-area: title; font-size: 18px; }
+      .pf-list-row .lr-loc { grid-area: loc; }
+      .pf-list-row .lr-typ,
+      .pf-list-row .lr-year,
+      .pf-list-row .lr-status { display: none; }
+    }
+
+    /* Make the small section eyebrow more legible */
+    #portfolio.section .section-title h2,
+    #services-2 .section-title h2,
+    #testimonials .section-title h2,
+    #team .section-title h2,
+    #clients .section-title h2,
+    #contact.section .section-title h2 {
+      color: var(--accent-color);
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
   </style>
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="images/favicon.png" rel="icon">
+  <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -28,14 +145,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 <!-- Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="styles/style.css" rel="stylesheet">
+  <link href="styles/modern.css" rel="stylesheet">
 </head>
 
 <body class="index-page">
@@ -44,7 +162,7 @@
   <header id="header" class="header fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
        
-      <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="" class="img-fluid"></a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
@@ -67,13 +185,29 @@
 
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
-      
-    <div class="hero-container" data-aos="fade-up" data-aos-delay="150">
-      <div class="hero-description"></div>
-    </div>
-  </section>
-  
-  <!-- End Hero -->
+
+      <!-- Ken Burns slideshow layers -->
+      <div class="hero-slides">
+        <div class="hero-slide" style="background-image:url('images/bg/hero-bg.jpg');" data-caption="Mabushi Development | Abuja, Nigeria"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-7.jpg');" data-caption="Summerwood Villa"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-1.jpg');" data-caption="House Cicaleto | Italy"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-2.jpg');" data-caption="Kitisuru Residence | Nairobi, Kenya"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-3.jpg');" data-caption="Luštica Bay Villa | Luštica Peninsula"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-4.jpg');" data-caption="Kloof Road House | Bedfordview, Johannesburg"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-6.jpg');" data-caption="Singapore Residence | Singapore"></div>
+      </div>
+
+      <!-- Animated draft line that draws across on each slide change -->
+      <div class="hero-draftline"></div>
+
+      <div class="hero-container" data-aos="fade-up" data-aos-delay="150">
+        <h1>Designing Africa's Future Skylines</h1>
+        <h2>Architecture, master planning and interiors rooted in African authenticity, grounded in global design intelligence.</h2>
+        <div class="hero-description"></div>
+      </div>
+    </section>
+
+    <!-- End Hero -->
 
         <!-- Stats Section -->
     <section id="stats" class="stats section light-background">
@@ -96,7 +230,7 @@
             <div class="stats-item d-flex align-items-center w-100 h-100">
               <i class="bi bi-journal-richtext color-orange flex-shrink-0"></i>
               <div>
-                <span data-purecounter-start="0" data-purecounter-end="122" data-purecounter-duration="1" class="purecounter"></span>
+                <span data-purecounter-start="0" data-purecounter-end="74" data-purecounter-duration="1" class="purecounter"></span>
                 <p>Projects</p>
               </div>
             </div>
@@ -128,50 +262,149 @@
 
     </section><!-- /Stats Section -->
 
-        <!-- About Section -->
+                <!-- About Section -->
     <section id="about" class="about section">
-
       <div class="container">
 
-        <div class="row gy-4">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+        <!-- Row 1: Introduction + Venn diagram -->
+        <div class="row gy-5 align-items-center mb-5">
+          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
             <h3>ABOUT US</h3>
-            <img src="assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
-            <p>MB Architects Limited is a multidisciplinary design and consulting firm headquartered in Lagos, with regional offices in Abuja and Abidjan.
-            Founded on the principles of thoughtful design, Precision, Signature quality, Genuinity and craftsmanship , the firm delivers cutting-edge architectural, engineering, and consulting solutions that shape skylines, transform communities, and enhance living experiences.</p>
-            <p>Our holistic design approach merges creativity with functionality — ensuring that every project reflects a deep understanding of context, culture, and client aspirations.</p>
+            <p class="lead">MB Architects Limited is a multidisciplinary design and consulting firm headquartered in Lagos, with regional studios in Abuja and Abidjan.</p>
+            <p>We operate at the intersection of <strong>Design</strong>, <strong>Business</strong>, and <strong>Social Transformation</strong>, delivering architecture that is commercially intelligent, culturally grounded, and socially meaningful. Since our founding, we have completed over <strong>74 commissions</strong> across residential, urban housing, hospitality, commercial, and institutional architecture, shaping skylines and communities across <strong>Nigeria, C&ocirc;te d'Ivoire, Ghana, Senegal, The Gambia, Sierra Leone, Kenya, Tanzania, Rwanda, South Africa, Egypt,</strong> and <strong>Morocco</strong>.</p>
           </div>
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
-            <div class="content ps-0 ps-lg-5">
-              <ul>
-                <h4>OUR MISSION</h4>
-                <li><i class="bi bi-check-circle-fill"></i> <span>To deliver intelligent, sustainable, and transformative design solutions that enrich lives and redefine Africa’s place in global architecture.</span></li>
-                <br />
-                <h4>OUR VISION</h4>
-                <li><i class="bi bi-check-circle-fill"></i> <span>To be Africa’s most respected architectural brand — designing spaces that connect continents, cultures, and communities through excellence and innovation.</span></li>
-              </ul>
-              <p class="fst-italic">
-                We’ve led landmark projects across Nigeria, Ghana, Côte d’Ivoire, Senegal, The Gambia, Sierra Leone, South Africa, Kenya, Tanzania, Rwanda, Egypt, Morocco, and extended our influence to Dubai, Milan, and London.
-              </p>
+          <div class="col-lg-5 text-center" data-aos="fade-up" data-aos-delay="200">
+            <img src="images/about/venn-intersection.jpg" class="img-fluid" alt="Design &middot; Business &middot; Social Transformation" style="max-width:380px;">
+          </div>
+        </div>
 
-              <div class="position-relative mt-4">
-                <img src="assets/img/about-2.jpg" class="img-fluid rounded-4" alt="">
-                <a href="https://#" class="glightbox pulsating-play-btn"></a>
+        <!-- Row 2: Core Values Pillars (full-width hero image) -->
+        <div class="row mb-5">
+          <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+            <h4 class="mb-4" style="font-family:var(--font-display); letter-spacing:0.08em; text-transform:uppercase; color:var(--mb-heading);">Our Core Values</h4>
+            <img src="images/about/pillars-core-values.jpg" class="img-fluid rounded-4 w-100" alt="Five pillars of MB Architects: Thoughtful Design, Signature Quality, Craftsmanship, Precision, Genuineness">
+          </div>
+        </div>
+
+        <!-- Row 3: Values text cards -->
+        <div class="row gy-4 mb-5">
+          <div class="col-md-4 col-lg" data-aos="fade-up" data-aos-delay="100">
+            <div class="p-3">
+              <h6 style="font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.1em; color:var(--mb-heading); font-weight:700;">Thoughtful Design</h6>
+              <p class="mb-0" style="font-size:0.92rem;">Design that listens before it speaks. Every project begins with a rigorous understanding of place, purpose, and people.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg" data-aos="fade-up" data-aos-delay="150">
+            <div class="p-3">
+              <h6 style="font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.1em; color:var(--mb-heading); font-weight:700;">Signature Quality</h6>
+              <p class="mb-0" style="font-size:0.92rem;">We pursue timeless architecture with a clear identity, rooted in excellence rather than trend.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg" data-aos="fade-up" data-aos-delay="200">
+            <div class="p-3">
+              <h6 style="font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.1em; color:var(--mb-heading); font-weight:700;">Craftsmanship</h6>
+              <p class="mb-0" style="font-size:0.92rem;">Buildings must be made well to live well. We value material integrity, construction intelligence, and the dignity of making.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg" data-aos="fade-up" data-aos-delay="250">
+            <div class="p-3">
+              <h6 style="font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.1em; color:var(--mb-heading); font-weight:700;">Precision</h6>
+              <p class="mb-0" style="font-size:0.92rem;">Architecture is both art and science. We value discipline, accuracy, and technical rigor as foundations of quality.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg" data-aos="fade-up" data-aos-delay="300">
+            <div class="p-3">
+              <h6 style="font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.1em; color:var(--mb-heading); font-weight:700;">Genuineness</h6>
+              <p class="mb-0" style="font-size:0.92rem;">Our work is grounded in context, culture, and honesty, resisting spectacle in favor of meaning.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Scope + Urban Vision side-by-side -->
+        <div class="row gy-4 align-items-center mb-5">
+          <div class="col-lg-5 text-center" data-aos="fade-up" data-aos-delay="100">
+            <img src="images/about/scope-wordcloud.jpg" class="img-fluid rounded-4" alt="Scope: Residence, Hospitality, Buildings, Institutions, Banks, Schools, Public Spaces, Concepts" style="max-width:420px;">
+          </div>
+          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">
+            <h4 style="font-family:var(--font-display); letter-spacing:0.08em; text-transform:uppercase; color:var(--mb-heading);">Our Scope</h4>
+            <p>Our portfolio spans the full breadth of the built environment: from private residences, hospitality venues, and mixed-use developments to institutional buildings, banks, schools, and public spaces. Every typology is an opportunity to deliver architecture with purpose and identity.</p>
+            <img src="images/about/urban-vision.jpg" class="img-fluid rounded-4 mt-3" alt="MB Architects urban vision illustration" style="max-width:100%;">
+          </div>
+        </div>
+
+        <!-- Row 5: Social Impact + Sustainable Shelter -->
+        <div class="row gy-4 align-items-center mb-5">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h4 style="font-family:var(--font-display); letter-spacing:0.08em; text-transform:uppercase; color:var(--mb-heading);">Social Impact</h4>
+            <p>Beyond commercial practice, MB Architects is committed to social transformation through design. We address Nigeria and West Africa's pressing challenges, from fragmented agricultural research and low youth engagement in agritech, to the urgent need for affordable, sustainable shelter.</p>
+            <img src="images/about/social-impact.jpg" class="img-fluid rounded-4" alt="Social impact: agriculture and community development across Nigeria and West Africa">
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <img src="images/about/sustainable-shelter.jpg" class="img-fluid rounded-4" alt="Sustainable shelter: from accumulated challenge through community action and innovative materials to architecture for a new Nigeria">
+            <p class="mt-3">From community action and innovative construction methods, including plastic-to-building-block technologies, to fully realized sustainable shelter, we believe architecture can be a catalyst for a <strong>new Nigeria</strong>.</p>
+          </div>
+        </div>
+
+        <!-- Row 6: Quick Facts Strip -->
+        <div class="row mb-4">
+          <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+            <div style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap; padding:32px 0; border-top:1px solid rgba(0,0,0,0.08); border-bottom:1px solid rgba(0,0,0,0.08);">
+              <div style="text-align:center; flex:1; min-width:120px;">
+                <div style="font-family:var(--font-display); font-weight:800; font-size:36px; color:var(--mb-accent);">74</div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--mb-muted);">Projects</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:120px;">
+                <div style="font-family:var(--font-display); font-weight:800; font-size:36px; color:var(--mb-accent);">3</div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--mb-muted);">Studios</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:120px;">
+                <div style="font-family:var(--font-display); font-weight:800; font-size:36px; color:var(--mb-accent);">13+</div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--mb-muted);">Countries</div>
+              </div>
+              <div style="text-align:center; flex:1; min-width:120px;">
+                <div style="font-family:var(--font-display); font-weight:800; font-size:36px; color:var(--mb-accent);">$155M+</div>
+                <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--mb-muted);">Project Value</div>
               </div>
             </div>
           </div>
         </div>
 
-      </div>
+        <!-- Row 7: Mission & Vision -->
+        <div class="row gy-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-mission-vision">
+              <h4>OUR MISSION</h4>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>To deliver intelligent, sustainable, and transformative design solutions that enrich lives and redefine Africa&rsquo;s place in global architecture.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="mb-mission-vision">
+              <h4>OUR VISION</h4>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>To be Africa's most respected architectural brand, designing spaces that connect continents, cultures, and communities through excellence and innovation.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-12" data-aos="fade-up" data-aos-delay="250">
+            <p class="fst-italic text-center mt-2" style="max-width:700px; margin:0 auto;">
+              With studios in Lagos, Abuja, and Abidjan, and projects extending to Dubai, London, and Milan, we bring African authenticity to a global stage, partnering with clients who share our commitment to design that transforms.
+            </p>
+          </div>
+        </div>
 
+      </div>
     </section><!-- /About Section -->
+
 
     <!-- founder Section -->
     <section id="founder" class="founder section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Leadership Profile</h2>
+        <h2>Our Leadership</h2>
+        <p>Leadership Profile</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100"> <!-- div1 start -->
@@ -179,7 +412,7 @@
         <div class="row align-items-center">
           <div class="col-lg-6 position-relative" data-aos="fade-right" data-aos-delay="200">
             <div class="founder-image">
-              <img src="assets/img/hero-bg.jpg" alt="Profile Image" class="img-fluid rounded-4">
+              <img src="images/hero-bg.jpg" alt="Profile Image" class="img-fluid rounded-4">
             </div>
           </div>
 
@@ -198,7 +431,7 @@
 
               <div class="signature mt-4">
                 <div class="signature-image">
-                  <img src="assets/img/signature.png" alt="" class="img-fluid signature-tilted">
+                  <img src="images/signature.png" alt="" class="img-fluid signature-tilted">
                 </div>
                 <div class="signature-info">
                   <h4>Moyosore Bamigbade</h4>
@@ -215,262 +448,190 @@
     </section><!-- /Founder Section -->
 
     <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients section light-background">
+    <section id="clients" class="mb-clients">
 
-      <div class="container" data-aos="fade-up">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Trusted By</h2>
+        <p>Our Partners & Clients</p>
+      </div><!-- End Section Title -->
 
-        <div class="row gy-4">
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-33.png" class="img-fluid" alt="Babcock">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-2.svg" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-7.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-8.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-9.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-11.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-12.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-14.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-13.svg" class="img-fluid" alt="WHO">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-15.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-16.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-17.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-18.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-19.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-20.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-21.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-22.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-23.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-24.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-25.svg" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-26.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-27.svg" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-28.svg" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-29.png" class="img-fluid" alt="WHO">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-30.svg" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-31.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-32.svg" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-34.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-35.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-36.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-37.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-38.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-39.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-40.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-xl-2 col-md-3 col-6 client-logo">
-            <img src="assets/img/clients/client-3.svg" class="img-fluid" alt="">
-          </div>
-
+      <div class="mb-marquee-wrap" data-aos="fade-up" data-aos-delay="100">
+        <div class="mb-marquee">
+            <div class="logo-item"><img src="images/clients/client-33.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-1.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-2.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-5.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-6.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-7.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-8.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-9.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-10.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-11.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-12.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-14.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-13.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-15.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-16.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-17.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-18.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-19.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-20.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-21.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-22.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-23.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-24.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-25.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-26.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-27.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-28.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-29.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-30.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-31.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-32.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-34.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-35.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-36.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-37.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-38.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-39.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-40.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-4.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-3.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-33.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-1.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-2.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-5.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-6.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-7.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-8.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-9.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-10.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-11.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-12.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-14.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-13.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-15.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-16.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-17.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-18.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-19.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-20.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-21.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-22.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-23.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-24.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-25.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-26.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-27.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-28.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-29.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-30.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-31.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-32.svg" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-34.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-35.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-36.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-37.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-38.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-39.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-40.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-4.png" alt=""></div>
+            <div class="logo-item"><img src="images/clients/client-3.svg" alt=""></div>
         </div>
       </div>
     </section><!-- End Clients Section -->
 
     <!-- ======= Services Section ======= -->
-    <section id="services-2" class="services-2 section light-background">
-
-   <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-          <h2>Services</h2>
-          <p>What we do!</p>
-        </div><!-- End Section Title -->
-
+    <section id="services-2" class="mb-services">
       <div class="container">
 
-        <div class="row gy-4">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Our Services</h2>
+          <p>Services</p>
+        </div><!-- End Section Title -->
 
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item d-flex position-relative h-100">
-              <i class="bi bi-pencil-square icon flex-shrink-0"></i>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Architectural Design & Master Planning</a></h4>                
-              <p class="description">We create iconic, efficient, and contextually rich designs that balance aesthetics with performance from luxury residences and hotels to large-scale urban developments.</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
+        <div class="row g-4">
 
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item d-flex position-relative h-100">
-              <i class="bi bi-building icon flex-shrink-0"></i>
-              <div>
-                <h4 class="title"><a href="https://mburbaninfra.com" class="stretched-link">Urban Design & Infrastructure Planning</a></h4>
-              <p class="description">We design transformative master plans and city frameworks that foster growth, resilience, and community well-being.<a href="https://mburbaninfra.com">  Visit here</a></p>
-              </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-svc-card">
+              <div class="svc-icon"><i class="bi bi-pencil-square"></i></div>
+              <h4>Architectural Design & Master Planning</h4>
+              <p>We create iconic, efficient, and contextually rich designs that balance aesthetics with performance, from luxury residences to large-scale urban developments.</p>
+              <a href="#" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item d-flex position-relative h-100">
-              <i class="bi bi-brush icon flex-shrink-0"></i>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Interior Design & Space Experience</a></h4>
-              <p class="description">We translate lifestyle, culture, and brand identity into spaces that evoke emotion and inspire productivity.</p>
-              </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-svc-card">
+              <div class="svc-icon"><i class="bi bi-building"></i></div>
+              <h4>Urban Design & Infrastructure Planning</h4>
+              <p>We design transformative master plans and city frameworks that foster growth, resilience, and community well-being.</p>
+              <a href="https://mburbaninfra.com" class="svc-link">Visit MB Urban <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item d-flex position-relative h-100">
-              <i class="bi bi-tree icon flex-shrink-0"></i>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Engineering Coordination & Sustainable Systems</a></h4>
-              <p class="description">In collaboration with MB Holdings’ technical divisions, we integrate architecture with structural, MEP, and smart building systems for efficiency and longevity.</p>
-              </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-svc-card">
+              <div class="svc-icon"><i class="bi bi-brush"></i></div>
+              <h4>Interior Design & Space Experience</h4>
+              <p>We translate lifestyle, culture, and brand identity into spaces that evoke emotion and inspire productivity.</p>
+              <a href="interior.html" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-item d-flex position-relative h-100">
-              <i class="bi bi-kanban icon flex-shrink-0"></i>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Project Management & Development Consulting</a></h4>
-              <p class="description">Our multidisciplinary project management framework ensures every project is delivered on time, on budget, and beyond expectation.</p>
-              </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-svc-card">
+              <div class="svc-icon"><i class="bi bi-tree"></i></div>
+              <h4>Engineering & Sustainable Systems</h4>
+              <p>In collaboration with MB Holdings, we integrate architecture with structural, MEP, and smart building systems for efficiency and longevity.</p>
+              <a href="#" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="600">
-            <div class="service-item d-flex position-relative h-100">
-              <i class="bi bi-search icon flex-shrink-0"></i>
-              <div>
-                <h4 class="title"><a href="#" class="stretched-link">Feasibility, Cost, and Investment Advisory</a></h4>
-              <p class="description">Through MB Holdings’ finance and development arms, we provide clients with comprehensive insight into project viability, cost analysis, and return on investment.</p>
-              </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-svc-card">
+              <div class="svc-icon"><i class="bi bi-kanban"></i></div>
+              <h4>Project Management & Consulting</h4>
+              <p>Our multidisciplinary project management framework ensures every project is delivered on time, on budget, and beyond expectation.</p>
+              <a href="#" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
-          </div><!-- End Service Item -->
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-svc-card">
+              <div class="svc-icon"><i class="bi bi-search"></i></div>
+              <h4>Feasibility & Investment Advisory</h4>
+              <p>Through MB Holdings, we provide comprehensive insight into project viability, cost analysis, and return on investment.</p>
+              <a href="#" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
 
         </div>
-
       </div>
     </section><!-- End Services Section -->
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section dark-background">
+    <section id="testimonials" class="mb-testimonials">
+      <div class="container">
 
-      <img src="assets/img/testimonials-bg.jpg" class="testimonials-bg" alt="">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>What Our Clients Say</h2>
+          <p>Testimonials</p>
+        </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
+        <div class="swiper init-swiper" data-aos="fade-up" data-aos-delay="100">
           <script type="application/json" class="swiper-config">
             {
               "loop": true,
               "speed": 600,
-              "autoplay": {
-                "delay": 5000
+              "autoplay": { "delay": 5000 },
+              "slidesPerView": 1,
+              "spaceBetween": 24,
+              "breakpoints": {
+                "768":  { "slidesPerView": 2 },
+                "1200": { "slidesPerView": 3 }
               },
-              "slidesPerView": "auto",
               "pagination": {
                 "el": ".swiper-pagination",
                 "type": "bullets",
@@ -481,167 +642,87 @@
           <div class="swiper-wrapper">
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Dr Akinwumi Adesina </h3>
-                <h4>President, Africa Development Bank</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  You can't go wrong with MB Architects, who has been designing some of the hottest property developments all over the world. We've been working with them for years and their services are second to none. They have a range of specialties so you end up with everything your company needs right there with one call. I can't generalize more but they know that it's design first, then desk &amp; pencils, then architects. They've also been a leader in sustainability since day one, but that's not to say they're not cutting-edge with new technology and innovation.I work with MB Architects as a construction manager and their services are top notch! Their work is beautiful and the staff is always polite, responsive, and professional.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-1.jpg" alt="Dr Akinwumi Adesina">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">You can't go wrong with MB Architects. We've been working with them for years and their services are second to none. They know that it's design first, and they've been a leader in sustainability since day one.</div>
+                <div class="name">Dr Akinwumi Adesina</div>
+                <div class="role">President, Africa Development Bank</div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Prof Olufemi Peters</h3>
-                <h4>Vice Chancellor, National Open University</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  After years of disappointment, with MB Architects we finally settled on a reliable professional service with all the right expertise. They have been building sturdy Projects in collaboration with us for over a decade now and we couldn't be happier.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-2.jpg" alt="Prof Olufemi Peters">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">After years of disappointment, with MB Architects we finally settled on a reliable professional service with all the right expertise. They have been building sturdy projects in collaboration with us for over a decade.</div>
+                <div class="name">Prof Olufemi Peters</div>
+                <div class="role">Vice Chancellor, National Open University</div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Dr Abiodun Fatade</h3>
-                <h4>CEO, Crestview Radiology Centre</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  MB is better than the competition. After looking at all the other firms, it was clear to me that MB had the best portfolio of all. We have been working with them for over a year now and I don't see any foreseeable issues with their work in the future. They are reliable, offer excellent customer service, and are always prompt when given a project.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-3.jpg" alt="Dr Abiodun Fatade">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">It was clear to me that MB had the best portfolio. We have been working with them for over a year and I don't see any foreseeable issues. They are reliable, offer excellent customer service, and are always prompt.</div>
+                <div class="name">Dr Abiodun Fatade</div>
+                <div class="role">CEO, Crestview Radiology Centre</div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Mrs Oyindamola Unuigbe</h3>
-                <h4>Executive Director, Veritas Capital Assurance Plc</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  MB Architects has been an invaluable partner for my family over the past year. I remember when we first decided to build a new house and we were clueless about construction. We were so lucky that MB Architects was there to help us every step of the way and guide us towards the right choices. And now, after a year of working with their team, they have built us not just our dream home but also a stress-free life!
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-4.jpg" alt="Mrs Oyindamola Unuigbe">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">MB Architects has been an invaluable partner for my family. They guided us every step of the way and built us not just our dream home but also a stress-free life!</div>
+                <div class="name">Mrs Oyindamola Unuigbe</div>
+                <div class="role">Executive Director, Veritas Capital Assurance Plc</div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>Mr Nteranya Sanginga</h3>
-                <h4>Director General, IITA</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  It is a delight to work with MB Architects. Finding a dependable and able business partner that also has creative talent is not easy, but MB Architects has established itself so well in the market, particularly in the design, development, housing and property market, that it truly deserves your gaze.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-5.jpg" alt="Mr Nteranya Sanginga">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">Finding a dependable business partner with creative talent is not easy, but MB Architects has established itself so well in design, development, housing, and property that it truly deserves your gaze.</div>
+                <div class="name">Mr Nteranya Sanginga</div>
+                <div class="role">Director General, IITA</div>
               </div>
-            </div><!-- End testimonial item -->
-              
-              <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-6.jpg" class="testimonial-img" alt="">
-                <h3>Hon. Adeyemi Alli </h3>
-                <h4>Hon. Member Federal House of Rep</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  MB Architects is a company that I can trust to handle my architectural needs, whether it's designing and building a new home or remodeling my current one. Every design they've come up with has been beautiful and within my budget. They are really reliable and always get the job done right!
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-7.jpg" class="testimonial-img" alt="">
-                <h3>Mr. Yinka Omidosu</h3>
-                <h4>General Manager, COOPLAG</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  MB Architects is the best-of-the-best. They've delivered on every project they are assigned and work hard to ensured we at Cooplag get the best value and returns possible. I can't recommend them enough.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-6.jpg" alt="Hon. Adeyemi Alli">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">MB Architects is a company I can trust. Every design they've come up with has been beautiful and within my budget. They are really reliable and always get the job done right!</div>
+                <div class="name">Hon. Adeyemi Alli</div>
+                <div class="role">Member, Federal House of Representatives</div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-8.jpg" class="testimonial-img" alt="">
-                <h3>Mr Adewale Kadri</h3>
-                <h4>Director, Aiico Insurance</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  Over the years, our company has viewed MB Architects as the best architectural design and structural engineering company in our era. They have an excellent track record of completing projects on or ahead of schedule and their designs are never cliche or boring. It's not uncommon for us to move forward on a project when we get a positive review from them.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-8.jpg" alt="Mr Adewale Kadri">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">They have an excellent track record of completing projects on or ahead of schedule and their designs are never cliche or boring. It's not uncommon for us to move forward on a positive review from them.</div>
+                <div class="name">Mr Adewale Kadri</div>
+                <div class="role">Director, Aiico Insurance</div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-9.jpg" class="testimonial-img" alt="">
-                <h3>Adedayo Falade </h3>
-                <h4>Businessman</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  MB Architects is an architectural design and building construction firm that I've been working with for the past 2 years. They have done a lot of work on my home, and I have been very impressed with the quality of service they provide. They always deliver on time, and within budget. If you're looking to build or renovate a property, I would seriously recommend MB Architects!
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
+              <div class="mb-tslide">
+                <img class="avatar" src="images/testimonials/testimonials-10.jpg" alt="Mr Johnstone Oltetia">
+                <div class="stars"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <div class="quote">MB Architects is a great company to work with. They always go the extra mile. I've worked with them on several projects and every time they deliver a beautiful, well-managed end product.</div>
+                <div class="name">Mr Johnstone Oltetia</div>
+                <div class="role">MD, Kenya Mortgage Refinance Company</div>
               </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-10.jpg" class="testimonial-img" alt="">
-                <h3>Mr Johnstone Oltetia</h3>
-                <h4>MD, Kenya Mortgage Refinance Company</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>                
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  MB Architects is a great company to work with. They are always willing to go the extra mile and get your project done right. I've worked with them on several projects and every time they have delivered a beautiful, well-managed end product.
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
+            </div>
 
           </div>
-          <div class="swiper-pagination"></div>
+          <div class="swiper-pagination" style="margin-top:32px; position:relative;"></div>
         </div>
 
       </div>
@@ -651,899 +732,430 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio section">
 
-      <!-- Section Title -->      
+      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-          <h2>Projects</h2>
-          <p>Check our Projects</p>
-        </div><!-- End Section Title -->
+        <h2>Our Projects</h2>
+        <p>Projects</p>
+        <p class="section-lede">A multidisciplinary portfolio across residential, urban housing, commercial, hospitality, institutional and interior commissions, delivered from our studios in Lagos, Abuja and Abidjan.</p>
+      </div><!-- End Section Title -->
 
-              <div class="container">
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+      <div class="container">
 
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-commercial">Commercial Projects</li>
-              <li data-filter=".filter-residential">Residential Projects</li>
-              <li data-filter=".filter-interior">Interior Projects</li>
-            </ul>
+        <!-- Stats strip -->
+        <div class="pf-stats" data-aos="fade-up">
+          <div class="pf-stat"><div class="pf-stat-num" id="statCount">—</div><div class="pf-stat-label">Projects in Archive</div></div>
+          <div class="pf-stat"><div class="pf-stat-num" id="statValue">—</div><div class="pf-stat-label">Aggregate Project Value</div></div>
+          <div class="pf-stat"><div class="pf-stat-num" id="statCities">—</div><div class="pf-stat-label">Cities Across Africa</div></div>
+          <div class="pf-stat"><div class="pf-stat-num" id="statCompleted">—</div><div class="pf-stat-label">Completed &amp; Published</div></div>
+        </div>
 
-        <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+        <!-- Filter bar -->
+        <div class="pf-filter-bar" data-aos="fade-up" data-aos-delay="100">
+          <div class="pf-filter-group">
+            <button type="button" class="pf-filter is-active" data-typ="">All <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Commercial">Commercial <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Hospitality">Hospitality <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Institutional">Institutional <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Research">Research <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Residential">Residential <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Urban Design">Urban Design <span class="pf-count"></span></button>
+            <button type="button" class="pf-filter" data-typ="Urban Housing">Urban Housing <span class="pf-count"></span></button>
+          </div>
+          <div class="pf-view-toggle" aria-label="Project archive view">
+            <button type="button" class="pf-view is-active" data-view="gallery">Gallery</button>
+            <button type="button" class="pf-view" data-view="list">Index</button>
+          </div>
+        </div>
 
+        <!-- Featured grid (default view): 1 large + 4 small (curated 5) -->
+        <div class="pf-featured" id="pfFeatured" data-aos="fade-up" data-aos-delay="200"></div>
 
-          <!-- Port 1 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/abidjan_school.html"><img src="assets/img/portfolio/abidjan_school/MB_24_06_VIEW 2.png" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Abidjan School</h4>
-              <p>Côte d'Ivoire</p>
-              <a href="assets/img/portfolio/abidjan_school/MB_24_06_VIEW 2.png" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/abidjan_school.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
+        <!-- Filtered grid (visible when a typology is selected): all matching projects -->
+        <div class="pf-grid" id="pfGrid" hidden data-aos="fade-up" data-aos-delay="200"></div>
+        <!-- End Featured Grid -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/st_annes.html"><img src="assets/img/portfolio/st_annes/ST ANNES HOSPITAL_VIEW 2.png" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>ST. ANNES IBADAN</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/st_annes/ST ANNES HOSPITAL_VIEW 2.png" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/st_annes.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
+        <!-- Index (list) view: visible when Index is selected -->
+        <div class="pf-list" id="pfList" data-aos="fade-up" data-aos-delay="200">
+          <div class="pf-list-header">
+            <div>No.</div><div>Image</div><div>Project</div><div>Location</div><div>Typology</div><div>Year</div><div>Status</div>
           </div>
+          <div id="pfListRows"></div>
+        </div>
 
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/summerwood_villa .html"><img src="assets/img/portfolio/summerwood/Summerwood 03.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>Summerwood Villa</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/summerwood/Summerwood 03.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./residential/summerwood_villa .html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/noun_law.html"><img src="assets/img/portfolio/noun_fol/LAW VIEW 6.png" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Faculty of Law [NOUN]</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/noun_fol/LAW VIEW 6.png" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/noun_law.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/noun-uni.html"><img src="assets/img/portfolio/a-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>National Open University [NOUN]</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/a-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/noun-uni.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/retridol.html"><img src="assets/img/portfolio/retridol_build/7.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Retridol Building</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/retridol_build/7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/retridol.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/lifecamp.html"><img src="assets/img/portfolio/lifecamp/3.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>Lifecamp</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/lifecamp/3.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./residential/lifecamp.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-        
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/a-interior/portfolio 1.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/a-interior/portfolio 1.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/residential-duplex.html"><img src="assets/img/portfolio/o-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4> Residential Duplex Apartment</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/o-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./residential/residential-duplex.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <!-- Port 2 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-              <div class="portfolio-content h-100">
-              <a href="./commerical/veritas.html"><img src="assets/img/portfolio/b-commercial/portfolio 7.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Veritas Capital Assurance Plc</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/b-commercial/portfolio 7.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/veritas.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/5-bedroom-duplex.html"><img src="assets/img/portfolio/b-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>5 Bedroom Duplex Residence</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/b-residential/portfolio 1.png" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./residential/5-bedroom-duplex.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-          <div class="portfolio-content h-100">
-          <img src="assets/img/portfolio/b-interior/portfolio 1.jpg" class="img-fluid" alt="">
-          <div class="portfolio-info">
-            <h4>Interior Design</h4>
-            <p></p>
-            <a href="assets/img/portfolio/b-interior/portfolio 1.png" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-            <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <!-- Port 3 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-              <div class="portfolio-content h-100">
-              <a href="./commerical/unity-bank.html"><img src="assets/img/portfolio/c-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Unity Bank</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/c-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/unity-bank.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/3-bedroom.html"><img src="assets/img/portfolio/c-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>3 Bedroom Flats Residential</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/c-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./residential/3-bedroom.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/c-interior/portfolio 1.JPG" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/c-interior/portfolio 1.JPG" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 4 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-              <div class="portfolio-content h-100">
-              <a href="./commerical/fed-poly.html"><img src="assets/img/portfolio/d-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Federal Polytechnic Ayede </h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/d-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/fed-poly.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/duplex-estate.html"><img src="assets/img/portfolio/d-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>3 Duplex Estate Residence</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/d-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 1"><i class="bi bi-zoom-in"></i></a>
-              <a href="./residential/duplex-estate.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/c-interior/portfolio 2.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/c-interior/portfolio 2.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 5 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-              <div class="portfolio-content h-100">
-              <a href="./commerical/babcock-uni.html"><img src="assets/img/portfolio/e-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Babcock University</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/e-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/babcock-uni.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/moyo-option.html"><img src="assets/img/portfolio/e-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Moyosore Private Residence</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/e-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="./residential/moyo-option.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/KITCHEN 5.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Kitchen Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/KITCHEN 5.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 6 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-              <div class="portfolio-content h-100">
-              <a href="./commerical/#"><img src="assets/img/portfolio/f-commercial/#" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Shelter Afrique</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/f-commercial/#" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/#" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="./residential/apart-estate.html"><img src="assets/img/portfolio/f-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Residential Apartment Estate</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/f-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="./residential/apart-estate.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/c-interior/portfolio 4.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/c-interior/portfolio 4.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/KITCHEN 4.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Kitchen Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 4.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 7 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-              <div class="portfolio-content h-100">
-              <a href="./commerical/shelter-afrique.html"><img src="assets/img/portfolio/g-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Shelter Afrique</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/g-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-              <a href="./commerical/shelter-afrique.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="residential/residential-flat.html"><img src="assets/img/portfolio/g-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-            <div class="portfolio-info">
-              <h4>Residential Flat</h4>
-              <p>Nigeria</p>
-              <a href="assets/img/portfolio/g-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="./residential/residential-flat.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/c-interior/portfolio 5.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/c-interior/portfolio 5.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/KITCHEN 2.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Kitchen Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/KITCHEN 2.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 8 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/unilorin-hostel.html"><img src="assets/img/portfolio/h-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>Unilorin Hostel</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/h-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./commerical/unilorin-hostel.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="residential/residence-apart.html"><img src="assets/img/portfolio/h-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>Private Residence</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/h-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-            <a href="residential/residence-apart.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 2.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Living Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 2.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 1.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Living Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 1.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 9 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/nig-army.html"><img src="assets/img/portfolio/i-commercial/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>The Nigerian Army</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/i-commercial/portfolio 1.jpg" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./commerical/nig-army.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="residential/nightingale-lane.html"><img src="assets/img/portfolio/i-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>Nightingale Lane</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/i-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-            <a href="residential/nightingale-lane.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/c-interior/portfolio 7.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/c-interior/portfolio 7.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 4.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 4.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <!-- Port 10 -->
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-commercial">
-            <div class="portfolio-content h-100">
-            <a href="./commerical/crestview.html"><img src="assets/img/portfolio/j-commercial/portfolio 1.JPG" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>CrestView Radiography</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/j-commercial/portfolio 1.JPG" data-gallery="portfolio-gallery-commercial" class="portfolio-lightbox preview-link" title="Zoom In"><i class="bi bi-zoom-in"></i></a>
-            <a href="./commerical/crestview.html" class="details-link" title="Click for More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/c-interior/portfolio 8.JPG" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/c-interior/portfolio 8.JPG" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 5.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Living Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 5.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="residential/adeyemi-residence.html"><img src="assets/img/portfolio/l-residential/portfolio 1.JPG" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>The Adeyemi's Residence</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/l-residential/portfolio 1.JPG" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-            <a href="residential/adeyemi-residence.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-residential">
-            <div class="portfolio-content h-100">
-            <a href="residential/architect-guest.html"><img src="assets/img/portfolio/m-residential/portfolio 1.jpg" class="img-fluid" alt=""></a>
-          <div class="portfolio-info">
-            <h4>MB Architect Guest House</h4>
-            <p>Nigeria</p>
-            <a href="assets/img/portfolio/m-residential/portfolio 1.jpg" data-gallery="portfolio-gallery-residential" class="portfolio-lightbox preview-link" title="Card 3"><i class="bi bi-zoom-in"></i></a>
-            <a href="residential/architect-guest.html" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-          </div>
-          </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 3.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Interior Design</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/LIVING AREA VIEW 3.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-interior">
-            <div class="portfolio-content h-100">
-            <img src="assets/img/portfolio/lifecamp_interior/KITCHEN 1.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Lifecamp Kitchen Area View</h4>
-              <p></p>
-              <a href="assets/img/portfolio/lifecamp_interior/KITCHEN 1.jpg" data-gallery="portfolio-gallery-interior" class="portfolio-lightbox preview-link" title="Web 3"><i class="bi bi-zoom-in"></i></a>
-              <a href="#" class="details-link" title="More Details"><i class="bi bi-link-45deg"></i></a>
-            </div>
-            </div>
-          </div>
-
-          </div><!-- End Portfolio Container -->
-
-        </div><!-- End isotope-layout -->
+        <!-- Archive CTA -->
+        <div class="pf-archive-cta">
+          <div>
+            <h3>Browse the full archive</h3>
+            <p>100+ projects across Africa, Europe and the Gulf, filterable by typology, year and location.</p>
+          </div>
+          <a href="projects.html">View all projects &rarr;</a>
+        </div>
 
       </div>
 
     </section><!-- /Portfolio Section -->
 
     <!-- Team Section -->
-    <section id="team" class="team section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Team</h2>
-          <p>Meet our Team</p>
-        </div>
+    <section id="team" class="mb-team">
       <div class="container">
 
-        <div class="row gy-5">
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Our Team</h2>
+          <p>Team</p>
+        </div><!-- End Section Title -->
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Moyosore BAMIGBADE</h4>
-                <span>MD | Principal</span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row g-3">
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Princess Ejiroghene BAMIGBADE </h4>
-                <span>Executive Director </span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-team-card">
+              <img src="images/team/team-1.jpg" alt="Moyosore Bamigbade">
+              <div class="overlay">
+                <h4>Moyosore Bamigbade</h4>
+                <div class="role">MD | Principal</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Adeola ADELEYE</h4>
-                <span>Administrative Officer</span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Ikechukwu .K. NKEMAKOLAM</h4>
-                <span>Associate Architect </span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-team-card">
+              <img src="images/team/team-2.jpg" alt="Princess Ejiroghene Bamigbade">
+              <div class="overlay">
+                <h4>Princess E. Bamigbade</h4>
+                <div class="role">Executive Director</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-5.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Adedasola ADENIYI</h4>
-                <span> Associate Architect</I></span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-team-card">
+              <img src="images/team/team-3.jpg" alt="Adeola Adeleye">
+              <div class="overlay">
+                <h4>Adeola Adeleye</h4>
+                <div class="role">Administrative Officer</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-6.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Mosunmola ODUWEKU</h4>
-                <span>Junior Architect</span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="mb-team-card">
+              <img src="images/team/team-4.jpg" alt="Ikechukwu K. Nkemakolam">
+              <div class="overlay">
+                <h4>Ikechukwu K. Nkemakolam</h4>
+                <div class="role">Associate Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-7.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Layefa OLOROGUN</h4>
-                <span>Junior Architect</span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-team-card">
+              <img src="images/team/team-5.jpg" alt="Adedasola Adeniyi">
+              <div class="overlay">
+                <h4>Adedasola Adeniyi</h4>
+                <div class="role">Associate Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-8.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Joseph ODEWUMI</h4>
-                <span>Junior Architect</I></span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-team-card">
+              <img src="images/team/team-6.jpg" alt="Mosunmola Oduweku">
+              <div class="overlay">
+                <h4>Mosunmola Oduweku</h4>
+                <div class="role">Junior Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-9.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Musa AKINJOBI</h4>
-                <span>Site Engineer</span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-team-card">
+              <img src="images/team/team-7.jpg" alt="Layefa Olorogun">
+              <div class="overlay">
+                <h4>Layefa Olorogun</h4>
+                <div class="role">Junior Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-10.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Toluwani AKINTOYE</h4>
-                <span>Graduate Architect</span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="mb-team-card">
+              <img src="images/team/team-8.jpg" alt="Joseph Odewumi">
+              <div class="overlay">
+                <h4>Joseph Odewumi</h4>
+                <div class="role">Junior Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-11.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Isaac OYEWOLE</h4>
-                <span>Graduate Architect</span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-team-card">
+              <img src="images/team/team-9.jpg" alt="Musa Akinjobi">
+              <div class="overlay">
+                <h4>Musa Akinjobi</h4>
+                <div class="role">Site Engineer</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-12.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Seun AGABA</h4>
-                <span>Builder</span>
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-team-card">
+              <img src="images/team/team-10.jpg" alt="Toluwani Akintoye">
+              <div class="overlay">
+                <h4>Toluwani Akintoye</h4>
+                <div class="role">Graduate Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
-            
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-13.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Temitope EMMANUEL</h4>
-                <span>Architect I</span>
+
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-team-card">
+              <img src="images/team/team-11.jpg" alt="Isaac Oyewole">
+              <div class="overlay">
+                <h4>Isaac Oyewole</h4>
+                <div class="role">Graduate Architect</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
-          </div> 
-          
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-            <div class="member">
-              <div class="pic"><img src="assets/img/team/team-14.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>Faith Ewoma Oghene UTORO</h4>
-                <span>Office Assistant II</span>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="mb-team-card">
+              <img src="images/team/team-12.jpg" alt="Seun Agaba">
+              <div class="overlay">
+                <h4>Seun Agaba</h4>
+                <div class="role">Builder</div>
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-team-card">
+              <img src="images/team/team-13.jpg" alt="Temitope Emmanuel">
+              <div class="overlay">
+                <h4>Temitope Emmanuel</h4>
+                <div class="role">Architect I</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-team-card">
+              <img src="images/team/team-14.jpg" alt="Faith Ewoma Oghene Utoro">
+              <div class="overlay">
+                <h4>Faith E.O. Utoro</h4>
+                <div class="role">Office Assistant II</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
         </div>
-
       </div>
-    </section> <!--End Team Section -->
+    </section><!--End Team Section -->
 
       <!-- Contact Section -->
+    <section id="contact">
 
-    <section id="contact" class="contact section">
+      <!-- Map banner with text overlay -->
+      <div class="mb-contact-hero" data-aos="fade-up">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.585!2d3.4471!3d6.4321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53aec!2sOniru%2C%20Victoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1"
+          style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="MB Architects Head Office"></iframe>
+        <div class="hero-overlay">
+          <h2>Get In Touch</h2>
+          <p>Have a project in mind? We'd love to hear from you.</p>
+        </div>
+      </div>
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Contact Us</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-          <div class="col-lg-6 ">
-            <div class="row gy-4">
-
-              <div class="col-lg-12">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
-                  <i class="bi bi-geo-alt"></i>
-                <!-- <h3>Our Address</h3> -->
-                  <strong>Head Office:</strong>
-                  <p> Oniru, Victoria Island, Lagos, Nigeria </p>
-                  <strong>Incubator Office:</strong>
-                <p>32, Obayan Street, Akoka - Yaba, Lagos, 100213 Nigeria </p>
-                <strong>Regional Offices:</strong>
-                Abuja | Abidjan | Accra <br>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="col-md-6">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
-                  <i class="bi bi-telephone"></i>
-                <h3>Call Us</h3>
-                <p>+234 703 653 2200 | +234 807 135 7537</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="col-md-6">
-                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="100">
-                  <i class="bi bi-envelope"></i>
-                <h3>Email Us</h3>
-                <p>moyosore.bamigbade@gmail.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
+      <!-- Info tiles strip -->
+      <div class="mb-contact-tiles">
+        <div class="container-fluid px-0">
+          <div class="row g-0">
+            <div class="col-lg-3 col-md-6">
+              <div class="mb-contact-tile">
+                <div class="icon"><i class="bi bi-geo-alt"></i></div>
+                <h6>Head Office</h6>
+                <p>Oniru, Victoria Island<br>Lagos, Nigeria</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="mb-contact-tile">
+                <div class="icon"><i class="bi bi-globe-americas"></i></div>
+                <h6>Studios</h6>
+                <p>Lagos &middot; Abuja<br>Abidjan &middot; Accra</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="mb-contact-tile">
+                <div class="icon"><i class="bi bi-telephone"></i></div>
+                <h6>Call Us</h6>
+                <p><a href="tel:+2347036532200">+234 703 653 2200</a><br><a href="tel:+2348071357537">+234 807 135 7537</a></p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="mb-contact-tile">
+                <div class="icon"><i class="bi bi-envelope"></i></div>
+                <h6>Email</h6>
+                <p><a href="mailto:moyosore.bamigbade@gmail.com">moyosore.bamigbade@gmail.com</a></p>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
-              <div class="row gy-4">
-
+      <!-- Form area -->
+      <div class="mb-contact-form-area">
+        <div class="container">
+          <div class="form-header" data-aos="fade-up">
+            <h4>Send Us a Message</h4>
+            <p>Tell us about your vision and we'll get back to you within 24 hours</p>
+          </div>
+          <div class="mb-contact-form-inner" data-aos="fade-up" data-aos-delay="100">
+            <form action="forms/contact.php" method="post" class="php-email-form">
+              <div class="row">
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  <div class="mb-form-group">
+                    <input type="text" name="name" id="cf-name" class="mb-form-control" placeholder=" " required>
+                    <label for="cf-name">Full Name</label>
+                  </div>
                 </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                <div class="col-md-6">
+                  <div class="mb-form-group">
+                    <input type="email" name="email" id="cf-email" class="mb-form-control" placeholder=" " required>
+                    <label for="cf-email">Email Address</label>
+                  </div>
                 </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                <div class="col-md-6">
+                  <div class="mb-form-group">
+                    <input type="tel" name="phone" id="cf-phone" class="mb-form-control" placeholder=" ">
+                    <label for="cf-phone">Phone (optional)</label>
+                  </div>
                 </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>
+                <div class="col-md-6">
+                  <div class="mb-form-group">
+                    <select name="inquiry" id="cf-inquiry" class="mb-form-control" required>
+                      <option value="" disabled selected></option>
+                      <option value="Residential">Residential Project</option>
+                      <option value="Commercial">Commercial Project</option>
+                      <option value="Institutional">Institutional Project</option>
+                      <option value="Interior">Interior Design</option>
+                      <option value="Consultation">General Consultation</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <label for="cf-inquiry">Inquiry Type</label>
+                  </div>
                 </div>
-
-                <div class="col-md-12 text-center">
+                <div class="col-12">
+                  <div class="mb-form-group">
+                    <input type="text" name="subject" id="cf-subject" class="mb-form-control" placeholder=" " required>
+                    <label for="cf-subject">Subject</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="mb-form-group">
+                    <textarea name="message" id="cf-message" class="mb-form-control" rows="4" placeholder=" " required></textarea>
+                    <label for="cf-message">Your Message</label>
+                  </div>
+                </div>
+                <div class="col-12" style="text-align:center; margin-top:8px;">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
+                  <button type="submit" class="mb-contact-submit">
+                    <span>Send Message</span>
+                    <i class="bi bi-arrow-right"></i>
+                  </button>
                 </div>
-
               </div>
             </form>
-          </div><!-- End Contact Form -->
-
+          </div>
         </div>
-
       </div>
 
     </section>
-    
     <!-- /Contact Section -->
 
   </main>
@@ -1551,83 +1163,84 @@
   <!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer dark-background">
-
-    <div class="container footer-top">
+  <footer class="mb-footer">
+    <div class="container">
       <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-                    <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">MB Architects Limited</span>
-          </a>
-          <div class="footer-contact pt-3">
-              <p class="mt-3">
-                <strong>Head Office:</strong> Oniru, Victoria Island, Lagos, Nigeria <br><br>
-                <strong>Incubator Office:</strong> 32, Obayan Street, Akoka - Yaba, Lagos, 100213 Nigeria <br><br>
-                <strong>Abuja Office:</strong> 4th Floor, Standard Plaza Plot 1248, Kutsi Close, Off Amino Kano Crescent, Wuse 2, Abuja. Nigeria.<br><br>    
-                <strong>Abidjan Office:</strong> 1st Etage port 04 Residence Lanvia, Cocody ll Plateaux, 17 BP 855 Abidjan, Côte d’Ivoire <br><br>    
-                <strong>Phone:</strong> +2347036532200 | +2348071357537<br>
-                <strong>Email:</strong> moyosore.bamigbade@gmail.com<br>
-              </p>
-          </div>              
-              <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+
+        <!-- Brand column -->
+        <div class="col-lg-4 col-md-6 footer-brand">
+          <div class="logo-text">MB Architects</div>
+          <p>Award-winning architecture, master planning, and sustainable design across Africa and beyond.</p>
+          <div class="mb-footer-social">
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Privacy policy</a></li>
-            </ul>
-          </div>
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <h5>Navigate</h5>
+          <ul class="mb-footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Architecture</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://mburbaninfra.com">MB Urban</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Master Planning</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Interior Architecture</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Interior Architecture</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Project Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Sustainable Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Feasibility Studies</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">3D Visualization</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Heritage Conservation</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="">Consultation and Advisory</a></li>
-            </ul>
-          </div>
+        <!-- Services -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <h5>Services</h5>
+          <ul class="mb-footer-links">
+            <li><a href="#">Architecture</a></li>
+            <li><a href="https://mburbaninfra.com">MB Urban</a></li>
+            <li><a href="#">Master Planning</a></li>
+            <li><a href="interior.html">Interior Design</a></li>
+            <li><a href="#">3D Visualization</a></li>
+            <li><a href="#">Sustainable Design</a></li>
+          </ul>
+        </div>
 
-            <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>Our Newsletter</h4>
-          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-          </form>
+        <!-- Offices -->
+        <div class="col-lg-4 col-md-6 footer-offices">
+          <h5>Our Offices</h5>
+          <div class="office">
+            <strong>Head Office</strong>
+            <span>Oniru, Victoria Island, Lagos, Nigeria</span>
+          </div>
+          <div class="office">
+            <strong>Incubator Office</strong>
+            <span>32 Obayan Street, Akoka-Yaba, Lagos</span>
+          </div>
+          <div class="office">
+            <strong>Abuja</strong>
+            <span>4th Floor, Standard Plaza, Wuse 2, Abuja</span>
+          </div>
+          <div class="office">
+            <strong>Abidjan</strong>
+            <span>Cocody II Plateaux, Abidjan, C&ocirc;te d&apos;Ivoire</span>
+          </div>
+          <div style="margin-top:16px; font-size:0.88rem;">
+            <i class="bi bi-telephone" style="color:var(--mb-accent); margin-right:6px;"></i>
+            <a href="tel:+2347036532200">+234 703 653 2200</a> &middot;
+            <a href="tel:+2348071357537">+234 807 135 7537</a><br>
+            <i class="bi bi-envelope" style="color:var(--mb-accent); margin-right:6px;"></i>
+            <a href="mailto:moyosore.bamigbade@gmail.com">moyosore.bamigbade@gmail.com</a>
+          </div>
         </div>
 
       </div>
-    </div>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">MB Architects.</strong><span>All Rights Reserved 2025.</span></p>
-      <div class="credits">
-        Designed by <a href="#">Ksoftcode Inc</a>
+      <!-- Bottom bar -->
+      <div class="mb-footer-bottom">
+        <span>&copy; 2026 MB Architects Limited. All Rights Reserved.</span>
+        <span>Designed by <a href="#">Ksoftcode Inc</a></span>
       </div>
     </div>
-
   </footer>
-  
   <!-- End Footer -->
 
     <!-- Scroll Top -->
@@ -1637,17 +1250,151 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/php-email-form/validate.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script src="vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="scripts/main.js"></script>
+  <script src="scripts/reveals.js"></script>
+
+  <script src="scripts/projects.js"></script>
+  <script>
+    /* Portfolio stats strip */
+    const _stats = window.MB_PROJECT_STATS;
+    if (_stats) {
+      document.getElementById('statCount').textContent = _stats.count;
+      document.getElementById('statCities').textContent = _stats.cities;
+      document.getElementById('statCompleted').textContent = _stats.completed;
+      const v = _stats.sumCost;
+      const fmt = n => n >= 1e9 ? `$${(n/1e9).toFixed(1)}B` : n >= 1e6 ? `$${Math.round(n/1e6)}M` : `$${n}`;
+      document.getElementById('statValue').innerHTML = fmt(v) + '<span class="pf-unit">+</span>';
+    }
+
+    if (window.MB_PROJECTS) {
+      const projects = window.MB_PROJECTS;
+
+      /* Typology counts on filter chips */
+      const typCounts = projects.reduce((m, p) => {
+        m[p.typology] = (m[p.typology] || 0) + 1;
+        return m;
+      }, {});
+      document.querySelectorAll('.pf-filter').forEach(btn => {
+        const typ = btn.dataset.typ;
+        const cnt = btn.querySelector('.pf-count');
+        if (cnt) cnt.textContent = typ ? (typCounts[typ] || 0) : projects.length;
+      });
+
+      /* Build a tile (works for both featured grid and filtered grid) */
+      const tile = (p, i, isMain) => {
+        const num = String(i + 1).padStart(2, '0');
+        const tagLine = `${p.tags.slice(0, 2).join(' \u00b7 ')} \u00b7 ${p.year}`;
+        const img = p.cover
+          ? `<img src="${p.cover}" alt="${p.title}" loading="lazy" onerror="this.style.display='none'">`
+          : `<img src="images/bg/hero-bg.jpg" alt="${p.title}" loading="lazy">`;
+        return `
+          <a class="pf-tile${isMain ? ' pf-tile--main' : ''}" href="project.html?slug=${p.slug}">
+            <span class="pf-badge">${num}</span>
+            ${img}
+            <div class="pf-meta">
+              <div class="pf-tags">${tagLine}</div>
+              <h3 class="pf-title">${p.title}${p.subtitle ? ` <small style="font-weight:500;font-size:0.7em;opacity:0.85">${p.subtitle}</small>` : ''}</h3>
+              <div class="pf-loc"><i class="bi bi-geo-alt"></i> ${p.location}</div>
+            </div>
+          </a>`;
+      };
+
+      /* Featured (default 'All' view): use featured:true flag */
+      const featured = projects.filter(p => p.featured).slice(0, 5);
+      const pfFeatured = document.getElementById('pfFeatured');
+      if (pfFeatured && featured.length) {
+        pfFeatured.innerHTML = featured.map((p, i) => tile(p, i, i === 0)).join('');
+      }
+
+      /* Filtered grid (typology selected): renders inline, no navigation */
+      const pfGrid = document.getElementById('pfGrid');
+      const renderFiltered = (typ) => {
+        const matches = projects.filter(p => p.typology === typ);
+        pfGrid.innerHTML = matches.map((p, i) => tile(p, i, false)).join('');
+      };
+
+      /* ── Inline INDEX (list) view ── */
+      const portfolioSection = document.getElementById('portfolio');
+      const pfListRows = document.getElementById('pfListRows');
+      const statusClass = s => /concept/i.test(s) ? 'concept' :
+                                /construction/i.test(s) ? 'construction' :
+                                /published/i.test(s) ? 'published' :
+                                /completed/i.test(s) ? 'completed' : '';
+      const renderList = (typ) => {
+        const matches = typ ? projects.filter(p => p.typology === typ) : projects;
+        pfListRows.innerHTML = matches.map((p, i) => {
+          const num = String(i + 1).padStart(2, '0');
+          const img = p.cover
+            ? `<img src="${p.cover}" alt="${p.title}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:${JSON.stringify(p.title)}}));">`
+            : `<div class="ph">${p.title}</div>`;
+          return `
+            <a class="pf-list-row" href="project.html?slug=${p.slug}">
+              <div class="lr-num">${num}</div>
+              <div class="lr-thumb">${img}</div>
+              <div class="lr-title">${p.title}${p.subtitle?`<div class="sub">${p.subtitle}</div>`:''}</div>
+              <div class="lr-loc">${p.location}</div>
+              <div class="lr-typ">${p.typology}</div>
+              <div class="lr-year">${p.year}</div>
+              <div class="lr-status"><span class="pill ${statusClass(p.status)}">${p.status}</span></div>
+            </a>`;
+        }).join('');
+      };
+
+      /* Current state */
+      let currentTyp = '';
+      let currentView = 'gallery';
+
+      const applyState = () => {
+        if (currentView === 'list') {
+          portfolioSection.classList.add('is-list-view');
+          renderList(currentTyp);
+        } else {
+          portfolioSection.classList.remove('is-list-view');
+          if (!currentTyp) {
+            pfFeatured.hidden = false;
+            pfGrid.hidden = true;
+            pfGrid.innerHTML = '';
+          } else {
+            pfFeatured.hidden = true;
+            pfGrid.hidden = false;
+            renderFiltered(currentTyp);
+          }
+        }
+      };
+
+      /* Filter click handler */
+      document.querySelectorAll('.pf-filter').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.querySelectorAll('.pf-filter').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          currentTyp = btn.dataset.typ;
+          applyState();
+        });
+      });
+
+      /* View (Gallery / Index) click handler */
+      document.querySelectorAll('.pf-view').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.querySelectorAll('.pf-view').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          currentView = btn.dataset.view || 'gallery';
+          applyState();
+        });
+      });
+    }
+  </script>
 
 </body>
 
