@@ -1740,15 +1740,16 @@ img.reveal-clip.in-view {
 
 .mb-about__mv-watermark {
   position: absolute;
-  top: -0.18em;
+  bottom: -0.22em;
   right: -0.04em;
   font-family: var(--font-display, "Raleway", sans-serif);
-  font-size: clamp(7rem, 14vw, 12rem);
+  font-size: clamp(3.5rem, 7vw, 6rem);
   font-weight: 800;
   line-height: 1;
   color: var(--mb-heading, #273d4e);
-  opacity: 0.05;
-  letter-spacing: -0.04em;
+  opacity: 0.06;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
   pointer-events: none;
   user-select: none;
   transition: opacity 360ms ease, color 360ms ease;
