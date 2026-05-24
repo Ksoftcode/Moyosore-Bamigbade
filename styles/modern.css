@@ -1717,7 +1717,7 @@ img.reveal-clip.in-view {
 }
 @media (min-width: 768px) {
   .mb-about__mv {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
