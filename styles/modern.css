@@ -1597,11 +1597,16 @@ img.reveal-clip.in-view {
 .mb-about__values-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(20px, 2.4vw, 32px);
+  gap: clamp(16px, 1.8vw, 24px);
 }
-@media (min-width: 768px) {
+@media (min-width: 576px) {
   .mb-about__values-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  .mb-about__values-grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
