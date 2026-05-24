@@ -1313,10 +1313,10 @@ img.reveal-clip.in-view {
 
 .mb-stats__icon {
   flex-shrink: 0;
-  font-size: clamp(28px, 3vw, 36px);
-  line-height: 1;
+  width: clamp(40px, 4vw, 52px);
+  height: clamp(40px, 4vw, 52px);
   color: var(--mb-accent, #ff4a17);
-  margin-top: 6px;
+  margin-top: 2px;
   transition: transform 360ms cubic-bezier(.2,.7,.2,1);
 }
 .mb-stats__item:hover .mb-stats__icon { transform: translateY(-3px); }
@@ -1358,7 +1358,7 @@ img.reveal-clip.in-view {
 @media (max-width: 575px) {
   .mb-stats { padding: 56px 0; }
   .mb-stats__grid { gap: 24px 20px; }
-  .mb-stats__icon { font-size: 24px; margin-top: 4px; }
+  .mb-stats__icon { width: 34px; height: 34px; margin-top: 2px; }
   .mb-stats__num { font-size: 2rem; }
 }
 
