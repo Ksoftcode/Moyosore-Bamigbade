@@ -1299,7 +1299,8 @@ img.reveal-clip.in-view {
   padding: 0 clamp(16px, 2.5vw, 32px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .mb-stats__item + .mb-stats__item {
@@ -1336,8 +1337,9 @@ img.reveal-clip.in-view {
   line-height: 0.95;
   letter-spacing: -0.03em;
   color: var(--mb-heading, #273d4e);
-  display: flex;
+  display: inline-flex;
   align-items: flex-start;
+  justify-content: center;
   gap: 4px;
 }
 .mb-stats__num .purecounter { display: inline-block; }
@@ -1353,15 +1355,16 @@ img.reveal-clip.in-view {
 
 .mb-stats__item::before {
   content: "";
-  position: absolute;
-  left: 0;
+  positi50%;
   bottom: 0;
-  width: 2px;
-  height: 0;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
   background: var(--mb-accent, #ff4a17);
-  transition: height 480ms cubic-bezier(.2,.7,.2,1);
+  transition: width 480ms cubic-bezier(.2,.7,.2,1);
 }
 @media (min-width: 768px) {
+  .mb-stats__item:hover::before { width: 64px
   .mb-stats__item:hover::before { height: 100%; }
 }
 
