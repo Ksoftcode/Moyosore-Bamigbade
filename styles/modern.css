@@ -1182,6 +1182,17 @@ textarea {
   .mb-subs { padding: 72px 0 88px; }
   .mb-subs__head { margin-bottom: 40px; }
 }
+
+/* ------------------------------------------------------------
+ * Phase 2 follow-up: rebalance index.html header after the
+ * standalone MB URBAN / SUBSIDIARIES CTA button was removed.
+ * Container uses .d-flex.justify-content-between; with only
+ * [logo] + [navmenu] left, the nav was getting pushed flush
+ * right. Centre the nav between logo and edge on desktop.
+ * ------------------------------------------------------------ */
+@media (min-width: 1200px) {
+  .header .container > .navmenu { margin: 0 auto; }
+}
 .section-title.in-view p::after {
   width: 72px;
 }
