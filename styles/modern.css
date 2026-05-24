@@ -1610,16 +1610,19 @@ img.reveal-clip.in-view {
    - Non-featured: flat icon + text on section bg (no card chrome)
    - Featured:    white floating card w/ chunky orange offset shadow-leaf
    - All:         cream tile behind the index/icon                          */
-/* Jadoo recipe: every value is a white card; on hover the
-   orange leaf slides out below-left. --featured sits raised. */
+/* Jadoo recipe (subtle variant for About): at rest the card is
+   almost invisible (transparent, no shadow, leaf hidden). On hover
+   it emerges as a full white card with shadow + the orange leaf
+   slides out below-left. --featured sits slightly raised. */
 .mb-about__value {
   position: relative;
-  background: #fff;
+  background: transparent;
   padding: clamp(36px, 4.4vw, 52px) clamp(24px, 2.8vw, 36px);
   text-align: center;
   border-radius: 12px;
   box-shadow: none;
   transition: top 360ms cubic-bezier(.2,.7,.2,1),
+              background-color 360ms cubic-bezier(.2,.7,.2,1),
               box-shadow 360ms cubic-bezier(.2,.7,.2,1);
 }
 .mb-about__value::before {
@@ -1632,22 +1635,24 @@ img.reveal-clip.in-view {
   background: var(--mb-accent, #ff4a17);
   border-radius: 32px 0 10px 0;
   z-index: -1;
-  transition: left 420ms cubic-bezier(.2,.7,.2,1),
+  opacity: 0;
+  transition: opacity 280ms ease,
+              left 420ms cubic-bezier(.2,.7,.2,1),
               bottom 420ms cubic-bezier(.2,.7,.2,1);
 }
 .mb-about__value:hover {
+  background: #fff;
   box-shadow: 0 6px 16px rgba(39, 61, 78, 0.06),
               0 28px 64px rgba(39, 61, 78, 0.14);
 }
 .mb-about__value:hover::before {
+  opacity: 1;
   left: -30px;
   bottom: -35px;
 }
 
 .mb-about__value--featured {
   top: -12px;
-  box-shadow: 0 6px 16px rgba(39, 61, 78, 0.06),
-              0 28px 64px rgba(39, 61, 78, 0.14);
 }
 .mb-about__value--featured:hover {
   top: -16px;
