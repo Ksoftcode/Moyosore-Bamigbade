@@ -955,6 +955,27 @@ textarea {
 .mb-team-card .overlay .social a:hover {
   background: var(--mb-accent);
 }
+/* Initials placeholder for missing portraits */
+.mb-team-card--placeholder {
+  background: linear-gradient(155deg, #2f4a5d 0%, #1b2c39 100%);
+}
+.mb-team-card__initials {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.18);
+  user-select: none;
+  transition: color 0.4s ease;
+}
+.mb-team-card--placeholder:hover .mb-team-card__initials {
+  color: rgba(255, 255, 255, 0.32);
+}
 /* ══════════════════════════════════════════════════════════
    FOOTER — modern dark footer
    ══════════════════════════════════════════════════════════ */
