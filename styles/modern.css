@@ -1723,16 +1723,14 @@ img.reveal-clip.in-view {
 
 .mb-about__mv-card {
   position: relative;
+  overflow: hidden;
   background: #ffffff;
-  padding: clamp(40px, 4vw, 56px) clamp(28px, 3vw, 40px) clamp(28px, 2.8vw, 36px);
+  padding: clamp(32px, 3.6vw, 44px) clamp(26px, 2.8vw, 36px);
   border-radius: 24px;
   box-shadow: 0 1px 2px rgba(39, 61, 78, 0.04),
               0 14px 36px rgba(39, 61, 78, 0.08);
   transition: transform 360ms cubic-bezier(.2,.7,.2,1),
               box-shadow 360ms cubic-bezier(.2,.7,.2,1);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 .mb-about__mv-card:hover {
   transform: translateY(-6px);
@@ -1740,19 +1738,28 @@ img.reveal-clip.in-view {
               0 30px 70px rgba(39, 61, 78, 0.16);
 }
 
-.mb-about__mv-quote {
+.mb-about__mv-watermark {
   position: absolute;
-  top: clamp(-18px, -1.4vw, -10px);
-  left: clamp(22px, 2.4vw, 32px);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(5rem, 7vw, 7rem);
+  top: -0.18em;
+  right: -0.04em;
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(7rem, 14vw, 12rem);
+  font-weight: 800;
   line-height: 1;
-  color: var(--mb-accent, #ff4a17);
+  color: var(--mb-heading, #273d4e);
+  opacity: 0.05;
+  letter-spacing: -0.04em;
   pointer-events: none;
   user-select: none;
+  transition: opacity 360ms ease, color 360ms ease;
+}
+.mb-about__mv-card:hover .mb-about__mv-watermark {
+  color: var(--mb-accent, #ff4a17);
+  opacity: 0.10;
 }
 
 .mb-about__mv-tag {
+  position: relative;
   display: inline-block;
   font-family: var(--font-nav, "Inter", sans-serif);
   font-size: 11px;
@@ -1760,10 +1767,13 @@ img.reveal-clip.in-view {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--mb-accent, #ff4a17);
-  margin: clamp(28px, 3vw, 40px) 0 0;
+  margin: 0 0 18px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--mb-accent, #ff4a17);
 }
 
 .mb-about__mv-statement {
+  position: relative;
   font-family: var(--font-display, "Raleway", sans-serif);
   font-size: clamp(1.125rem, 1.6vw, 1.375rem);
   font-weight: 400;
@@ -1771,19 +1781,6 @@ img.reveal-clip.in-view {
   color: var(--mb-heading, #273d4e);
   margin: 0;
   letter-spacing: -0.005em;
-  flex: 1;
-}
-
-.mb-about__mv-sign {
-  display: block;
-  margin-top: 8px;
-  padding-top: 16px;
-  border-top: 1px solid var(--mb-line, #e5eaee);
-  font-family: var(--font-nav, "Inter", sans-serif);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--mb-body, #444);
 }
 
 @media (max-width: 575px) {
