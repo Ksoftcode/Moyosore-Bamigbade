@@ -1808,12 +1808,11 @@ img.reveal-clip.in-view {
   color: var(--mb-accent, #ff4a17);
 }
 
-/* ---- Row 4: Mission & Vision (matching floating-card vibe) ---- */
+/* ---- Mission & Vision (matching floating-card vibe) ---- */
 .mb-about__mv {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(20px, 2.4vw, 32px);
-  margin-top: clamp(72px, 9vw, 112px);
 }
 @media (min-width: 768px) {
   .mb-about__mv {
