@@ -1376,3 +1376,7 @@ img.reveal-clip.in-view {
   .mb-stats { padding: 64px 0 56px; }
   .mb-stats__year { display: none; }
 }
+
+/* Phase 3 follow-up: give #about a soft tint so the new white stats
+   band reads as a distinct slab. Phase 4 will rework About fully. */
+#about.about { background: var(--mb-bg-soft, #f1f4fa); }
