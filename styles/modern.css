@@ -348,7 +348,7 @@ textarea {
 .mb-marquee {
   display: flex;
   width: max-content;
-  animation: marqueeScroll 60s linear infinite;
+  animation: marqueeScroll 70s linear infinite;
 }
 .mb-marquee:hover {
   animation-play-state: paused;
@@ -364,12 +364,14 @@ textarea {
 }
 .mb-marquee .logo-item img {
   max-width: 100%;
-  max-height: 52px;
+  max-height: 68px;
   object-fit: contain;
-  transition: transform 0.3s;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .mb-marquee .logo-item img:hover {
-  transform: scale(1.1);
+  opacity: 1;
+  transform: scale(1.08);
 }
 @keyframes marqueeScroll {
   0% { transform: translateX(0); }
@@ -532,6 +534,11 @@ textarea {
 /* ══════════════════════════════════════════════════════════
    CONTACT SECTION - editorial layout
    ══════════════════════════════════════════════════════════ */
+
+/* Override template default section padding (map spans edge-to-edge) */
+#contact {
+  padding: 0;
+}
 
 /* Map banner with overlay */
 .mb-contact-hero {
