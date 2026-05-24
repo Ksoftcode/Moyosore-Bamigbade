@@ -1233,150 +1233,133 @@ img.reveal-clip.in-view {
   }
 }
 /* ============================================================
- * Phase 3 — Stats (editorial dark band)
- * Architecture-firm aesthetic: dark band, big light-weight numerals,
- * 01-04 index labels in accent orange, hairlines only (no boxes).
- * Header row carries a brand eyebrow + thin rule + est. year.
- * Numbers stay animated by purecounter.
+ * Phase 3 — Stats (split editorial + icon grid)
+ * Inspired by enterprise "by the numbers" sections: editorial
+ * intro on the left (eyebrow + headline w/ accent phrase + lede),
+ * 2x2 icon-and-number grid on the right. Stacks on tablet/mobile.
  * ============================================================ */
 .mb-stats {
-  padding: clamp(80px, 11vw, 140px) 0 clamp(72px, 10vw, 120px);
+  padding: clamp(72px, 10vw, 120px) 0;
   background: var(--mb-surface, #ffffff);
   color: var(--mb-heading, #273d4e);
-  position: relative;
   border-top: 1px solid var(--mb-line, #e5eaee);
   border-bottom: 1px solid var(--mb-line, #e5eaee);
 }
 .mb-stats .container { max-width: 1320px; }
 
-.mb-stats__header {
-  display: flex;
+.mb-stats__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vw, 80px);
   align-items: center;
-  gap: 24px;
-  margin: 0 0 clamp(48px, 6vw, 80px);
 }
+@media (min-width: 992px) {
+  .mb-stats__layout {
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(48px, 6vw, 96px);
+  }
+}
+
+/* ---- Intro ---- */
+.mb-stats__intro { max-width: 520px; }
+
 .mb-stats__eyebrow {
+  display: inline-block;
   font-family: var(--font-nav, "Inter", sans-serif);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--mb-accent, #ff4a17);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.mb-stats__rule {
-  flex: 1;
-  height: 1px;
-  background: var(--mb-line, #e5eaee);
-}
-.mb-stats__year {
-  font-family: var(--font-nav, "Inter", sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mb-muted, #7f8f9d);
-  white-space: nowrap;
-  flex-shrink: 0;
+  margin-bottom: 18px;
 }
 
+.mb-stats__title {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--mb-heading, #273d4e);
+  margin: 0 0 18px;
+}
+.mb-stats__title em {
+  font-style: normal;
+  color: var(--mb-accent, #ff4a17);
+  font-weight: 600;
+}
+
+.mb-stats__lede {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--mb-body, #444);
+  margin: 0;
+}
+
+/* ---- Grid ---- */
 .mb-stats__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: clamp(48px, 6vw, 72px);
-  column-gap: 0;
-}
-@media (min-width: 768px) {
-  .mb-stats__grid {
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 0;
-  }
+  gap: clamp(28px, 4vw, 48px) clamp(24px, 4vw, 56px);
 }
 
 .mb-stats__item {
-  position: relative;
-  padding: 0 clamp(16px, 2.5vw, 32px);
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  gap: clamp(14px, 2vw, 20px);
+  position: relative;
 }
-@media (min-width: 768px) {
-  .mb-stats__item + .mb-stats__item {
-    border-left: 1px solid var(--mb-line, #e5eaee);
-  }
-}
-.mb-stats__item:first-child { padding-left: 0; }
-.mb-stats__item:last-child { padding-right: 0; }
 
-.mb-stats__index {
-  font-family: var(--font-nav, "Inter", sans-serif);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+.mb-stats__icon {
+  flex-shrink: 0;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1;
   color: var(--mb-accent, #ff4a17);
-  margin-bottom: 14px;
+  margin-top: 6px;
+  transition: transform 360ms cubic-bezier(.2,.7,.2,1);
 }
+.mb-stats__item:hover .mb-stats__icon { transform: translateY(-3px); }
 
-.mb-stats__label {
-  font-family: var(--font-nav, "Inter", sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mb-muted, #7f8f9d);
-  margin: 0 0 clamp(20px, 3vw, 32px);
-  line-height: 1.4;
-}
+.mb-stats__copy { min-width: 0; }
 
 .mb-stats__num {
   font-family: var(--font-display, "Raleway", sans-serif);
-  font-weight: 300;
-  font-size: clamp(4rem, 9vw, 7rem);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   color: var(--mb-heading, #273d4e);
   display: inline-flex;
   align-items: flex-start;
-  justify-content: center;
-  gap: 4px;
+  gap: 2px;
 }
 .mb-stats__num .purecounter { display: inline-block; }
 
 .mb-stats__suffix {
   font-family: var(--font-display, "Raleway", sans-serif);
-  font-size: 0.45em;
-  font-weight: 300;
+  font-size: 0.55em;
+  font-weight: 500;
   color: var(--mb-accent, #ff4a17);
   line-height: 1;
-  margin-top: 0.35em;
+  margin-top: 0.25em;
 }
 
-.mb-stats__item::before {
-  content: "";
-  positi50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 0;
-  height: 2px;
-  background: var(--mb-accent, #ff4a17);
-  transition: width 480ms cubic-bezier(.2,.7,.2,1);
-}
-@media (min-width: 768px) {
-  .mb-stats__item:hover::before { width: 64px
-  .mb-stats__item:hover::before { height: 100%; }
+.mb-stats__label {
+  margin: 6px 0 0;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--mb-muted, #7f8f9d);
+  line-height: 1.4;
 }
 
-@media (max-width: 767.98px) {
-  .mb-stats__header { flex-wrap: wrap; gap: 12px 16px; }
-  .mb-stats__rule { order: 3; flex-basis: 100%; }
-}
 @media (max-width: 575px) {
-  .mb-stats { padding: 64px 0 56px; }
-  .mb-stats__year { display: none; }
+  .mb-stats { padding: 56px 0; }
+  .mb-stats__grid { gap: 24px 20px; }
+  .mb-stats__icon { font-size: 24px; margin-top: 4px; }
+  .mb-stats__num { font-size: 2rem; }
 }
 
-/* Phase 3 follow-up: give #about a soft tint so the new white stats
-   band reads as a distinct slab. Phase 4 will rework About fully. */
 #about.about { background: var(--mb-bg-soft, #f1f4fa); }
