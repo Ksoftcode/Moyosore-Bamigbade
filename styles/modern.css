@@ -1868,6 +1868,113 @@ img.reveal-clip.in-view {
   .mb-about__figure img { aspect-ratio: 4 / 3; }
 }
 
+/* ---- Values header as pillars banner ---- */
+.mb-about__values-head--banner {
+  position: relative;
+  isolation: isolate;
+  max-width: none;
+  padding: clamp(56px, 9vw, 120px) clamp(24px, 4vw, 56px);
+  border-radius: 24px;
+  overflow: hidden;
+  background-image:
+    linear-gradient(180deg, rgba(15,28,38,0.55) 0%, rgba(15,28,38,0.78) 100%),
+    url("../images/about/pillars-core-values.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.mb-about__values-head--banner .mb-about__eyebrow {
+  color: var(--mb-accent, #ff4a17);
+}
+.mb-about__values-head--banner .mb-about__values-title {
+  color: #ffffff;
+  margin-top: 14px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.625rem, 2.8vw, 2.25rem);
+}
+
+/* ---- Row 5: Sustainable Shelter (copy left / image right) ---- */
+.mb-about__shelter {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 3.2vw, 56px);
+  align-items: center;
+  margin-top: clamp(72px, 9vw, 112px);
+}
+@media (min-width: 992px) {
+  .mb-about__shelter {
+    grid-template-columns: 1fr 1.05fr;
+  }
+}
+
+.mb-about__shelter-body { max-width: 560px; }
+.mb-about__shelter-title {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--mb-heading, #273d4e);
+  margin: 14px 0 16px;
+}
+.mb-about__shelter-lead {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--mb-body, #444);
+  margin: 0 0 28px;
+}
+.mb-about__shelter-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px 28px;
+  margin: 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--mb-line, #e5eaee);
+}
+@media (min-width: 480px) {
+  .mb-about__shelter-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.mb-about__shelter-stats div { margin: 0; }
+.mb-about__shelter-stats dt {
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mb-accent, #ff4a17);
+  margin: 0 0 4px;
+}
+.mb-about__shelter-stats dd {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--mb-heading, #273d4e);
+  margin: 0;
+}
+
+.mb-about__shelter-figure {
+  position: relative;
+  margin: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--mb-bg-soft, #f1f4fa);
+  box-shadow: 0 1px 2px rgba(39, 61, 78, 0.04),
+              0 18px 44px rgba(39, 61, 78, 0.10);
+}
+.mb-about__shelter-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
 
 
 /* Featured-card leaf trick: the pseudo at z-index:-1 escapes the card.
