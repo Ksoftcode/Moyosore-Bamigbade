@@ -789,59 +789,91 @@ textarea {
   color: rgba(255,255,255,0.55);
   font-size: 1rem;
 }
+/* Floating quote card — light surface on dark section, avatar overlaps top edge */
+.mb-testimonials .swiper {
+  padding: 68px 8px 24px;          /* room for the floating avatar above each card */
+  overflow: visible;
+}
+.mb-testimonials .swiper-slide {
+  height: auto;
+  display: flex;
+}
 .mb-tslide {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 68px 28px 32px;          /* extra top padding clears the floating avatar */
   text-align: center;
-  padding: 20px 16px 32px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18),
+              0 24px 56px rgba(0,0,0,0.32);
+  transition: transform 360ms cubic-bezier(.2,.7,.2,1),
+              box-shadow 360ms cubic-bezier(.2,.7,.2,1);
+  display: flex;
+  flex-direction: column;
+}
+.mb-tslide:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.22),
+              0 36px 80px rgba(0,0,0,0.40);
 }
 .mb-tslide .avatar {
-  width: 96px;
-  height: 96px;
+  position: absolute;
+  top: -44px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid rgba(255,255,255,0.12);
-  margin: 0 auto 20px;
-  display: block;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 4px solid #ffffff;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.30);
+  z-index: 2;
 }
 .mb-tslide .stars {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .mb-tslide .stars i {
   color: #f5b731;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   margin: 0 1px;
 }
 .mb-tslide .quote {
-  font-size: 0.95rem;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.72);
-  max-width: 480px;
-  margin: 0 auto 20px;
-  font-style: italic;
   position: relative;
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--mb-body, #444);
+  margin: 0 auto 22px;
+  max-width: 460px;
+  flex: 1;
 }
 .mb-tslide .quote::before {
   content: '\201C';
-  font-size: 3rem;
-  font-family: Georgia, serif;
-  color: var(--mb-accent);
   position: absolute;
-  top: -18px;
-  left: -8px;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4.5rem;
   line-height: 1;
-  opacity: 0.6;
+  color: var(--mb-accent, #ff4a17);
+  opacity: 0.18;
+  pointer-events: none;
 }
 .mb-tslide .name {
-  font-family: var(--font-display);
+  font-family: var(--font-display, "Raleway", sans-serif);
   font-weight: 700;
   font-size: 1rem;
-  color: #fff;
-  margin-bottom: 2px;
+  color: var(--mb-heading, #273d4e);
+  margin-bottom: 4px;
 }
 .mb-tslide .role {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.03em;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 0.75rem;
+  color: var(--mb-body, #555);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .mb-testimonials .swiper-pagination-bullet {
   background: rgba(255,255,255,0.3);
