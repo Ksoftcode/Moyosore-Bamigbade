@@ -1363,3 +1363,252 @@ img.reveal-clip.in-view {
 }
 
 #about.about { background: var(--mb-bg-soft, #f1f4fa); }
+
+/* ============================================================
+ * Phase 4 - About (3-row editorial)
+ * Row 1: intro (eyebrow + headline w/ accent phrase + lead +
+ *        body + meta dl) paired with a signature project image.
+ * Row 2: values - 3 indexed columns (01-03), hairline rules.
+ * Row 3: mission & vision - 2-up split with accent tags.
+ * Background tint set by existing #about.about rule.
+ * ============================================================ */
+.mb-about {
+  padding: clamp(80px, 11vw, 140px) 0;
+}
+.mb-about .container { max-width: 1320px; }
+
+/* ---- Row 1: Intro ---- */
+.mb-about__intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+  margin-bottom: clamp(72px, 10vw, 120px);
+}
+@media (min-width: 992px) {
+  .mb-about__intro {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(48px, 6vw, 96px);
+  }
+}
+
+.mb-about__eyebrow {
+  display: inline-block;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--mb-accent, #ff4a17);
+  margin-bottom: 18px;
+}
+
+.mb-about__title {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--mb-heading, #273d4e);
+  margin: 0 0 24px;
+}
+.mb-about__title em {
+  font-style: normal;
+  color: var(--mb-accent, #ff4a17);
+}
+
+.mb-about__lead {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--mb-heading, #273d4e);
+  margin: 0 0 18px;
+}
+.mb-about__body {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--mb-body, #444);
+  margin: 0 0 32px;
+}
+
+.mb-about__meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px clamp(16px, 2vw, 32px);
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--mb-line, #e5eaee);
+}
+.mb-about__meta > div { margin: 0; }
+.mb-about__meta dt {
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mb-muted, #7f8f9d);
+  margin: 0 0 4px;
+}
+.mb-about__meta dd {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--mb-heading, #273d4e);
+  margin: 0;
+}
+
+.mb-about__figure {
+  margin: 0;
+  position: relative;
+}
+.mb-about__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.mb-about__figure figcaption {
+  margin-top: 14px;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mb-muted, #7f8f9d);
+}
+
+/* ---- Row 2: Values ---- */
+.mb-about__values {
+  margin-bottom: clamp(72px, 10vw, 120px);
+}
+.mb-about__values-head {
+  max-width: 680px;
+  margin: 0 0 clamp(40px, 5vw, 64px);
+}
+.mb-about__values-title {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.25;
+  color: var(--mb-heading, #273d4e);
+  margin: 0;
+}
+
+.mb-about__values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--mb-line, #e5eaee);
+}
+@media (min-width: 768px) {
+  .mb-about__values-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.mb-about__value {
+  position: relative;
+  padding: clamp(28px, 4vw, 40px) clamp(20px, 2.5vw, 32px) clamp(36px, 5vw, 48px);
+  border-bottom: 1px solid var(--mb-line, #e5eaee);
+}
+@media (min-width: 768px) {
+  .mb-about__value + .mb-about__value {
+    border-left: 1px solid var(--mb-line, #e5eaee);
+  }
+  .mb-about__value { border-bottom: none; }
+}
+
+.mb-about__value::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--mb-accent, #ff4a17);
+  transition: width 420ms cubic-bezier(.2,.7,.2,1);
+}
+.mb-about__value:hover::before { width: 56px; }
+
+.mb-about__value-index {
+  display: block;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--mb-accent, #ff4a17);
+  margin: 0 0 18px;
+}
+.mb-about__value-title {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--mb-heading, #273d4e);
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+.mb-about__value-body {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--mb-body, #444);
+  margin: 0;
+}
+
+/* ---- Row 3: Mission & Vision ---- */
+.mb-about__mv {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .mb-about__mv {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--mb-line, #e5eaee);
+    border-bottom: 1px solid var(--mb-line, #e5eaee);
+  }
+}
+
+.mb-about__mv-card {
+  background: var(--mb-surface, #ffffff);
+  padding: clamp(32px, 4.5vw, 48px) clamp(28px, 4vw, 40px);
+  position: relative;
+}
+@media (min-width: 768px) {
+  .mb-about__mv-card + .mb-about__mv-card {
+    border-left: 1px solid var(--mb-line, #e5eaee);
+  }
+}
+
+.mb-about__mv-tag {
+  display: inline-block;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--mb-accent, #ff4a17);
+  margin: 0 0 18px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--mb-accent, #ff4a17);
+}
+
+.mb-about__mv-statement {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--mb-heading, #273d4e);
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+@media (max-width: 575px) {
+  .mb-about { padding: 64px 0; }
+  .mb-about__figure img { aspect-ratio: 4 / 3; }
+}
