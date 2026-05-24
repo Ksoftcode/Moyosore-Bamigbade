@@ -1579,7 +1579,7 @@ img.reveal-clip.in-view {
 
 /* ---- Row 2: Values ---- */
 .mb-about__values {
-  margin-bottom: clamp(72px, 10vw, 120px);
+  margin-top: clamp(72px, 9vw, 112px);
 }
 .mb-about__values-head {
   max-width: 680px;
@@ -1714,11 +1714,85 @@ img.reveal-clip.in-view {
   margin-inline: auto;
 }
 
-/* ---- Row 3: Mission & Vision (matching floating-card vibe) ---- */
+/* ---- Row 3: Our Scope ---- */
+.mb-about__scope {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 3.2vw, 56px);
+  align-items: center;
+  margin-top: clamp(72px, 9vw, 112px);
+}
+@media (min-width: 992px) {
+  .mb-about__scope {
+    grid-template-columns: 1.05fr 1fr;
+  }
+}
+
+.mb-about__scope-figure {
+  position: relative;
+  margin: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--mb-bg-soft, #f1f4fa);
+  box-shadow: 0 1px 2px rgba(39, 61, 78, 0.04),
+              0 18px 44px rgba(39, 61, 78, 0.10);
+}
+.mb-about__scope-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.mb-about__scope-body { max-width: 560px; }
+.mb-about__scope-title {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--mb-heading, #273d4e);
+  margin: 14px 0 16px;
+}
+.mb-about__scope-lead {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--mb-body, #444);
+  margin: 0 0 24px;
+}
+.mb-about__scope-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mb-about__scope-list li {
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mb-heading, #273d4e);
+  padding: 8px 14px;
+  border: 1px solid var(--mb-line, #e5eaee);
+  border-radius: 999px;
+  background: #fff;
+  transition: border-color 240ms ease, color 240ms ease, background 240ms ease;
+}
+.mb-about__scope-list li:hover {
+  border-color: var(--mb-accent, #ff4a17);
+  color: var(--mb-accent, #ff4a17);
+}
+
+/* ---- Row 4: Mission & Vision (matching floating-card vibe) ---- */
 .mb-about__mv {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(20px, 2.4vw, 32px);
+  margin-top: clamp(72px, 9vw, 112px);
 }
 @media (min-width: 768px) {
   .mb-about__mv {
