@@ -410,28 +410,22 @@ textarea {
               box-shadow 360ms cubic-bezier(.2,.7,.2,1),
               background-color 360ms ease;
 }
-.mb-svc-card:hover {
+.mb-svc-card:not(.mb-svc-card--featured):hover {
   background: #fff;
   transform: translateY(-6px);
   box-shadow: 0 2px 8px rgba(39,61,78,0.04), 0 16px 40px rgba(39,61,78,0.08);
 }
 
-/* FEATURED — white card w/ chunky orange shadow-leaf peeking below-left */
+/* FEATURED — transparent wrapper. Real surface + leaf are children. */
 .mb-svc-card--featured {
-  background: #fff;
-  padding: clamp(40px, 4.4vw, 56px) clamp(24px, 2.6vw, 32px);
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
   transform: translateY(-12px);
-  box-shadow:
-    -22px 22px 0 -2px var(--mb-accent),
-    0 6px 16px rgba(39,61,78,0.06),
-    0 28px 64px rgba(39,61,78,0.14);
+  transition: transform 360ms cubic-bezier(.2,.7,.2,1);
 }
 .mb-svc-card--featured:hover {
   transform: translateY(-16px);
-  box-shadow:
-    -22px 22px 0 -2px var(--mb-accent),
-    0 10px 22px rgba(39,61,78,0.10),
-    0 34px 76px rgba(39,61,78,0.18);
 }
 
 /* Icon sits over an offset cream tile (peeks out top-right) */
@@ -1126,28 +1120,22 @@ textarea {
               box-shadow 360ms cubic-bezier(.2,.7,.2,1),
               background-color 360ms ease;
 }
-.mb-subs__card:hover {
+.mb-subs__card:not(.mb-subs__card--featured):hover {
   background: #fff;
   transform: translateY(-6px);
   box-shadow: 0 2px 8px rgba(39,61,78,0.04), 0 16px 40px rgba(39,61,78,0.08);
 }
 
-/* FEATURED — white card w/ chunky orange shadow-leaf peeking below-left */
+/* FEATURED — transparent wrapper. Real surface + leaf are children. */
 .mb-subs__card--featured {
-  background: #fff;
-  padding: 36px 26px 32px;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
   transform: translateY(-10px);
-  box-shadow:
-    -20px 20px 0 -2px var(--mb-accent),
-    0 6px 16px rgba(39,61,78,0.06),
-    0 26px 60px rgba(39,61,78,0.14);
+  transition: transform 360ms cubic-bezier(.2,.7,.2,1);
 }
 .mb-subs__card--featured:hover {
   transform: translateY(-14px);
-  box-shadow:
-    -20px 20px 0 -2px var(--mb-accent),
-    0 10px 22px rgba(39,61,78,0.10),
-    0 32px 72px rgba(39,61,78,0.18);
 }
 
 /* MB badge sits over an offset cream tile */
@@ -1574,55 +1562,32 @@ img.reveal-clip.in-view {
   transition: transform 360ms cubic-bezier(.2,.7,.2,1),
               box-shadow 360ms cubic-bezier(.2,.7,.2,1),
               background-color 360ms ease;
-  isolation: isolate;
-}
-
-/* Cream tile behind the index numeral */
-.mb-about__value::before {
-  content: "";
-  position: absolute;
-  top: clamp(16px, 2.4vw, 28px);
-  left: 50%;
-  transform: translateX(-8%);
-  width: clamp(56px, 6vw, 72px);
-  height: clamp(56px, 6vw, 72px);
-  background: #fff1e9;
-  border-radius: 6px;
-  z-index: -1;
-  transition: background 360ms ease, transform 360ms ease;
 }
 
 /* Hover on non-featured: lift into a soft card */
-.mb-about__value:hover {
+.mb-about__value:not(.mb-about__value--featured):hover {
   background: #fff;
   transform: translateY(-6px);
   box-shadow: 0 2px 8px rgba(39, 61, 78, 0.04),
               0 16px 40px rgba(39, 61, 78, 0.08);
 }
 
-/* FEATURED — white card w/ chunky orange shadow-leaf peeking below-left */
+/* FEATURED — transparent wrapper. Real surface + leaf are children. */
 .mb-about__value--featured {
-  background: #fff;
-  padding: clamp(40px, 5.2vw, 64px) clamp(24px, 2.8vw, 36px);
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
   transform: translateY(-12px);
-  box-shadow:
-    -22px 22px 0 -2px var(--mb-accent, #ff4a17),
-    0 6px 16px rgba(39, 61, 78, 0.06),
-    0 28px 64px rgba(39, 61, 78, 0.14);
+  transition: transform 360ms cubic-bezier(.2,.7,.2,1);
 }
 .mb-about__value--featured:hover {
   transform: translateY(-16px);
-  box-shadow:
-    -22px 22px 0 -2px var(--mb-accent, #ff4a17),
-    0 10px 22px rgba(39, 61, 78, 0.10),
-    0 34px 76px rgba(39, 61, 78, 0.18);
-}
-.mb-about__value--featured::before {
-  background: #ffe2d3;
 }
 
 .mb-about__value-index {
-  display: block;
+  display: inline-block;
+  position: relative;
+  isolation: isolate;
   font-family: var(--font-display, "Raleway", sans-serif);
   font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 600;
@@ -1630,6 +1595,23 @@ img.reveal-clip.in-view {
   color: var(--mb-accent, #ff4a17);
   margin: 0 0 20px;
   line-height: 1;
+  padding: 4px 10px 4px 6px;
+}
+.mb-about__value-index::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: -14px;
+  width: 40px;
+  height: 40px;
+  background: #fff1e9;
+  border-radius: 6px;
+  z-index: -1;
+  transition: background 360ms ease;
+}
+.mb-about__value:hover .mb-about__value-index::before,
+.mb-about__value--featured .mb-about__value-index::before {
+  background: #ffe2d3;
 }
 .mb-about__value-title {
   font-family: var(--font-display, "Raleway", sans-serif);
@@ -1713,4 +1695,66 @@ img.reveal-clip.in-view {
 @media (max-width: 575px) {
   .mb-about { padding: 64px 0; }
   .mb-about__figure img { aspect-ratio: 4 / 3; }
+}
+
+/* ============================================================
+ * UNIVERSAL CARD LEAF + SURFACE  (Jadoo-style featured cards)
+ * Featured card markup pattern:
+ *   <article class="...--featured">
+ *     <span class="mb-card-leaf" aria-hidden="true"></span>
+ *     <div class="mb-card-surface"> ...content... </div>
+ *   </article>
+ * The outer element is a transparent positioning wrapper.
+ * Leaf is a real sized rounded rect behind the surface.
+ * Surface is the white card with shadow and padding.
+ * ============================================================ */
+
+.mb-card-leaf {
+  position: absolute;
+  bottom: -28px;
+  left: -28px;
+  width: 55%;
+  height: 62%;
+  background: var(--mb-accent, #ff4a17);
+  border-radius: 12px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mb-card-surface {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: clamp(36px, 4.4vw, 56px) clamp(24px, 2.6vw, 32px);
+  box-shadow: 0 6px 16px rgba(39, 61, 78, 0.06),
+              0 28px 64px rgba(39, 61, 78, 0.14);
+  isolation: isolate;
+  transition: box-shadow 360ms cubic-bezier(.2,.7,.2,1);
+}
+
+/* Featured card hover deepens the surface shadow */
+.mb-about__value--featured:hover .mb-card-surface,
+.mb-svc-card--featured:hover .mb-card-surface,
+.mb-subs__card--featured:hover .mb-card-surface {
+  box-shadow: 0 10px 22px rgba(39, 61, 78, 0.10),
+              0 34px 76px rgba(39, 61, 78, 0.18);
+}
+
+/* Per-section leaf tuning (subsidiaries cards are smaller, scale leaf down) */
+.mb-subs__card--featured .mb-card-leaf {
+  bottom: -22px;
+  left: -22px;
+  width: 52%;
+  height: 58%;
+}
+.mb-subs__card--featured .mb-card-surface {
+  padding: 32px 26px 28px;
+}
+
+/* Surface inside an anchor inherits flex layout from the link */
+.mb-subs__card--featured .mb-card-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
