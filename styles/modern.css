@@ -1619,7 +1619,7 @@ img.reveal-clip.in-view {
   background: transparent;
   padding: clamp(36px, 4.4vw, 52px) clamp(24px, 2.8vw, 36px);
   text-align: center;
-  border-radius: 12px;
+  border-radius: 24px;
   box-shadow: none;
   transition: top 360ms cubic-bezier(.2,.7,.2,1),
               background-color 360ms cubic-bezier(.2,.7,.2,1),
