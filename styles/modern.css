@@ -1232,3 +1232,82 @@ img.reveal-clip.in-view {
     width: 72px;
   }
 }
+/* ============================================================
+ * Phase 3 — Stats (editorial card grid)
+ * Replaces the legacy `.stats-item` icon row. Big serif numerals
+ * sit on a 2×2 (mobile) → 4-col (≥md) hairline grid. Each cell
+ * gains a 2px accent rule that draws in on hover, with a soft
+ * background-tint lift. Numbers are still animated by purecounter.
+ * ============================================================ */
+.mb-stats {
+  padding: clamp(56px, 8vw, 96px) 0;
+  background: var(--mb-bg-soft, #f1f4fa);
+}
+.mb-stats .container { max-width: 1240px; }
+
+.mb-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--mb-line, #e5eaee);
+  border-left: 1px solid var(--mb-line, #e5eaee);
+}
+
+@media (min-width: 768px) {
+  .mb-stats__grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.mb-stats__item {
+  position: relative;
+  padding: clamp(28px, 4.5vw, 48px) clamp(20px, 3vw, 32px);
+  border-right: 1px solid var(--mb-line, #e5eaee);
+  border-bottom: 1px solid var(--mb-line, #e5eaee);
+  background: var(--mb-surface, #ffffff);
+  transition: background-color 280ms ease;
+}
+
+.mb-stats__item::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--mb-accent, #ff4a17);
+  transition: width 420ms cubic-bezier(.2,.7,.2,1);
+}
+
+.mb-stats__item:hover {
+  background: color-mix(in srgb, var(--mb-accent, #ff4a17) 4%, var(--mb-surface, #fff));
+}
+.mb-stats__item:hover::before { width: 100%; }
+
+.mb-stats__num {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-weight: 600;
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--mb-heading, #273d4e);
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.mb-stats__suffix {
+  font-size: 0.55em;
+  color: var(--mb-accent, #ff4a17);
+  font-weight: 500;
+}
+
+.mb-stats__label {
+  margin: 18px 0 0;
+  font-family: var(--font-nav, "Inter", sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mb-muted, #7f8f9d);
+}
+
+@media (max-width: 575px) {
+  .mb-stats { padding: 56px 0 64px; }
+  .mb-stats__label { font-size: 10px; letter-spacing: 0.18em; }
+}
