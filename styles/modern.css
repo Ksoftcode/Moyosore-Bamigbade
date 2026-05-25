@@ -302,8 +302,14 @@ textarea {
    ══════════════════════════════════════════════════════════ */
 .mb-clients {
   padding: 64px 0;
-  background: #eef1f5;
+  background: #ffffff;
   overflow: hidden;
+}
+
+/* Force white background on the projects/portfolio section (overrides template defaults) */
+#portfolio,
+.portfolio.section {
+  background: #ffffff !important;
 }
 .mb-clients .section-intro {
   text-align: center;
@@ -383,7 +389,7 @@ textarea {
    ══════════════════════════════════════════════════════════ */
 .mb-services {
   padding: 80px 0;
-  background: #f7f8fa;
+  background: #ffffff;
 }
 .mb-services .section-intro {
   text-align: center;
@@ -774,92 +780,175 @@ textarea {
   .mb-contact-tile { padding: 20px 16px; }
 }
 /* ══════════════════════════════════════════════════════════
-   TESTIMONIALS - circle avatar centered
+   TESTIMONIALS - Jadoo-exact (light theme)
    ══════════════════════════════════════════════════════════ */
 .mb-testimonials {
-  background: var(--mb-heading, #0f1d27);
-  padding: 80px 0;
+  background: #ffffff;
+  padding: 120px 0;
   overflow: hidden;
 }
-.mb-testimonials .section-intro {
-  text-align: center;
-  margin-bottom: 48px;
+
+/* Left column intro */
+.mb-testimonials__intro {
+  padding-right: clamp(0px, 2vw, 24px);
+  margin-bottom: 32px;
 }
-.mb-testimonials .section-intro h2 {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 8px;
-}
-.mb-testimonials .section-intro p {
-  color: rgba(255,255,255,0.55);
+.mb-testimonials__eyebrow {
+  font-family: "Poppins", var(--font-body, sans-serif);
   font-size: 1rem;
+  font-weight: 500;
+  color: #5E6282;
+  margin: 0 0 16px;
 }
-.mb-tslide {
-  text-align: center;
-  padding: 20px 16px 32px;
-}
-.mb-tslide .avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid rgba(255,255,255,0.12);
-  margin: 0 auto 20px;
-  display: block;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-.mb-tslide .stars {
-  margin-bottom: 14px;
-}
-.mb-tslide .stars i {
-  color: #f5b731;
-  font-size: 0.82rem;
-  margin: 0 1px;
-}
-.mb-tslide .quote {
-  font-size: 0.95rem;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.72);
-  max-width: 480px;
-  margin: 0 auto 20px;
-  font-style: italic;
-  position: relative;
-}
-.mb-tslide .quote::before {
-  content: '\201C';
-  font-size: 3rem;
-  font-family: Georgia, serif;
-  color: var(--mb-accent);
-  position: absolute;
-  top: -18px;
-  left: -8px;
-  line-height: 1;
-  opacity: 0.6;
-}
-.mb-tslide .name {
-  font-family: var(--font-display);
+.mb-testimonials__title {
+  font-family: "Volkhov", "DM Serif Display", serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
   font-weight: 700;
-  font-size: 1rem;
-  color: #fff;
-  margin-bottom: 2px;
+  line-height: 1.2;
+  color: #212832;
+  margin: 0;
+  text-transform: capitalize;
 }
-.mb-tslide .role {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.03em;
+
+/* Right column stage */
+.mb-testimonials__stage {
+  position: relative;
+  padding: 40px 56px 16px 40px;
 }
-.mb-testimonials .swiper-pagination-bullet {
-  background: rgba(255,255,255,0.3);
+.mb-testimonials__swiper {
+  position: relative;
+  overflow: visible;
+  padding: 16px 24px 32px 24px;
+  margin: -16px -24px -32px -24px;
+  perspective: 1000px;
+}
+.mb-testimonials__swiper .swiper-wrapper {
+  align-items: stretch;
+}
+/* Slide IS the card (cards effect clips slide overflow so card visuals must live here) */
+.mb-testimonials__swiper .swiper-slide {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+  padding: 28px 28px 26px 28px;
+  min-height: 220px;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Indicators on top */
+.mb-testimonials__pagination {
+  position: relative;
+  text-align: left;
+  margin-bottom: 24px;
+  padding-left: 4px;
+}
+.mb-testimonials__pagination .swiper-pagination-bullet {
+  background: rgba(94, 98, 130, 0.25);
   opacity: 1;
   width: 8px;
   height: 8px;
+  margin: 0 5px !important;
+  transition: width 240ms ease, background 240ms ease;
 }
-.mb-testimonials .swiper-pagination-bullet-active {
-  background: var(--mb-accent);
+.mb-testimonials__pagination .swiper-pagination-bullet-active {
+  background: #5E6282;
   width: 24px;
   border-radius: 4px;
+}
+
+/* Card */
+/* Card visual now lives on the slide; .mb-tcard is just a content wrapper */
+.mb-tcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+.mb-tcard__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+}
+.mb-tcard__body {
+  display: flex;
+  flex-direction: column;
+}
+.mb-tcard__quote {
+  font-family: "Poppins", var(--font-body, sans-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #212832;
+  font-weight: 500;
+  margin: 0 0 18px;
+}
+.mb-tcard__name {
+  font-family: "Poppins", var(--font-body, sans-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #5E6282;
+  margin: 0 0 2px;
+  text-transform: capitalize;
+}
+.mb-tcard__role {
+  font-family: "Poppins", var(--font-body, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #5E6282;
+  margin: 0;
+}
+
+/* Offset shadow card — hidden because Swiper cards effect renders the stack natively */
+.mb-tcard__shadow {
+  display: none;
+}
+
+/* Up/down arrow navigation on the right */
+.mb-tnav {
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  z-index: 3;
+}
+.mb-tnav__btn {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #5E6282;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 240ms ease, transform 240ms ease;
+}
+.mb-tnav__btn:hover {
+  color: #212832;
+  transform: scale(1.15);
+}
+
+@media (max-width: 991px) {
+  .mb-testimonials { padding: 80px 0; }
+  .mb-testimonials__intro { text-align: center; margin-bottom: 48px; padding: 0; }
+  .mb-testimonials__stage { padding: 40px 48px 16px 30px; }
+  .mb-testimonials__pagination { text-align: center; padding-left: 0; }
+}
+@media (max-width: 575px) {
+  .mb-testimonials__stage { padding: 36px 40px 16px 24px; }
+  .mb-tcard { padding: 20px; }
+  .mb-tcard__avatar { width: 56px; height: 56px; }
+  .mb-tcard__shadow { transform: translate(14px, 14px); }
+  .mb-tnav { right: 4px; }
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -867,7 +956,7 @@ textarea {
    ══════════════════════════════════════════════════════════ */
 .mb-team {
   padding: 80px 0;
-  background: #f5f6f8;
+  background: #ffffff;
 }
 .mb-team .section-intro {
   text-align: center;
@@ -1122,7 +1211,7 @@ textarea {
  * ============================================================ */
 .mb-subs {
   padding: 96px 0 112px;
-  background: var(--mb-bg-soft, #f5f7fa);
+  background: #ffffff;
 }
 .mb-subs .container { max-width: 1240px; }
 
@@ -1607,11 +1696,11 @@ img.reveal-clip.in-view {
 
 /* ---- Row 2: Values ---- */
 .mb-about__values {
-  margin-top: clamp(72px, 9vw, 112px);
+  margin-top: 0;
 }
 .mb-about__values-head {
   max-width: 680px;
-  margin: 0 0 clamp(40px, 5vw, 64px);
+  margin: 0 0 clamp(24px, 3vw, 40px);
 }
 .mb-about__values-title {
   font-family: var(--font-display, "Raleway", sans-serif);
@@ -1748,7 +1837,7 @@ img.reveal-clip.in-view {
   grid-template-columns: 1fr;
   gap: clamp(28px, 3.2vw, 56px);
   align-items: center;
-  margin-top: clamp(72px, 9vw, 112px);
+  margin-top: 0;
 }
 @media (min-width: 992px) {
   .mb-about__scope {
@@ -1900,7 +1989,7 @@ img.reveal-clip.in-view {
   position: relative;
   isolation: isolate;
   max-width: none;
-  padding: clamp(56px, 9vw, 120px) clamp(24px, 4vw, 56px);
+  padding: clamp(40px, 5vw, 72px) clamp(24px, 4vw, 56px);
   border-radius: 24px;
   overflow: hidden;
   background-image:
@@ -1910,7 +1999,7 @@ img.reveal-clip.in-view {
   background-position: center;
   background-repeat: no-repeat;
   text-align: center;
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: clamp(24px, 3vw, 40px);
 }
 .mb-about__values-head--banner .mb-about__eyebrow {
   color: var(--mb-accent, #ff4a17);
@@ -1930,7 +2019,7 @@ img.reveal-clip.in-view {
   grid-template-columns: 1fr;
   gap: clamp(28px, 3.2vw, 56px);
   align-items: center;
-  margin-top: clamp(72px, 9vw, 112px);
+  margin-top: 0;
 }
 @media (min-width: 992px) {
   .mb-about__shelter {
@@ -2011,4 +2100,527 @@ img.reveal-clip.in-view {
 .mb-services,
 .mb-subs {
   isolation: isolate;
+}
+
+/* ══════════════════════════════════════════════════════════
+   GLOBAL — light theme rhythm
+   - Alternate pure white / very faint tint between sections
+   - Subtle backdrop on the clients marquee so logos read
+   - Brand-accent rule under section eyebrows
+   - Combo C: beefed-up hairline
+   - Combo D: extra breathing whitespace between bands
+   ══════════════════════════════════════════════════════════ */
+
+/* base: every content section white */
+#stats,
+#about,
+#about.about,
+#services-2,
+#subsidiaries,
+#portfolio,
+#founder,
+#founder.light-background,
+#mission-vision,
+#team,
+#testimonials,
+#clients,
+#contact {
+  background: #ffffff !important;
+}
+
+/* alternation: every other section gets the faintest tint */
+#stats,
+#services-2,
+#portfolio,
+#mission-vision,
+#testimonials {
+  background: #fafbfc !important;
+}
+
+/* clients marquee needs a slightly stronger backdrop so logos don't melt */
+#clients {
+  background: #f6f7f9 !important;
+}
+
+/* Hairline divider between adjacent sections */
+#stats,
+#about,
+#services-2,
+#subsidiaries,
+#portfolio,
+#founder,
+#mission-vision,
+#team,
+#testimonials,
+#clients,
+#contact {
+  border-top: 1px solid #e9ecef;
+}
+
+/* Combo D: extra vertical whitespace between bands (tightened for clean rhythm)
+   NOTE: #contact is intentionally excluded — it has padding:0 by design so the
+   map sits edge-to-edge against the clients section above and the dark tile
+   strip butts directly against the map. */
+@media (min-width: 768px) {
+  #stats,
+  #services-2,
+  #subsidiaries,
+  #portfolio,
+  #founder,
+  #mission-vision,
+  #team,
+  #testimonials {
+    padding-top: clamp(64px, 7vw, 96px) !important;
+    padding-bottom: clamp(64px, 7vw, 96px) !important;
+  }
+}
+
+/* Brand accent rule under section eyebrows */
+.mb-stats__eyebrow,
+.mb-about__eyebrow,
+.mb-subs__eyebrow,
+.mb-testimonials__eyebrow {
+  position: relative;
+  padding-bottom: 14px;
+  display: inline-block;
+}
+.mb-stats__eyebrow::after,
+.mb-about__eyebrow::after,
+.mb-subs__eyebrow::after,
+.mb-testimonials__eyebrow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--mb-accent, #ff4a17);
+}
+/* centered intros: center the accent rule too */
+.mb-subs__head .mb-subs__eyebrow::after,
+.text-center .mb-about__eyebrow::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ──────────────────────────────────────────────────────────
+   ABOUT — break into alternating full-bleed mini-bands
+   Each row (intro / values / scope / shelter) becomes its
+   own visual band with its own background + top hairline.
+   ────────────────────────────────────────────────────────── */
+#about,
+#about.about,
+.mb-about {
+  background: transparent !important;
+  padding: 0 !important;
+  border-top: none !important;
+}
+
+.mb-about__intro,
+.mb-about__values,
+.mb-about__scope,
+.mb-about__shelter {
+  position: relative;
+  isolation: isolate;
+  padding-top: clamp(56px, 7vw, 96px) !important;
+  padding-bottom: clamp(56px, 7vw, 96px) !important;
+}
+.mb-about__intro::before,
+.mb-about__values::before,
+.mb-about__scope::before,
+.mb-about__shelter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+  border-top: 1px solid #e9ecef;
+}
+.mb-about__intro::before   { background: #ffffff; }
+.mb-about__values::before  { background: #fafbfc; }
+.mb-about__scope::before   { background: #ffffff; }
+.mb-about__shelter::before { background: #fafbfc; }
+
+/* the very first band sits right under the hero — no hairline above it */
+.mb-about > .container > .mb-about__intro:first-child::before {
+  border-top: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ADDRESS — Floating Overlap Cards (Jadoo-style)
+   ══════════════════════════════════════════════════════════ */
+#contact { overflow: visible; }
+
+.mb-addr-float {
+  position: relative;
+  z-index: 2;
+  margin-top: -52px;
+  padding-bottom: 24px;
+}
+.mb-addr-float__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+@media (max-width: 991px) { .mb-addr-float__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575px) { .mb-addr-float__grid { grid-template-columns: 1fr; gap: 14px; } }
+
+.mb-addr-float__card {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: clamp(22px, 2.4vw, 30px) clamp(16px, 2vw, 24px);
+  text-align: center;
+  box-shadow: none;
+  transition:
+    top 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Orange accent leaf — slides out on hover (exact Jadoo) */
+.mb-addr-float__card::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  bottom: -20px;
+  width: 56px;
+  height: 56px;
+  background: var(--mb-accent, #ff4a17);
+  border-radius: 18px 0 8px 0;
+  z-index: -1;
+  opacity: 0;
+  transition:
+    opacity 360ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    left 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    bottom 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.mb-addr-float__card:hover {
+  animation: cardBounce 480ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  box-shadow:
+    0 6px 16px rgba(39, 61, 78, 0.06),
+    0 28px 64px rgba(39, 61, 78, 0.14);
+}
+@keyframes cardBounce {
+  0%   { top: 0; }
+  40%  { top: -8px; }
+  70%  { top: 2px; }
+  100% { top: -4px; }
+}
+.mb-addr-float__card:first-child:hover::before {
+  opacity: 1;
+  left: -20px;
+  bottom: -20px;
+}
+/* Last card: flip leaf to bottom-right */
+.mb-addr-float__card:last-child::before {
+  left: auto;
+  right: -20px;
+  border-radius: 0 18px 0 8px;
+}
+.mb-addr-float__card:last-child:hover::before {
+  opacity: 1;
+  right: -20px;
+  bottom: -20px;
+}
+/* Remove leaf from middle cards */
+.mb-addr-float__card:nth-child(2)::before,
+.mb-addr-float__card:nth-child(3)::before {
+  display: none;
+}
+
+/* Icon with offset cream tile (exact Jadoo) */
+.mb-addr-float__icon {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--mb-accent, #ff4a17);
+  margin: 0 auto 22px;
+  isolation: isolate;
+}
+.mb-addr-float__icon::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  width: 42px;
+  height: 42px;
+  background: #fff1e9;
+  border-radius: 6px;
+  z-index: -1;
+  transition: background 360ms ease;
+}
+.mb-addr-float__card:hover .mb-addr-float__icon::before {
+  background: #ffe2d3;
+}
+
+/* Text */
+.mb-addr-float__card h6 {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-weight: 800;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5a6a78;
+  margin-bottom: 8px;
+}
+.mb-addr-float__card p {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--mb-heading, #273d4e);
+  margin: 0;
+  line-height: 1.55;
+}
+.mb-addr-float__card a {
+  color: var(--mb-heading, #273d4e);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.mb-addr-float__card a:hover { color: var(--mb-accent, #ff4a17); }
+
+
+
+/* ══════════════════════════════════════════════════════════
+   CONTACT — Material Conversational Form
+   ══════════════════════════════════════════════════════════ */
+.mb-cf-mat {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: #fafbfc;
+}
+
+/* Elevated card surface */
+.mb-cf-mat__card {
+  max-width: 580px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.06),
+    0 8px 24px rgba(0,0,0,0.07);
+  padding: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 56px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Progress indicator */
+.mb-cf-mat__progress {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.mb-cf-mat__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e0e4ea;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mb-cf-mat__dot--active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--mb-accent, #ff4a17);
+}
+.mb-cf-mat__dot--done {
+  background: var(--mb-accent, #ff4a17);
+}
+
+/* Steps */
+.mb-cf-mat__step {
+  display: none;
+  animation: matStepIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mb-cf-mat__step--active { display: block; }
+@keyframes matStepIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Prompt text */
+.mb-cf-mat__prompt {
+  font-family: var(--font-display, "Raleway", sans-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--mb-heading, #273d4e);
+  margin-bottom: 28px;
+  line-height: 1.3;
+}
+
+/* Material filled text field */
+.mb-cf-mat__field {
+  position: relative;
+  margin-bottom: 20px;
+}
+.mb-cf-mat__field input,
+.mb-cf-mat__field textarea {
+  width: 100%;
+  border: none;
+  border-radius: 12px 12px 0 0;
+  background: #f4f5f7;
+  padding: 24px 16px 8px;
+  font-size: 1rem;
+  color: var(--mb-heading, #273d4e);
+  transition: background 0.2s;
+  caret-color: var(--mb-accent, #ff4a17);
+}
+.mb-cf-mat__field textarea {
+  border-radius: 12px;
+  padding-top: 28px;
+  resize: vertical;
+  min-height: 100px;
+}
+.mb-cf-mat__field input:hover,
+.mb-cf-mat__field textarea:hover {
+  background: #eef0f3;
+}
+.mb-cf-mat__field input:focus,
+.mb-cf-mat__field textarea:focus {
+  outline: none;
+  background: #eef0f3;
+}
+
+/* Floating label */
+.mb-cf-mat__field label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 0.95rem;
+  color: #7a8a96;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left top;
+}
+.mb-cf-mat__field input:focus ~ label,
+.mb-cf-mat__field input:not(:placeholder-shown) ~ label,
+.mb-cf-mat__field textarea:focus ~ label,
+.mb-cf-mat__field textarea:not(:placeholder-shown) ~ label {
+  transform: translateY(-10px) scale(0.75);
+  color: var(--mb-accent, #ff4a17);
+}
+/* placeholder trick — inputs need placeholder=" " */
+.mb-cf-mat__field input::placeholder,
+.mb-cf-mat__field textarea::placeholder {
+  color: transparent;
+}
+
+/* Bottom bar (material indicator line) */
+.mb-cf-mat__bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #dde1e5;
+}
+.mb-cf-mat__bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--mb-accent, #ff4a17);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mb-cf-mat__field input:focus ~ .mb-cf-mat__bar::after,
+.mb-cf-mat__field textarea:focus ~ .mb-cf-mat__bar::after {
+  left: 0;
+  width: 100%;
+}
+
+/* Material contained button */
+.mb-cf-mat__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 24px;
+  background: var(--mb-accent, #ff4a17);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255,74,23,0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mb-cf-mat__btn:hover {
+  background: #e03e10;
+  box-shadow: 0 4px 16px rgba(255,74,23,0.35);
+  transform: translateY(-1px);
+}
+.mb-cf-mat__btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(255,74,23,0.2);
+}
+.mb-cf-mat__btn--submit {
+  background: var(--mb-heading, #273d4e);
+  box-shadow: 0 2px 8px rgba(39,61,78,0.2);
+}
+.mb-cf-mat__btn--submit:hover {
+  background: #1b2e3b;
+  box-shadow: 0 4px 16px rgba(39,61,78,0.3);
+}
+
+/* Material chips (project type) */
+.mb-cf-mat__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.mb-cf-mat__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 1.5px solid #e2e6ea;
+  border-radius: 20px;
+  background: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--mb-heading, #273d4e);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mb-cf-mat__chip i { font-size: 0.95rem; opacity: 0.6; }
+.mb-cf-mat__chip:hover {
+  border-color: var(--mb-accent, #ff4a17);
+  background: rgba(255,74,23,0.04);
+}
+.mb-cf-mat__chip--selected {
+  background: var(--mb-accent, #ff4a17);
+  border-color: var(--mb-accent, #ff4a17);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255,74,23,0.2);
+}
+.mb-cf-mat__chip--selected i { opacity: 1; }
+
+/* Done state */
+.mb-cf-mat__done { text-align: center; }
+.mb-cf-mat__done-icon {
+  font-size: 3rem;
+  color: #22c55e;
+  margin-bottom: 16px;
+  animation: matPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes matPop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 575px) {
+  .mb-cf-mat__card { padding: 32px 20px; }
+  .mb-cf-mat__chips { gap: 8px; }
+  .mb-cf-mat__chip { padding: 8px 14px; font-size: 0.8rem; }
 }
