@@ -270,8 +270,8 @@
     let selectedType = '';
     card.querySelectorAll('.mb-cf-mat__chip').forEach(chip => {
       chip.addEventListener('click', () => {
-        card.querySelectorAll('.mb-cf-mat__chip').forEach(c => c.classList.remove('is-selected'));
-        chip.classList.add('is-selected');
+        card.querySelectorAll('.mb-cf-mat__chip').forEach(c => c.classList.remove('mb-cf-mat__chip--selected'));
+        chip.classList.add('mb-cf-mat__chip--selected');
         selectedType = chip.dataset.value || chip.textContent.trim();
         // Auto-advance after a short pause so the selection is visible
         setTimeout(() => goToStep(4), 320);
