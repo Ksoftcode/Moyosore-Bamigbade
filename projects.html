@@ -557,7 +557,7 @@
     // Status filter — normalize to canonical buckets
     const statusBucket = s => /concept/i.test(s) ? 'Concept Stage' :
                               /construction/i.test(s) ? 'Under Construction' :
-                              /completed/i.test(s) ? 'Completed' : s;
+                              /published|completed/i.test(s) ? 'Completed' : s;
     const statCounts = list.reduce((m, p) => {
       const k = statusBucket(p.status); m[k] = (m[k]||0)+1; return m;
     }, {});
