@@ -100,13 +100,12 @@ $body .= "Sent from: " . ($_SERVER['HTTP_ORIGIN'] ?? $_SERVER['HTTP_HOST'] ?? 'w
 $body .= 'Time: ' . date('Y-m-d H:i:s T') . "\n";
 
 // Headers
-$safe_name  = addslashes($name);
 $headers    = implode("\r\n", [
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
     'From: MB Architects Website <noreply@' . FROM_DOMAIN . '>',
-    'Reply-To: ' . $name . ' <' . $email . '>',
+    'Reply-To: <' . $email . '>',
     'X-Mailer: PHP/' . phpversion(),
 ]);
 
