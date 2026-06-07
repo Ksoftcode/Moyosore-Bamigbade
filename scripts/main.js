@@ -414,7 +414,7 @@
 
   /**
    * Hero slide annotations — cycles location caption + slide counter
-   * in sync with the CSS heroFade animation (5 s per slide, 7 slides, 35 s loop).
+   * in sync with the CSS heroFade animation (5 s per slide; total slides derived from DOM).
    */
   (function initHeroAnnotations() {
     const slides  = Array.from(document.querySelectorAll('.hero-slide'));
