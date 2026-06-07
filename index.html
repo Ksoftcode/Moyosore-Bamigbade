@@ -194,13 +194,36 @@
         <div class="hero-slide" style="background-image:url('images/bg/hero-3.jpg');" data-caption="Luštica Bay Villa | Luštica Peninsula"></div>
         <div class="hero-slide" style="background-image:url('images/bg/hero-4.jpg');" data-caption="Kloof Road House | Bedfordview, Johannesburg"></div>
         <div class="hero-slide" style="background-image:url('images/bg/hero-6.jpg');" data-caption="Singapore Residence | Singapore"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-8.jpg');" data-caption="Centre Universitaire de Tamanrasset | Algeria"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-9.jpg');" data-caption="Luxury Residential | Lagos, Nigeria"></div>
+        <div class="hero-slide" style="background-image:url('images/bg/hero-10.jpg');" data-caption="Luxury Villa Development | Abuja, Nigeria"></div>
       </div>
 
       <!-- Animated draft line that draws across on each slide change -->
       <div class="hero-draftline"></div>
 
-      <div class="hero-container" data-aos="fade-up" data-aos-delay="150">
-        <h1>Designing Africa's Future Skylines</h1>
+      <!-- Scanning sweep line -->
+      <div class="hero-scan" aria-hidden="true"></div>
+
+      <!-- Architectural viewfinder corner marks -->
+      <div class="hero-viewfinder" aria-hidden="true">
+        <span class="hv-tl"></span>
+        <span class="hv-tr"></span>
+        <span class="hv-bl"></span>
+        <span class="hv-br"></span>
+      </div>
+
+      <!-- Location caption + slide counter (populated by JS) -->
+      <div class="hero-loc" aria-live="polite"></div>
+      <div class="hero-slide-num" aria-hidden="true"></div>
+
+      <div class="hero-container">
+        <h1 class="hero-title">
+          <span class="hero-word">Designing</span>
+          <span class="hero-word">Africa's</span>
+          <span class="hero-word">Future</span>
+          <span class="hero-word">Skylines</span>
+        </h1>
         <h2>Architecture, master planning and interiors rooted in African authenticity, grounded in global design intelligence.</h2>
         <div class="hero-description"></div>
       </div>
@@ -217,9 +240,9 @@
 
           <div class="mb-stats__intro" data-aos="fade-up">
             <span class="mb-stats__eyebrow">Practice at a glance</span>
-            <h2 class="mb-stats__title">
-              Designing across Africa,
-              <em>one brief at a time.</em>
+            <h2 class="mb-stats__title mb-stats__title--xpass">
+              <span class="mb-stats__title-line mb-stats__title-line--lr">Designing across Africa,</span>
+              <em class="mb-stats__title-line mb-stats__title-line--rl">one brief at a time.</em>
             </h2>
             <p class="mb-stats__lede">Six years of practice, seventy-four built commissions, and a network of clients and partners that now spans twelve countries.</p>
           </div>
@@ -238,7 +261,7 @@
               </svg>
               <div class="mb-stats__copy">
                 <div class="mb-stats__num">
-                  <span class="purecounter" data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1.6"></span><span class="mb-stats__suffix" aria-hidden="true">+</span>
+                  <span data-mb-loop-counter="150" data-mb-loop-stagger="0">0</span><span class="mb-stats__suffix" aria-hidden="true">+</span>
                 </div>
                 <p class="mb-stats__label">Happy Clients</p>
               </div>
@@ -262,7 +285,7 @@
               </svg>
               <div class="mb-stats__copy">
                 <div class="mb-stats__num">
-                  <span class="purecounter" data-purecounter-start="0" data-purecounter-end="74" data-purecounter-duration="1.6"></span><span class="mb-stats__suffix" aria-hidden="true">+</span>
+                  <span data-mb-loop-counter="74" data-mb-loop-stagger="600">0</span><span class="mb-stats__suffix" aria-hidden="true">+</span>
                 </div>
                 <p class="mb-stats__label">Projects Delivered</p>
               </div>
@@ -281,7 +304,7 @@
               </svg>
               <div class="mb-stats__copy">
                 <div class="mb-stats__num">
-                  <span class="purecounter" data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1.6"></span>
+                  <span data-mb-loop-counter="6" data-mb-loop-stagger="1200" data-mb-loop-up="1100" data-mb-loop-down="1000">0</span>
                 </div>
                 <p class="mb-stats__label">Years of Practice</p>
               </div>
@@ -297,7 +320,7 @@
               </svg>
               <div class="mb-stats__copy">
                 <div class="mb-stats__num">
-                  <span class="purecounter" data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1.6"></span>
+                  <span data-mb-loop-counter="5" data-mb-loop-stagger="1800" data-mb-loop-up="1000" data-mb-loop-down="900">0</span>
                 </div>
                 <p class="mb-stats__label">Awards</p>
               </div>
@@ -319,9 +342,9 @@
         <div class="mb-about__intro">
           <div class="mb-about__intro-copy" data-aos="fade-up">
             <span class="mb-about__eyebrow">About the practice</span>
-            <h2 class="mb-about__title">
-              Architecture rooted in Africa,
-              <em>shaped for a global audience.</em>
+            <h2 class="mb-about__title mb-about__title--xpass">
+              <span class="mb-about__title-line mb-about__title-line--lr">Architecture rooted in Africa,</span>
+              <em class="mb-about__title-line mb-about__title-line--rl">shaped for a global audience.</em>
             </h2>
             <p class="mb-about__lead">MB Architects Limited is a multidisciplinary design and consulting firm headquartered in Lagos, with regional studios in Abuja and Abidjan.</p>
             <p class="mb-about__body">We operate at the intersection of design, business, and social transformation &mdash; delivering work that is commercially intelligent, culturally grounded, and socially meaningful. Since our founding, we have completed over seventy commissions across residential, urban housing, hospitality, commercial, and institutional architecture, shaping skylines and communities across twelve countries.</p>
@@ -503,46 +526,40 @@
         </header>
 
         <div class="mb-subs__grid" data-aos="fade-up" data-aos-delay="100">
-          <a class="mb-subs__card mb-subs__card--featured" href="https://mburbaninfra.com" target="_blank" rel="noopener">
-            <div class="mb-subs__mark">MB<span>U</span></div>
-            <h3>MB Urban</h3>
-            <p>Urban design &amp; infrastructure planning</p>
-            <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
-          </a>
-          <a class="mb-subs__card" href="#" data-todo="confirm-url">
-            <div class="mb-subs__mark">MB<span>H</span></div>
+          <a class="mb-subs__card" href="#">
+            <div class="mb-subs__logo"><img src="images/subsidiaries/MB Holdings.png" alt="MB Holdings"></div>
             <h3>MB Holdings</h3>
             <p>Strategic investments &amp; group oversight</p>
             <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
           </a>
-          <a class="mb-subs__card" href="#" data-todo="confirm-url">
-            <div class="mb-subs__mark">MB<span>C</span></div>
-            <h3>MB Construction</h3>
-            <p>Build solutions &amp; project delivery</p>
+          <a class="mb-subs__card mb-subs__card--featured" href="https://mburbaninfra.com" target="_blank" rel="noopener">
+            <div class="mb-subs__logo"><img src="images/subsidiaries/MB Urban.png" alt="MB Urban Infrastructure Limited"></div>
+            <h3>MB Urban Infrastructure Limited</h3>
+            <p>Urban design &amp; infrastructure planning</p>
             <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
           </a>
-          <a class="mb-subs__card" href="#" data-todo="confirm-url">
-            <div class="mb-subs__mark">MB<span>R</span></div>
-            <h3>MB Real Estate</h3>
-            <p>Property development &amp; asset management</p>
+          <a class="mb-subs__card" href="#">
+            <div class="mb-subs__logo"><img src="images/subsidiaries/MB AML.png" alt="MB Assets Management Limited"></div>
+            <h3>MB Assets Management Limited</h3>
+            <p>Property &amp; asset portfolio management</p>
             <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
           </a>
-          <a class="mb-subs__card" href="#" data-todo="confirm-url">
-            <div class="mb-subs__mark">MB<span>E</span></div>
-            <h3>MB Energy</h3>
-            <p>Energy &amp; sustainability systems</p>
+          <a class="mb-subs__card" href="#">
+            <div class="mb-subs__logo"><img src="images/subsidiaries/Homex.png" alt="HomeX Infrastructure Limited"></div>
+            <h3>HomeX Infrastructure Limited</h3>
+            <p>Affordable housing &amp; residential development</p>
             <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
           </a>
-          <a class="mb-subs__card" href="#" data-todo="confirm-url">
-            <div class="mb-subs__mark">MB<span>P</span></div>
-            <h3>MB Hospitality</h3>
+          <a class="mb-subs__card" href="#">
+            <div class="mb-subs__logo"><img src="images/subsidiaries/MB Hospitality.png" alt="MB Hospitality Limited"></div>
+            <h3>MB Hospitality Limited</h3>
             <p>Hotels, resorts &amp; lifestyle ventures</p>
             <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
           </a>
-          <a class="mb-subs__card" href="#" data-todo="confirm-url">
-            <div class="mb-subs__mark">MB<span>K</span></div>
-            <h3>MB Capital</h3>
-            <p>Financial structuring &amp; advisory</p>
+          <a class="mb-subs__card" href="#">
+            <div class="mb-subs__logo"><img src="images/subsidiaries/MB IP & Brands.png" alt="MB IP &amp; Brand Limited"></div>
+            <h3>MB IP &amp; Brand Limited</h3>
+            <p>Intellectual property &amp; brand management</p>
             <span class="mb-subs__cta">Visit site <i class="bi bi-arrow-up-right"></i></span>
           </a>
         </div>
@@ -629,7 +646,7 @@
         <div class="row align-items-center">
           <div class="col-lg-6 position-relative" data-aos="fade-right" data-aos-delay="200">
             <div class="founder-image">
-              <img src="images/team/Moyosore Bamigbade 1.jpg" alt="Moyosore Bamigbade, Chief Executive of MB Architects" class="img-fluid rounded-4">
+              <img src="images/team/Moyosore Bamigbade.jpg" alt="Moyosore Bamigbade, Chief Executive of MB Architects" class="img-fluid rounded-4">
             </div>
           </div>
 
@@ -695,12 +712,13 @@
 
         <div class="row g-3">
 
+          <!-- 1 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
             <div class="mb-team-card">
-              <img src="images/team/Moyosore Bamigbade 2.jpg" alt="Moyosore Bamigbade">
+              <img src="images/team/Moyosore Bamigbade.jpg" alt="Moyosore Bamigbade">
               <div class="overlay">
                 <h4>Moyosore Bamigbade</h4>
-                <div class="role">Chief Executive</div>
+                <div class="role">Founder &amp; Chief Executive</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -711,12 +729,13 @@
             </div>
           </div>
 
+          <!-- 2 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-team-card">
-              <img src="images/team/Princess Ejiro' Bamigbade 1.jpg" alt="Princess Ejiro' Bamigbade">
+              <img src="images/team/Princess Ejiro' Bamigbade.jpg" alt="Princess Ejiro' Bamigbade">
               <div class="overlay">
-                <h4>Princess Ejiro' Bamigbade</h4>
-                <div class="role">Director</div>
+                <h4>Princess Ejiro&rsquo; Bamigbade</h4>
+                <div class="role">Co-founder &amp; Executive Director, Corporate Development</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -727,12 +746,13 @@
             </div>
           </div>
 
+          <!-- 3 — low-res photo flagged for replacement -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
             <div class="mb-team-card">
-              <img src="images/team/Oluwaseyi Adebisi.jpg" alt="Oluwaseyi Adebisi">
+              <img src="images/team/Ikechukwu Nkemakolan.jpg" alt="Ikechukwu Nkemakolam" style="image-rendering:auto;">
               <div class="overlay">
-                <h4>Oluwaseyi Adebisi</h4>
-                <div class="role">Civil Engineer</div>
+                <h4>Ikechukwu Nkemakolam</h4>
+                <div class="role">Chief Operating Officer</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -743,12 +763,13 @@
             </div>
           </div>
 
+          <!-- 4 — low-res photo flagged for replacement -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
             <div class="mb-team-card">
-              <img src="images/team/Taiwo Adekankun.jpg" alt="Taiwo Adekankun">
+              <img src="images/team/Todimu Bamigbade.jpeg" alt="Todimu Bamigbade" style="image-rendering:auto;">
               <div class="overlay">
-                <h4>Taiwo Adekankun</h4>
-                <div class="role">Graduate Architect</div>
+                <h4>Todimu Bamigbade</h4>
+                <div class="role">Chief Financial Officer</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -759,12 +780,13 @@
             </div>
           </div>
 
+          <!-- 5 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
             <div class="mb-team-card">
-              <img src="images/team/Toluwani Akintoye.jpg" alt="Toluwani Akintoye">
+              <img src="images/team/Faith Utoro.jpg" alt="Faith Utoro">
               <div class="overlay">
-                <h4>Toluwani Akintoye</h4>
-                <div class="role">Graduate Architect</div>
+                <h4>Faith Utoro</h4>
+                <div class="role">Office Secretary</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -775,12 +797,13 @@
             </div>
           </div>
 
+          <!-- 6 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
             <div class="mb-team-card">
-              <img src="images/team/Bamigbade Toluwalase.jpg" alt="Toluwalase Bamigbade">
+              <img src="images/team/Adedasola Adeniyi.jpg" alt="Adedasola Adeniyi">
               <div class="overlay">
-                <h4>Toluwalase Bamigbade</h4>
-                <div class="role">Graduate Architect</div>
+                <h4>Adedasola Adeniyi</h4>
+                <div class="role">Architect</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -791,12 +814,13 @@
             </div>
           </div>
 
+          <!-- 7 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
             <div class="mb-team-card">
-              <img src="images/team/Bello Opemipo.jpg" alt="Opemipo Bello">
+              <img src="images/team/Layefa Olorogun.jpg" alt="Layefa Olorogun">
               <div class="overlay">
-                <h4>Opemipo Bello</h4>
-                <div class="role">Graduate Architect</div>
+                <h4>Layefa Olorogun</h4>
+                <div class="role">Architect</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -807,70 +831,7 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="mb-team-card mb-team-card--placeholder">
-              <div class="mb-team-card__initials" aria-hidden="true">FO</div>
-              <div class="overlay">
-                <h4>Francis Onuigbo</h4>
-                <div class="role">Site Architect</div>
-                <div class="social">
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
-            <div class="mb-team-card">
-              <img src="images/team/Joseph Odewumi.jpg" alt="Joseph Odewumi">
-              <div class="overlay">
-                <h4>Joseph Odewumi</h4>
-                <div class="role">Site Architect</div>
-                <div class="social">
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="mb-team-card">
-              <img src="images/team/Ikechukwu Nkemakolan.jpg" alt="Ikechukwu Nkemakolan">
-              <div class="overlay">
-                <h4>Ikechukwu Nkemakolan</h4>
-                <div class="role">Site Architect</div>
-                <div class="social">
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
-            <div class="mb-team-card">
-              <img src="images/team/Oladimeji Ibrahim.jpg" alt="Ibrahim Oladimeji">
-              <div class="overlay">
-                <h4>Ibrahim Oladimeji</h4>
-                <div class="role">Site Architect</div>
-                <div class="social">
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <!-- 8 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
             <div class="mb-team-card">
               <img src="images/team/Temitayo Olude.jpg" alt="Temitayo Olude">
@@ -887,12 +848,13 @@
             </div>
           </div>
 
+          <!-- 9 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
             <div class="mb-team-card">
-              <img src="images/team/Layefa Olorogun.jpg" alt="Layefa Olorogun">
+              <img src="images/team/Bello Opemipo.jpg" alt="Opemipo Bello">
               <div class="overlay">
-                <h4>Layefa Olorogun</h4>
-                <div class="role">Architect</div>
+                <h4>Opemipo Bello</h4>
+                <div class="role">Junior Architect</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -903,28 +865,13 @@
             </div>
           </div>
 
+          <!-- 10 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="mb-team-card mb-team-card--placeholder">
-              <div class="mb-team-card__initials" aria-hidden="true">TB</div>
-              <div class="overlay">
-                <h4>Todimu Bamigbade</h4>
-                <div class="role">Account &amp; Finance Officer</div>
-                <div class="social">
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
             <div class="mb-team-card">
               <img src="images/team/Modupe Sulaiman.jpg" alt="Modupe Sulaiman">
               <div class="overlay">
                 <h4>Modupe Sulaiman</h4>
-                <div class="role">Architectural Technologist</div>
+                <div class="role">Junior Architect</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -935,12 +882,30 @@
             </div>
           </div>
 
+          <!-- 11 -->
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-team-card">
+              <img src="images/team/Taiwo Adekankun.jpg" alt="Taiwo Adekankun">
+              <div class="overlay">
+                <h4>Taiwo Adekankun</h4>
+                <div class="role">Junior Architect</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 12 -->
           <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
             <div class="mb-team-card">
-              <img src="images/team/Faith Utoro.jpg" alt="Faith Utoro">
+              <img src="images/team/Toluwani Akintoye.jpg" alt="Toluwani Akintoye">
               <div class="overlay">
-                <h4>Faith Utoro</h4>
-                <div class="role">Office Admin</div>
+                <h4>Toluwani Akintoye</h4>
+                <div class="role">Junior Architect</div>
                 <div class="social">
                   <a href="#"><i class="bi bi-twitter-x"></i></a>
                   <a href="#"><i class="bi bi-facebook"></i></a>
@@ -951,6 +916,93 @@
             </div>
           </div>
 
+          <!-- 13 -->
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-team-card">
+              <img src="images/team/Bamigbade Toluwalase.jpg" alt="Toluwalase Bamigbade">
+              <div class="overlay">
+                <h4>Toluwalase Bamigbade</h4>
+                <div class="role">Junior Architect</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 14 — no photo on file yet -->
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="mb-team-card mb-team-card--placeholder">
+              <div class="mb-team-card__initials" aria-hidden="true">FO</div>
+              <div class="overlay">
+                <h4>Francis Onuigbo</h4>
+                <div class="role">Junior Architect</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 15 -->
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="mb-team-card">
+              <img src="images/team/Joseph Odewumi.jpg" alt="Joseph Odewumi">
+              <div class="overlay">
+                <h4>Joseph Odewumi</h4>
+                <div class="role">Site Architect</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 16 -->
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="mb-team-card">
+              <img src="images/team/Musa Akinjobi.jpg" alt="Musa Akinjobi">
+              <div class="overlay">
+                <h4>Musa Akinjobi</h4>
+                <div class="role">Site Supervisor</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 17 — no photo on file yet -->
+          <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="50">
+            <div class="mb-team-card mb-team-card--placeholder">
+              <div class="mb-team-card__initials" aria-hidden="true">AI</div>
+              <div class="overlay">
+                <h4>Abdulgafar Idris</h4>
+                <div class="role">Site Supervisor</div>
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+            </div>
         </div>
       </div>
     </section><!--End Team Section -->
@@ -1217,27 +1269,17 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.437!2d3.3825!3d6.5731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d7b1d8c1e0d%3A0x7f3e5b8c4e8c9e0d!2sMagodo%20Phase%202%2C%20Lagos!5e0!3m2!1sen!2sng!4v1"
           style="border:0;" allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="MB Architects Head Office &mdash; Magodo Phase 2, Lagos"></iframe>
+          title="MB Architects Lagos Studio &mdash; Magodo Phase 2, Lagos"></iframe>
         <div class="hero-overlay">
           <h2>Get In Touch</h2>
           <p>Have a project in mind? We'd love to hear from you.</p>
         </div>
       </div>
 
-      <!-- Floating address cards -->
+      <!-- Floating contact cards -->
       <div class="mb-addr-float">
         <div class="container">
           <div class="mb-addr-float__grid">
-            <div class="mb-addr-float__card">
-              <div class="mb-addr-float__icon"><i class="bi bi-geo-alt"></i></div>
-              <h6>Lagos Studio</h6>
-              <p>Plot B8, CMD &ndash; Jubilee Road<br>Magodo Phase 2, Lagos</p>
-            </div>
-            <div class="mb-addr-float__card">
-              <div class="mb-addr-float__icon"><i class="bi bi-geo-alt"></i></div>
-              <h6>Abuja Studio</h6>
-              <p>2nd Floor, Los Angeles Mall<br>Mabushi, Abuja</p>
-            </div>
             <div class="mb-addr-float__card">
               <div class="mb-addr-float__icon"><i class="bi bi-telephone"></i></div>
               <h6>Call Us</h6>
@@ -1248,6 +1290,16 @@
               <h6>Email</h6>
               <p><a href="mailto:partnerships@mbarchitects.ng">partnerships@mbarchitects.ng</a><br><a href="mailto:info@mbarchitects.ng">info@mbarchitects.ng</a></p>
             </div>
+            <div class="mb-addr-float__card">
+              <div class="mb-addr-float__icon"><i class="bi bi-share"></i></div>
+              <h6>Follow Us</h6>
+              <p class="mb-addr-float__socials">
+                <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1256,6 +1308,8 @@
       <div class="mb-cf-mat">
         <div class="container">
           <div class="mb-cf-mat__card" data-aos="fade-up">
+            <!-- Honeypot: hidden from humans, bots fill it in -->
+            <input type="text" name="hp" id="mb-cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
 
             <!-- Progress dots -->
             <div class="mb-cf-mat__progress">
@@ -1378,18 +1432,7 @@
         <!-- Offices -->
         <div class="col-lg-4 col-md-6 footer-offices">
           <h5>Our Offices</h5>
-          <div class="office">
-            <strong>Lagos Studio</strong>
-            <span>Plot B8, CMD &ndash; Jubilee Road, Magodo Phase 2, Lagos</span>
-          </div>
-          <div class="office">
-            <strong>Abuja Studio</strong>
-            <span>2nd Floor, Los Angeles Mall, Mabushi, Abuja</span>
-          </div>
-          <div class="office">
-            <strong>Abidjan</strong>
-            <span>Cocody II Plateaux, Abidjan, C&ocirc;te d&apos;Ivoire</span>
-          </div>
+          <p class="mb-footer-cities">Lagos &nbsp;|&nbsp; Abuja &nbsp;|&nbsp; Abidjan &nbsp;|&nbsp; London</p>
           <div style="margin-top:16px; font-size:0.88rem;">
             <i class="bi bi-telephone" style="color:var(--mb-accent); margin-right:6px;"></i>
             <a href="tel:+2347036532200">+234 703 653 2200</a> &middot;

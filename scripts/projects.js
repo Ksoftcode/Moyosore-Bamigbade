@@ -35,7 +35,9 @@ window.MB_PROJECTS = (function () {
     "bank-branch-rollout", "branded-banking-prototype", "regional-office-development",
     "lekki-villa-cluster", "abuja-villa-2025", "ibadan-villa-2025",
     "noun-mccarthy-lagos", "urban-housing-2025", "residential-urban-development-2025",
-    "infill-housing", "mb-architects-hq", "research-eko-atlantic", "research-ibeju-lekki"
+    "infill-housing", "mb-architects-hq", "research-eko-atlantic", "research-ibeju-lekki",
+    // TEMP HIDDEN — folder contains wrong images (St Annes Ibadan); await correct assets from client
+    "affordable-housing"
   ]);
 
   const _ALL = [
