@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project — MB Architects</title>
   <link rel="icon" href="images/favicon.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/colors-and-type.css">
   <link rel="stylesheet" href="styles/modern.css">
   <style>
@@ -348,13 +348,13 @@
       <a href="index.html#hero">Home</a>
       <a href="index.html#about">About&nbsp;US</a>
       <a href="index.html#services-2">Services</a>
+      <a href="index.html#subsidiaries">Subsidiaries</a>
       <a href="projects.html" class="is-active">Projects</a>
       <a href="index.html#team">Our&nbsp;Team</a>
       <a href="index.html#contact">Contact</a>
     </nav>
     <div class="right">
       <span class="progress" id="progress">— / —</span>
-      <a class="cta-btn" href="https://mburbaninfra.com">MB&nbsp;URBAN</a>
       <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav"><span class="bar"></span></button>
     </div>
   </header>
@@ -385,7 +385,7 @@
         <ul>
           <li><a href="index.html#hero">Home</a></li>
           <li><a href="index.html#about">About&nbsp;Us</a></li>
-          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#services-2">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
@@ -395,24 +395,21 @@
       <div class="col">
         <h4>Services</h4>
         <ul>
-          <li><a href="index.html#services">Architecture</a></li>
+          <li><a href="index.html#services-2">Architecture</a></li>
           <li><a href="https://mburbaninfra.com">MB&nbsp;Urban</a></li>
-          <li><a href="index.html#services">Master Planning</a></li>
-          <li><a href="interior.html">Interior Design</a></li>
-          <li><a href="index.html#services">3D Visualization</a></li>
-          <li><a href="index.html#services">Sustainable Design</a></li>
+          <li><a href="index.html#services-2">Master Planning</a></li>
+          <li><a href="index.html#services-2">Interior Design</a></li>
+          <li><a href="index.html#services-2">3D Visualization</a></li>
+          <li><a href="index.html#services-2">Sustainable Design</a></li>
         </ul>
       </div>
 
       <!-- Offices -->
       <div class="col">
         <h4>Our Offices</h4>
-        <p><strong>Head Office</strong><br>Oniru, Victoria Island, Lagos, Nigeria</p>
-        <p><strong>Incubator Office</strong><br>32 Obayan Street, Akoka-Yaba, Lagos</p>
-        <p><strong>Abuja</strong><br>4th Floor, Standard Plaza, Wuse 2, Abuja</p>
-        <p><strong>Abidjan</strong><br>Cocody II Plateaux, Abidjan, C&ocirc;te d&apos;Ivoire</p>
-        <p style="margin-top:14px"><i class="bi bi-telephone" style="color:var(--mb-accent); margin-right:6px;"></i><a href="tel:+2347036532200">+234 703 653 2200</a> &middot; <a href="tel:+2348071357537">+234 807 135 7537</a></p>
-        <p><i class="bi bi-envelope" style="color:var(--mb-accent); margin-right:6px;"></i><a href="mailto:moyosore.bamigbade@gmail.com">moyosore.bamigbade@gmail.com</a></p>
+        <p class="mb-footer-cities">Lagos &nbsp;|&nbsp; Abuja &nbsp;|&nbsp; Abidjan &nbsp;|&nbsp; London</p>
+        <p style="margin-top:14px"><i class="bi bi-telephone" style="color:var(--mb-accent); margin-right:6px;"></i><a href="tel:+2347036532200">+234 703 653 2200</a> &middot; <a href="tel:+2348133082567">+234 813 308 2567</a></p>
+        <p><i class="bi bi-envelope" style="color:var(--mb-accent); margin-right:6px;"></i><a href="mailto:partnerships@mbarchitects.ng">partnerships@mbarchitects.ng</a></p>
       </div>
     </div>
     <div class="copyright">
@@ -422,7 +419,7 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="scripts/projects.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
@@ -525,7 +522,7 @@
         </section>
 
         <dl class="meta-strip">
-          <div><dt>Typology</dt><dd>${p.typology}</dd></div>
+          <div><dt>Category</dt><dd>${p.typology}</dd></div>
           <div><dt>Year</dt><dd>${p.year}</dd></div>
           <div><dt>Role</dt><dd>${p.role}</dd></div>
           <div><dt>Project Cost</dt><dd>${p.cost || '—'}</dd></div>
