@@ -337,7 +337,7 @@
         phone,
         project_type: selectedType,
         message,
-        hp: '',          // honeypot — always empty for real users
+        hp: (document.getElementById('mb-cf-hp')?.value || ''), // honeypot
       });
 
       try {
