@@ -341,12 +341,19 @@
       });
 
       try {
-        const res  = await fetch('forms/contact.php', { method: 'POST', body });
-        const data = await res.json();
-        if (data.status === 'ok') {
+        const res = await fetch('forms/contact.php', { method: 'POST', body });
+        let data = null;
+        try { data = await res.json(); } catch { /* non-JSON response */ }
+
+        if (!res.ok) {
+          showError(btn, data?.message || `Request failed (${res.status}). Please try again.`);
+          return;
+        }
+
+        if (data?.status === 'ok') {
           showDone();
         } else {
-          showError(btn, data.message || 'Something went wrong. Please try again.');
+          showError(btn, data?.message || 'Something went wrong. Please try again.');
         }
       } catch {
         showError(btn, 'Network error. Please check your connection and try again.');
