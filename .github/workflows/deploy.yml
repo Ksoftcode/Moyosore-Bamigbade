@@ -19,3 +19,19 @@ jobs:
         password: ${{ secrets.MB_FTP_CONNECT }}
         protocol: ftps                            # ⬅ important for many cPanel hosts
         port: 21
+        exclude: |
+          **/.git/**
+          **/.github/**
+          **/.vscode/**
+          **/.claude/**
+          **/.history/**
+          **/node_modules/**
+          **/assets/**
+          **/legacy/**
+          .gitattributes
+          .tmp-portfolio-title.png
+          amplify.yml
+          azure-pipelines.yml
+          changelog.txt
+          LICENSE
+          README.md
