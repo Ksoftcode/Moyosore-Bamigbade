@@ -95,7 +95,7 @@
       sub.className = 'mb-preloader__sub';
       sub.textContent = 'Architecture · Design · Place';
 
-      el.append(logoWrap, wordmark, sub);
+      el.append(logoWrap, sub);
     }
 
     const el = document.getElementById('preloader');
@@ -778,6 +778,8 @@
       entries.forEach(en => {
         if (en.isIntersecting) {
           load();
+          // Show section immediately so the poster is visible while video loads
+          section.classList.add('is-playing');
           if (!reduce && !saveData) video.play().catch(() => {});
         } else {
           video.pause();
