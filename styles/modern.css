@@ -384,6 +384,17 @@ textarea {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
+/* ── Preloader: logo above the wordmark ─────────────────── */
+.mb-preloader__logo {
+  order: 0;
+  margin-bottom: -8px; /* close the gap between logo and wordmark */
+}
+.mb-preloader__logo img {
+  height: clamp(72px, 12vw, 110px);
+  width: auto;
+  display: block;
+}
+
 /* ══════════════════════════════════════════════════════════
    CLIENTS - auto-scroll marquee
    ══════════════════════════════════════════════════════════ */

@@ -68,6 +68,15 @@
 
     function buildPreloader(el) {
       el.innerHTML = '';
+
+      // Logo above the wordmark
+      const logoWrap = document.createElement('div');
+      logoWrap.className = 'mb-preloader__logo';
+      const logoImg = document.createElement('img');
+      logoImg.src = 'images/logo.png';
+      logoImg.alt = 'MB Architects';
+      logoWrap.append(logoImg);
+
       const wordmark = document.createElement('div');
       wordmark.className = 'mb-preloader__wordmark';
       LETTERS.forEach(ch => {
@@ -86,7 +95,7 @@
       sub.className = 'mb-preloader__sub';
       sub.textContent = 'Architecture · Design · Place';
 
-      el.append(wordmark, sub);
+      el.append(logoWrap, wordmark, sub);
     }
 
     const el = document.getElementById('preloader');
