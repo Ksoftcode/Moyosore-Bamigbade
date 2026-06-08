@@ -319,7 +319,7 @@
     .photography .eyebrow { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 600; }
     .photography .eyebrow::after { content: ""; display: inline-block; width: 80px; height: 1px; background: rgba(255,255,255,0.2); margin: 0 0 4px 12px; vertical-align: middle; }
     .photography h2 { font-family: var(--font-display); font-weight: 800; font-size: 32px; text-transform: uppercase; color: #fff; margin: 6px 0 32px; }
-    .photography .carousel-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .photography .carousel-item img { width: 100%; max-height: 80vh; object-fit: contain; background: #15222b; display: block; }
     .photography .carousel-indicators [data-bs-target] { background-color: rgba(255,255,255,0.4); width: 8px; height: 8px; border-radius: 50%; border: none; }
     .photography .carousel-indicators .active { background-color: var(--mb-accent); }
     .photography .carousel-control-prev,
@@ -748,6 +748,7 @@
       });
     })();
   </script>
+
 
 </body>
 </html>

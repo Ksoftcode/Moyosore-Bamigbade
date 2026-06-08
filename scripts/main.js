@@ -59,14 +59,85 @@
   });
 
   /**
-   * Preloader
+   * Preloader — white background, brand wordmark + orange spinner + tagline.
+   * Also serves as the page transition on navigation.
    */
-  const preloader = document.querySelector('#preloader');
-  if (preloader) {
+  (function initPreloader() {
+    // Brand accent → brand navy: clean two-colour diagonal sweep
+    const G = 'linear-gradient(145deg, #ff4a17 0%, #273d4e 100%)';
+    const LETTERS = [
+      { ch: 'M',  g: G },
+      { ch: 'B',  g: G },
+      { ch: null },
+      { ch: 'A',  g: G },
+      { ch: 'R',  g: G },
+      { ch: 'C',  g: G },
+      { ch: 'H',  g: G },
+      { ch: 'I',  g: G },
+      { ch: 'T',  g: G },
+      { ch: 'E',  g: G },
+      { ch: 'C',  g: G },
+      { ch: 'T',  g: G },
+      { ch: 'S',  g: G },
+    ];
+
+    function buildPreloader(el) {
+      el.innerHTML = '';
+      const wordmark = document.createElement('div');
+      wordmark.className = 'mb-preloader__wordmark';
+      LETTERS.forEach(({ ch, g }) => {
+        if (!ch) {
+          const sp = document.createElement('span');
+          sp.className = 'mb-preloader__space';
+          wordmark.append(sp); return;
+        }
+        const span = document.createElement('span');
+        span.className = 'mb-preloader__letter';
+        span.textContent = ch;
+        wordmark.append(span);
+      });
+
+      const sub = document.createElement('p');
+      sub.className = 'mb-preloader__sub';
+      sub.textContent = 'Architecture · Design · Place';
+
+      el.append(wordmark, sub);
+    }
+
+    const el = document.getElementById('preloader');
+    if (el) buildPreloader(el);
+
+    // Hide on page load
     window.addEventListener('load', () => {
-      preloader.remove();
+      const loader = document.getElementById('preloader');
+      if (!loader) return;
+      loader.classList.add('is-hidden');
+      setTimeout(() => loader.remove(), 550);
     });
-  }
+
+    // Show on navigation (acts as exit transition)
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[href]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href
+        || href.startsWith('#')
+        || href.startsWith('mailto:')
+        || href.startsWith('tel:')
+        || link.getAttribute('target') === '_blank') return;
+      if (!href.includes('.html') && !href.endsWith('/')) return;
+      e.preventDefault();
+      let loader = document.getElementById('preloader');
+      if (!loader) {
+        loader = document.createElement('div');
+        loader.id = 'preloader';
+        buildPreloader(loader);       // build content before inserting into DOM
+        document.body.append(loader); // single paint: spinner + wordmark together
+      }
+      loader.classList.remove('is-hidden');
+      setTimeout(() => { window.location.href = href; }, 520);
+    });
+  })();
 
   /**
    * Scroll top button
@@ -413,8 +484,278 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
   /**
+   * Film grain — subtle animated noise overlay (editorial feel).
+   */
+  (function initFilmGrain() {
+    const grain = document.createElement('div');
+    grain.id = 'mb-grain';
+    document.body.prepend(grain);
+  })();
+
+  /**
+   * Magnetic CTAs — buttons pull toward cursor when nearby.
+   */
+  (function initMagneticCTAs() {
+    if (!matchMedia('(hover: hover)').matches) return;
+    document.querySelectorAll('.cta-btn, .btn-getstarted').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) * 0.38;
+        const y = (e.clientY - r.top  - r.height / 2) * 0.38;
+        btn.style.transform = `translate(${x}px,${y}px)`;
+        btn.style.transition = 'transform 0.08s ease';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform  = '';
+        btn.style.transition = 'transform 0.5s cubic-bezier(.2,.7,.2,1)';
+      });
+    });
+  })();
+
+  /**
+   * Ambient cursor glow — large soft orange orb that drifts toward cursor.
+   */
+  (function initAmbientGlow() {
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const glow = document.createElement('div');
+    glow.id = 'mb-cursor-glow';
+    document.body.append(glow);
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let gx = mx, gy = my;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function lerp() {
+      gx += (mx - gx) * 0.04;
+      gy += (my - gy) * 0.04;
+      glow.style.transform = `translate(${gx}px,${gy}px)`;
+      requestAnimationFrame(lerp);
+    })();
+  })();
+
+  /**
+   * Text scramble — eyebrow labels glitch through random chars on scroll-in.
+   */
+  (function initTextScramble() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·—';
+    function scramble(el) {
+      const original = el.textContent;
+      const upper    = original.toUpperCase();
+      let frame = 0;
+      const frames  = upper.length * 2 + 6;
+      (function tick() {
+        el.textContent = upper.split('').map((ch, i) => {
+          if (ch === ' ') return ' ';
+          if (frame > i * 2 + 3) return upper[i];
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        }).join('');
+        if (++frame <= frames) requestAnimationFrame(tick);
+        else el.textContent = original;
+      })();
+    }
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !e.target.dataset.scrambled) {
+          e.target.dataset.scrambled = '1';
+          scramble(e.target);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('[class*="eyebrow"]').forEach(el => obs.observe(el));
+  })();
+
+  /**
+   * Hero parallax — title layer drifts upward and fades as user scrolls off hero.
+   */
+  (function initHeroParallax() {
+    const container = document.querySelector('.hero-container');
+    if (!container) return;
+    const hero = document.querySelector('#hero');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const heroH = hero ? hero.offsetHeight : window.innerHeight;
+        if (y <= heroH) {
+          const p = y / heroH;
+          container.style.transform = `translateY(${y * -0.22}px)`;
+          container.style.opacity   = Math.max(0, 1 - p * 1.7).toFixed(3);
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
+
+  /**
+   * Scroll progress bar — thin accent line at top of page.
+   */
+  (function initScrollProgress() {
+    const bar = document.createElement('div');
+    bar.id = 'mb-scroll-progress';
+    document.body.prepend(bar);
+    const update = () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  /**
+   * Custom cursor — dot + lagging ring, desktop/hover only.
+   */
+  (function initCustomCursor() {
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const dot  = document.createElement('div'); dot.id  = 'mb-cursor-dot';
+    const ring = document.createElement('div'); ring.id = 'mb-cursor-ring';
+    document.body.append(dot, ring);
+
+    let mx = -200, my = -200, rx = -200, ry = -200;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px,${my}px)`;
+    });
+
+    (function lerp() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.transform = `translate(${rx}px,${ry}px)`;
+      requestAnimationFrame(lerp);
+    })();
+
+    const hoverSel = 'a, button, label, [role="button"], .pf-tile, .mb-svc-card, .mb-subs__card, .mb-team-card, .cta-btn, .filter-btn, .swiper-button-next, .swiper-button-prev';
+    document.addEventListener('mouseover',  e => { if (e.target.closest(hoverSel)) document.body.classList.add('mb-cursor--hover'); });
+    document.addEventListener('mouseout',   e => { if (e.target.closest(hoverSel)) document.body.classList.remove('mb-cursor--hover'); });
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = '';  ring.style.opacity = ''; });
+  })();
+
+  /**
+   * 3-D card tilt — perspective lean on ALL card types with dynamic shadow.
+   */
+  (function initCardTilt() {
+    if (!matchMedia('(hover: hover)').matches) return;
+
+    /**
+     * @param {string}  selector   CSS selector for cards
+     * @param {number}  maxDeg     Max tilt in degrees
+     * @param {string}  [liftY]    Optional CSS translateY to preserve (e.g. team cards)
+     */
+    function attachTilt(selector, maxDeg, liftY) {
+      document.querySelectorAll(selector).forEach(card => {
+        const lift = liftY || '0px';
+        card.addEventListener('mousemove', e => {
+          const r  = card.getBoundingClientRect();
+          const nx = ((e.clientX - r.left)  / r.width  - 0.5) * 2; // -1…1
+          const ny = ((e.clientY - r.top)   / r.height - 0.5) * 2;
+          // Dynamic shadow shifts opposite to tilt direction (gives 3-D lighting feel)
+          const sx = (-nx * 16).toFixed(1);
+          const sy = (-ny * 16 + 20).toFixed(1);
+          card.style.transform  = `perspective(900px) rotateY(${(nx * maxDeg).toFixed(2)}deg) rotateX(${(-ny * maxDeg).toFixed(2)}deg) translateY(${lift}) translateZ(14px)`;
+          card.style.boxShadow  = `${sx}px ${sy}px 40px rgba(15,29,39,0.22), 0 4px 12px rgba(15,29,39,0.14)`;
+          card.style.transition = 'transform 0.07s linear';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform  = '';
+          card.style.boxShadow  = '';
+          card.style.transition = 'transform 0.55s cubic-bezier(.2,.7,.2,1), box-shadow 0.55s cubic-bezier(.2,.7,.2,1)';
+        });
+      });
+    }
+
+    attachTilt('.mb-svc-card',    7);
+    attachTilt('.mb-subs__card',  7);
+    attachTilt('.mb-team-card',   7,  '-6px');
+    attachTilt('.pf-tile',        7);
+  })();
+
+  /**
+   * "View Project" floating label — follows cursor over portfolio tiles.
+   */
+  (function initViewLabel() {
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!document.querySelector('.pf-tile, .pf-grid-item')) return;
+
+    const label = document.createElement('div');
+    label.id = 'mb-view-label';
+    label.textContent = 'View Project →';
+    document.body.append(label);
+
+    let lx = -200, ly = -200;
+    document.addEventListener('mousemove', e => {
+      lx = e.clientX; ly = e.clientY;
+      label.style.left = lx + 'px';
+      label.style.top  = ly + 'px';
+    });
+
+    const tileSel = '.pf-tile, .pf-grid-item';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(tileSel)) label.classList.add('is-visible');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(tileSel)) label.classList.remove('is-visible');
+    });
+  })();
+
+  /**
+   * Cinematic showreel band — one merged film (4 clips crossfaded in ffmpeg).
+   * Lazy-loads on first scroll-in, plays only while visible, and lights a
+   * 4-segment progress bar synced to the four phases of the film.
+   */
+  (function initShowreel() {
+    const section = document.getElementById('showreel');
+    if (!section) return;
+    const video = section.querySelector('.mb-showreel__video');
+    if (!video) return;
+    const dots   = section.querySelectorAll('.mb-showreel__progress span');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let loaded = false;
+
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      video.src = video.dataset.src;
+      video.load();
+    }
+
+    video.addEventListener('canplay',  () => section.classList.add('is-playing'));
+    video.addEventListener('playing',  () => section.classList.add('is-playing'));
+
+    // Phase boundaries = the crossfade midpoints baked into the film (4.5 / 9 / 13.5s)
+    const bounds = [4.75, 9.25, 13.75];
+    video.addEventListener('timeupdate', () => {
+      const t = video.currentTime;
+      let i = 0;
+      while (i < bounds.length && t >= bounds[i]) i++;
+      dots.forEach((d, k) => d.classList.toggle('is-on', k === i));
+    });
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          load();
+          if (!reduce) video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(section);
+
+    if (reduce) {            // show first frame / poster, no autoplay
+      load();
+      section.classList.add('is-playing');
+    }
+  })();
+
+  /**
    * Hero slide annotations — cycles location caption + slide counter
-   * in sync with the CSS heroFade animation (5 s per slide, 7 slides, 35 s loop).
+   * in sync with the CSS heroFade animation (5 s per slide, 10 slides, 50 s loop).
    */
   (function initHeroAnnotations() {
     const slides  = Array.from(document.querySelectorAll('.hero-slide'));
