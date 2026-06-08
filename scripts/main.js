@@ -341,8 +341,8 @@
     let selectedType = '';
     card.querySelectorAll('.mb-cf-mat__chip').forEach(chip => {
       chip.addEventListener('click', () => {
-        card.querySelectorAll('.mb-cf-mat__chip').forEach(c => c.classList.remove('is-selected'));
-        chip.classList.add('is-selected');
+        card.querySelectorAll('.mb-cf-mat__chip').forEach(c => c.classList.remove('mb-cf-mat__chip--selected'));
+        chip.classList.add('mb-cf-mat__chip--selected');
         selectedType = chip.dataset.value || chip.textContent.trim();
         // Auto-advance after a short pause so the selection is visible
         setTimeout(() => goToStep(4), 320);
@@ -408,16 +408,23 @@
         phone,
         project_type: selectedType,
         message,
-        hp: '',          // honeypot — always empty for real users
+        hp: (document.getElementById('mb-cf-hp')?.value || ''), // honeypot
       });
 
       try {
-        const res  = await fetch('forms/contact.php', { method: 'POST', body });
-        const data = await res.json();
-        if (data.status === 'ok') {
+        const res = await fetch('forms/contact.php', { method: 'POST', body });
+        let data = null;
+        try { data = await res.json(); } catch { /* non-JSON response */ }
+
+        if (!res.ok) {
+          showError(btn, data?.message || `Request failed (${res.status}). Please try again.`);
+          return;
+        }
+
+        if (data?.status === 'ok') {
           showDone();
         } else {
-          showError(btn, data.message || 'Something went wrong. Please try again.');
+          showError(btn, data?.message || 'Something went wrong. Please try again.');
         }
       } catch {
         showError(btn, 'Network error. Please check your connection and try again.');
@@ -755,7 +762,7 @@
 
   /**
    * Hero slide annotations — cycles location caption + slide counter
-   * in sync with the CSS heroFade animation (5 s per slide, 10 slides, 50 s loop).
+   * in sync with the CSS heroFade animation (5 s per slide; total slides derived from DOM).
    */
   (function initHeroAnnotations() {
     const slides  = Array.from(document.querySelectorAll('.hero-slide'));

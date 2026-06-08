@@ -530,7 +530,7 @@
               <div class="svc-icon"><i class="bi bi-brush"></i></div>
               <h4>Interior Design & Space Experience</h4>
               <p>We translate lifestyle, culture, and brand identity into spaces that evoke emotion and inspire productivity.</p>
-              <a href="#services" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
+              <a href="#services-2" class="svc-link">Learn more <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
 
@@ -663,7 +663,7 @@
         <!-- Index (list) view: visible when Index is selected -->
         <div class="pf-list" id="pfList" data-aos="fade-up" data-aos-delay="200">
           <div class="pf-list-header">
-            <div>No.</div><div>Image</div><div>Project</div><div>Location</div><div>Typology</div><div>Year</div><div>Status</div>
+            <div>No.</div><div>Image</div><div>Project</div><div>Location</div><div>Category</div><div>Year</div><div>Status</div>
           </div>
           <div id="pfListRows"></div>
         </div>
@@ -672,7 +672,7 @@
         <div class="pf-archive-cta">
           <div>
             <h3>Browse the full archive</h3>
-            <p>100+ projects across Africa, Europe and the Gulf, filterable by typology, year and location.</p>
+            <p>100+ projects across Africa, Europe and the Gulf, filterable by category and status.</p>
           </div>
           <a href="projects.html">View all projects &rarr;</a>
         </div>
@@ -1469,12 +1469,12 @@
         <div class="col-lg-2 col-md-3 col-6">
           <h5>Services</h5>
           <ul class="mb-footer-links">
-            <li><a href="#">Architecture</a></li>
+            <li><a href="#services-2">Architecture</a></li>
             <li><a href="https://mburbaninfra.com">MB Urban</a></li>
-            <li><a href="#">Master Planning</a></li>
-            <li><a href="#">Interior Design</a></li>
-            <li><a href="#">3D Visualization</a></li>
-            <li><a href="#">Sustainable Design</a></li>
+            <li><a href="#services-2">Master Planning</a></li>
+            <li><a href="#services-2">Interior Design</a></li>
+            <li><a href="#services-2">3D Visualization</a></li>
+            <li><a href="#services-2">Sustainable Design</a></li>
           </ul>
         </div>
 
@@ -1653,67 +1653,6 @@
         });
       });
     }
-  </script>
-
-  <!-- Material conversational form logic -->
-  <script>
-  (function() {
-    const card = document.querySelector('.mb-cf-mat__card');
-    if (!card) return;
-
-    const steps = card.querySelectorAll('.mb-cf-mat__step');
-    const dots  = card.querySelectorAll('.mb-cf-mat__dot');
-    let current = 1;
-
-    function goTo(idx) {
-      steps.forEach(s => s.classList.remove('mb-cf-mat__step--active'));
-      const target = card.querySelector('[data-step="' + idx + '"]');
-      if (target) { target.classList.add('mb-cf-mat__step--active'); current = idx; }
-
-      dots.forEach((d, i) => {
-        d.classList.remove('mb-cf-mat__dot--active', 'mb-cf-mat__dot--done');
-        if (i + 1 < idx) d.classList.add('mb-cf-mat__dot--done');
-        if (i + 1 === idx) d.classList.add('mb-cf-mat__dot--active');
-      });
-
-      const inp = target && target.querySelector('input, textarea');
-      if (inp) inp.focus();
-    }
-
-    // "Continue" buttons
-    card.querySelectorAll('.mb-cf-mat__btn[data-next]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const next = btn.dataset.next;
-        if (next === 'done') {
-          goTo('done');
-          dots.forEach(d => { d.classList.remove('mb-cf-mat__dot--active'); d.classList.add('mb-cf-mat__dot--done'); });
-        } else {
-          goTo(parseInt(next));
-        }
-      });
-    });
-
-    // Chip selection
-    card.querySelectorAll('.mb-cf-mat__chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        card.querySelectorAll('.mb-cf-mat__chip').forEach(c => c.classList.remove('mb-cf-mat__chip--selected'));
-        chip.classList.add('mb-cf-mat__chip--selected');
-        setTimeout(() => goTo(current + 1), 350);
-      });
-    });
-
-    // Enter key advances from input steps
-    card.querySelectorAll('input').forEach(inp => {
-      inp.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const step = inp.closest('.mb-cf-mat__step');
-          const btn = step && step.querySelector('.mb-cf-mat__btn');
-          if (btn) btn.click();
-        }
-      });
-    });
-  })();
   </script>
 
 </body>

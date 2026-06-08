@@ -476,7 +476,7 @@
         <ul>
           <li><a href="index.html#hero">Home</a></li>
           <li><a href="index.html#about">About&nbsp;Us</a></li>
-          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#services-2">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
@@ -486,12 +486,12 @@
       <div class="col">
         <h4>Services</h4>
         <ul>
-          <li><a href="index.html#services">Architecture</a></li>
+          <li><a href="index.html#services-2">Architecture</a></li>
           <li><a href="https://mburbaninfra.com">MB&nbsp;Urban</a></li>
-          <li><a href="index.html#services">Master Planning</a></li>
-          <li><a href="index.html#services">Interior Design</a></li>
-          <li><a href="index.html#services">3D Visualization</a></li>
-          <li><a href="index.html#services">Sustainable Design</a></li>
+          <li><a href="index.html#services-2">Master Planning</a></li>
+          <li><a href="index.html#services-2">Interior Design</a></li>
+          <li><a href="index.html#services-2">3D Visualization</a></li>
+          <li><a href="index.html#services-2">Sustainable Design</a></li>
         </ul>
       </div>
 
@@ -557,7 +557,7 @@
     // Status filter — normalize to canonical buckets
     const statusBucket = s => /concept/i.test(s) ? 'Concept Stage' :
                               /construction/i.test(s) ? 'Under Construction' :
-                              /completed/i.test(s) ? 'Completed' : s;
+                              /published|completed/i.test(s) ? 'Completed' : s;
     const statCounts = list.reduce((m, p) => {
       const k = statusBucket(p.status); m[k] = (m[k]||0)+1; return m;
     }, {});
