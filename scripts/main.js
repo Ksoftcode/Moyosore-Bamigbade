@@ -63,29 +63,14 @@
    * Also serves as the page transition on navigation.
    */
   (function initPreloader() {
-    // Brand accent → brand navy: clean two-colour diagonal sweep
-    const G = 'linear-gradient(145deg, #ff4a17 0%, #273d4e 100%)';
-    const LETTERS = [
-      { ch: 'M',  g: G },
-      { ch: 'B',  g: G },
-      { ch: null },
-      { ch: 'A',  g: G },
-      { ch: 'R',  g: G },
-      { ch: 'C',  g: G },
-      { ch: 'H',  g: G },
-      { ch: 'I',  g: G },
-      { ch: 'T',  g: G },
-      { ch: 'E',  g: G },
-      { ch: 'C',  g: G },
-      { ch: 'T',  g: G },
-      { ch: 'S',  g: G },
-    ];
+    // Wordmark characters; null = word-space between "MB" and "ARCHITECTS"
+    const LETTERS = ['M', 'B', null, 'A', 'R', 'C', 'H', 'I', 'T', 'E', 'C', 'T', 'S'];
 
     function buildPreloader(el) {
       el.innerHTML = '';
       const wordmark = document.createElement('div');
       wordmark.className = 'mb-preloader__wordmark';
-      LETTERS.forEach(({ ch, g }) => {
+      LETTERS.forEach(ch => {
         if (!ch) {
           const sp = document.createElement('span');
           sp.className = 'mb-preloader__space';
@@ -117,6 +102,9 @@
 
     // Show on navigation (acts as exit transition)
     document.addEventListener('click', e => {
+      // Let the browser handle modified / non-primary clicks (open in new tab, etc.)
+      if (e.defaultPrevented || e.button !== 0
+        || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const link = e.target.closest('a[href]');
       if (!link) return;
       const href = link.getAttribute('href');
@@ -124,7 +112,8 @@
         || href.startsWith('#')
         || href.startsWith('mailto:')
         || href.startsWith('tel:')
-        || link.getAttribute('target') === '_blank') return;
+        || link.getAttribute('target') === '_blank'
+        || link.hasAttribute('download')) return;
       if (!href.includes('.html') && !href.endsWith('/')) return;
       e.preventDefault();
       let loader = document.getElementById('preloader');
@@ -524,8 +513,10 @@
    */
   (function initAmbientGlow() {
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const glow = document.createElement('div');
     glow.id = 'mb-cursor-glow';
+    glow.setAttribute('aria-hidden', 'true');
     document.body.append(glow);
     let mx = window.innerWidth / 2, my = window.innerHeight / 2;
     let gx = mx, gy = my;
@@ -616,9 +607,10 @@
    */
   (function initCustomCursor() {
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const dot  = document.createElement('div'); dot.id  = 'mb-cursor-dot';
-    const ring = document.createElement('div'); ring.id = 'mb-cursor-ring';
+    const dot  = document.createElement('div'); dot.id  = 'mb-cursor-dot';  dot.setAttribute('aria-hidden', 'true');
+    const ring = document.createElement('div'); ring.id = 'mb-cursor-ring'; ring.setAttribute('aria-hidden', 'true');
     document.body.append(dot, ring);
 
     let mx = -200, my = -200, rx = -200, ry = -200;
@@ -636,8 +628,14 @@
     })();
 
     const hoverSel = 'a, button, label, [role="button"], .pf-tile, .mb-svc-card, .mb-subs__card, .mb-team-card, .cta-btn, .filter-btn, .swiper-button-next, .swiper-button-prev';
-    document.addEventListener('mouseover',  e => { if (e.target.closest(hoverSel)) document.body.classList.add('mb-cursor--hover'); });
-    document.addEventListener('mouseout',   e => { if (e.target.closest(hoverSel)) document.body.classList.remove('mb-cursor--hover'); });
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(hoverSel)) document.body.classList.add('mb-cursor--hover');
+    });
+    document.addEventListener('mouseout', e => {
+      // Ignore child-to-child moves inside the same hovered element (avoids flicker)
+      const from = e.target.closest(hoverSel);
+      if (from && !from.contains(e.relatedTarget)) document.body.classList.remove('mb-cursor--hover');
+    });
     document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
     document.addEventListener('mouseenter', () => { dot.style.opacity = '';  ring.style.opacity = ''; });
   })();
@@ -691,6 +689,7 @@
     const label = document.createElement('div');
     label.id = 'mb-view-label';
     label.textContent = 'View Project →';
+    label.setAttribute('aria-hidden', 'true');
     document.body.append(label);
 
     let lx = -200, ly = -200;
@@ -705,7 +704,9 @@
       if (e.target.closest(tileSel)) label.classList.add('is-visible');
     });
     document.addEventListener('mouseout', e => {
-      if (e.target.closest(tileSel)) label.classList.remove('is-visible');
+      // Keep the label visible while the pointer stays within the same tile
+      const from = e.target.closest(tileSel);
+      if (from && !from.contains(e.relatedTarget)) label.classList.remove('is-visible');
     });
   })();
 
