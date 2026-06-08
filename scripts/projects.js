@@ -35,7 +35,9 @@ window.MB_PROJECTS = (function () {
     "bank-branch-rollout", "branded-banking-prototype", "regional-office-development",
     "lekki-villa-cluster", "abuja-villa-2025", "ibadan-villa-2025",
     "noun-mccarthy-lagos", "urban-housing-2025", "residential-urban-development-2025",
-    "infill-housing", "mb-architects-hq", "research-eko-atlantic", "research-ibeju-lekki"
+    "infill-housing", "mb-architects-hq", "research-eko-atlantic", "research-ibeju-lekki",
+    // TEMP HIDDEN — folder contains wrong images (St Annes Ibadan); await correct assets from client
+    "affordable-housing"
   ]);
 
   const _ALL = [
@@ -750,6 +752,7 @@ window.MB_PROJECTS = (function () {
       year: 2024,
       role: "Architectural Design",
       status: "Completed",
+      cost: "On Request",
       description: "A 12-unit apartment block on a tight Surulere infill site — generous balconies, naturally cross-ventilated apartments, and a small ground-level community room.",
       cover: covPhoto("block-of-flats-surulere"),
       gallery: galFull("block-of-flats-surulere", 4),
@@ -766,6 +769,7 @@ window.MB_PROJECTS = (function () {
       year: 2024,
       role: "Construction & Financier",
       status: "Completed",
+      cost: "On Request",
       description: "A boutique terrace-apartment build on the Lekki corridor, delivered as a turnkey design-build-finance package.",
       cover: covPhoto("terrace-apartment-lekki"),
       gallery: galFull("terrace-apartment-lekki", 4),
@@ -781,6 +785,7 @@ window.MB_PROJECTS = (function () {
       year: 2025,
       role: "Architectural Design",
       status: "Concept Stage",
+      cost: "On Request",
       description: "A contemporary worship campus on the Lekki peninsula — a dramatic 2,500-seat auditorium, kids' wing, and a flexible plaza for community events.",
       cover: covPhoto("elevation-church-lekki"),
       gallery: galFull("elevation-church-lekki", 2),
@@ -964,6 +969,7 @@ window.MB_PROJECTS = (function () {
       year: 2024,
       role: "Architectural Design",
       status: "Concept Stage",
+      cost: "On Request",
       description: "Affordable housing prototype emphasising material economy, rapid construction and community-scale planning for Nigerian cities.",
       cover: cov("affordable-housing"),
       gallery: galFull("affordable-housing", 10)

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Selected Work — MB Architects</title>
   <link rel="icon" href="images/favicon.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/colors-and-type.css">
   <link rel="stylesheet" href="styles/modern.css">
   <style>
@@ -140,10 +140,19 @@
     /* ── Filter bar ─────────────────────────────────────── */
     .filter-bar {
       max-width: 1320px; margin: 64px auto 0; padding: 0 32px;
-      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+      display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap;
       border-top: 1px solid var(--mb-line);
       border-bottom: 1px solid var(--mb-line);
       padding-top: 18px; padding-bottom: 18px;
+    }
+    .filter-bar .filter-row {
+      display: flex; align-items: center; gap: 12px 22px; flex-wrap: wrap;
+      width: 100%;
+    }
+    .filter-bar .filter-label {
+      font-family: var(--font-nav); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--mb-muted); font-weight: 600;
+      min-width: 70px;
     }
     .filter-bar .group { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
     .filter {
@@ -378,13 +387,13 @@
       <a href="index.html#hero">Home</a>
       <a href="index.html#about">About&nbsp;US</a>
       <a href="index.html#services-2">Services</a>
+      <a href="index.html#subsidiaries">Subsidiaries</a>
       <a href="projects.html" class="is-active">Projects</a>
       <a href="index.html#team">Our&nbsp;Team</a>
       <a href="index.html#contact">Contact</a>
     </nav>
     <div class="right">
       <span class="count" id="topbarCount">— Projects</span>
-      <a class="cta-btn" href="https://mburbaninfra.com">MB&nbsp;URBAN</a>
       <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav"><span class="bar"></span></button>
     </div>
   </header>
@@ -413,7 +422,14 @@
 
   <!-- Filter bar -->
   <section class="filter-bar">
-    <div class="group" id="typFilters"></div>
+    <div class="filter-row">
+      <span class="filter-label">Category</span>
+      <div class="group" id="typFilters"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Status</span>
+      <div class="group" id="statusFilters"></div>
+    </div>
     <span class="spacer"></span>
     <div class="view-toggle" id="viewToggle">
       <button data-view="grid" class="is-active">Gallery</button>
@@ -431,7 +447,7 @@
       <div></div>
       <div>Project</div>
       <div>Location</div>
-      <div>Typology</div>
+      <div>Category</div>
       <div>Year</div>
       <div>Status</div>
     </div>
@@ -460,7 +476,7 @@
         <ul>
           <li><a href="index.html#hero">Home</a></li>
           <li><a href="index.html#about">About&nbsp;Us</a></li>
-          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#services-2">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
@@ -470,24 +486,21 @@
       <div class="col">
         <h4>Services</h4>
         <ul>
-          <li><a href="index.html#services">Architecture</a></li>
+          <li><a href="index.html#services-2">Architecture</a></li>
           <li><a href="https://mburbaninfra.com">MB&nbsp;Urban</a></li>
-          <li><a href="index.html#services">Master Planning</a></li>
-          <li><a href="interior.html">Interior Design</a></li>
-          <li><a href="index.html#services">3D Visualization</a></li>
-          <li><a href="index.html#services">Sustainable Design</a></li>
+          <li><a href="index.html#services-2">Master Planning</a></li>
+          <li><a href="index.html#services-2">Interior Design</a></li>
+          <li><a href="index.html#services-2">3D Visualization</a></li>
+          <li><a href="index.html#services-2">Sustainable Design</a></li>
         </ul>
       </div>
 
       <!-- Offices -->
       <div class="col">
         <h4>Our Offices</h4>
-        <p><strong>Head Office</strong><br>Oniru, Victoria Island, Lagos, Nigeria</p>
-        <p><strong>Incubator Office</strong><br>32 Obayan Street, Akoka-Yaba, Lagos</p>
-        <p><strong>Abuja</strong><br>4th Floor, Standard Plaza, Wuse 2, Abuja</p>
-        <p><strong>Abidjan</strong><br>Cocody II Plateaux, Abidjan, C&ocirc;te d&apos;Ivoire</p>
-        <p style="margin-top:14px"><i class="bi bi-telephone" style="color:var(--mb-accent); margin-right:6px;"></i><a href="tel:+2347036532200">+234 703 653 2200</a> &middot; <a href="tel:+2348071357537">+234 807 135 7537</a></p>
-        <p><i class="bi bi-envelope" style="color:var(--mb-accent); margin-right:6px;"></i><a href="mailto:moyosore.bamigbade@gmail.com">moyosore.bamigbade@gmail.com</a></p>
+        <p class="mb-footer-cities">Lagos &nbsp;|&nbsp; Abuja &nbsp;|&nbsp; Abidjan &nbsp;|&nbsp; London</p>
+        <p style="margin-top:14px"><i class="bi bi-telephone" style="color:var(--mb-accent); margin-right:6px;"></i><a href="tel:+2347036532200">+234 703 653 2200</a> &middot; <a href="tel:+2348133082567">+234 813 308 2567</a></p>
+        <p><i class="bi bi-envelope" style="color:var(--mb-accent); margin-right:6px;"></i><a href="mailto:partnerships@mbarchitects.ng">partnerships@mbarchitects.ng</a></p>
       </div>
     </div>
     <div class="copyright">
@@ -519,22 +532,51 @@
     document.getElementById('statCities').textContent = stats.cities;
     document.getElementById('statCompleted').textContent = stats.completed;
 
-    // ── Filters (typology) ──────────────────────────
+    // ── Filters (typology + status) ──────────────────────
+    let activeTyp = initialTyp;
+    let activeStatus = params.get('status') || 'All';
+
     const typCounts = list.reduce((m, p) => { m[p.typology] = (m[p.typology]||0)+1; return m; }, {});
     const typs = ['All', ...Object.keys(typCounts).sort()];
     const fEl = document.getElementById('typFilters');
     typs.forEach(t => {
       const b = document.createElement('button');
-      b.className = 'filter' + (t === initialTyp ? ' is-active' : '');
+      b.className = 'filter' + (t === activeTyp ? ' is-active' : '');
       b.dataset.typ = t;
       const c = t === 'All' ? list.length : typCounts[t];
       b.innerHTML = `${t} <span class="count">${c}</span>`;
       b.addEventListener('click', () => {
-        document.querySelectorAll('.filter').forEach(x => x.classList.remove('is-active'));
+        activeTyp = t;
+        document.querySelectorAll('#typFilters .filter').forEach(x => x.classList.remove('is-active'));
         b.classList.add('is-active');
-        render(t);
+        render();
       });
       fEl.appendChild(b);
+    });
+
+    // Status filter — normalize to canonical buckets
+    const statusBucket = s => /concept/i.test(s) ? 'Concept Stage' :
+                              /construction/i.test(s) ? 'Under Construction' :
+                              /published|completed/i.test(s) ? 'Completed' : s;
+    const statCounts = list.reduce((m, p) => {
+      const k = statusBucket(p.status); m[k] = (m[k]||0)+1; return m;
+    }, {});
+    const order = ['All', 'Completed', 'Under Construction', 'Concept Stage'];
+    const statuses = order.filter(s => s === 'All' || statCounts[s]);
+    const sEl = document.getElementById('statusFilters');
+    statuses.forEach(s => {
+      const b = document.createElement('button');
+      b.className = 'filter' + (s === activeStatus ? ' is-active' : '');
+      b.dataset.status = s;
+      const c = s === 'All' ? list.length : (statCounts[s]||0);
+      b.innerHTML = `${s} <span class="count">${c}</span>`;
+      b.addEventListener('click', () => {
+        activeStatus = s;
+        document.querySelectorAll('#statusFilters .filter').forEach(x => x.classList.remove('is-active'));
+        b.classList.add('is-active');
+        render();
+      });
+      sEl.appendChild(b);
     });
 
     // ── View toggle ────────────────────────────────
@@ -581,9 +623,14 @@
     }
 
     // ── Main grid ──────────────────────────────────
-    function render(filter = 'All') {
-      document.body.classList.toggle('is-filtered', filter !== 'All');
-      const filtered = filter === 'All' ? list : list.filter(p => p.typology === filter);
+    function render() {
+      const isFiltered = activeTyp !== 'All' || activeStatus !== 'All';
+      document.body.classList.toggle('is-filtered', isFiltered);
+      const filtered = list.filter(p => {
+        const typOk = activeTyp === 'All' || p.typology === activeTyp;
+        const statOk = activeStatus === 'All' || statusBucket(p.status) === activeStatus;
+        return typOk && statOk;
+      });
       const grid = document.getElementById('grid');
       grid.innerHTML = filtered.map(p => `
         <a class="card" href="project.html?slug=${p.slug}">
@@ -606,7 +653,9 @@
     }
 
     renderFeatured();
-    render(typs.includes(initialTyp) ? initialTyp : 'All');
+    if (!typs.includes(activeTyp)) activeTyp = 'All';
+    if (!statuses.includes(activeStatus)) activeStatus = 'All';
+    render();
 
     /* Mobile nav toggle */
     (function () {
@@ -625,6 +674,7 @@
       });
     })();
   </script>
+
 
 </body>
 </html>
