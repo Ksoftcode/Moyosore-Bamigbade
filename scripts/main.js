@@ -101,8 +101,11 @@
     const el = document.getElementById('preloader');
     if (el) buildPreloader(el);
 
-    // Hide on page load
-    window.addEventListener('load', () => {
+    // Hide once fonts are ready + a minimum 350ms so the logo animation
+    // has time to breathe. Previously used window 'load' which waited for
+    // every image/video — adding 5-6s on mobile with no benefit.
+    const minShow = new Promise(r => setTimeout(r, 350));
+    Promise.all([document.fonts.ready, minShow]).then(() => {
       const loader = document.getElementById('preloader');
       if (!loader) return;
       loader.classList.add('is-hidden');

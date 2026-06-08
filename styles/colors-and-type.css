@@ -4,7 +4,10 @@
  * ============================================================ */
 
 /* ---- Fonts ---- */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+/* @import removed — fonts are loaded via <link rel="stylesheet"> in the
+   HTML head of each page (projects.html etc.) to avoid the @import
+   waterfall. The font URL now lives in the HTML alongside other CSS links
+   so the browser can fetch fonts in parallel with other resources. */
 
 :root {
   /* ---- Font Families ---- */
