@@ -37,6 +37,22 @@
 }
 
 /* ── Body & global type ──────────────────────────────────── */
+/* Guard against sideways scroll jitter on mobile. Several sections
+   use full-bleed ::before overlays (`width: 100vw` + transform trick)
+   that can overshoot the viewport by a few px on Android Chrome where
+   `100vw` ignores the scrollbar gutter. `section { overflow: clip }`
+   handles most of it; this is the root-level safety net. */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* BUG-10: Custom PNG cursor (style.css line 92) has no meaning on
+   touch devices — reset to the OS default so no PNG is fetched. */
+@media (hover: none), (pointer: coarse) {
+  body { cursor: auto !important; }
+}
+
 body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -179,6 +195,23 @@ header nav a, header nav a:focus {
 
 /* ── Hero ────────────────────────────────────────────────── */
 .hero, #hero { position: relative; }
+/* Poster image behind the .hero-slide layers — eliminates the dark
+   void during cold load and between Ken-Burns cross-fades.
+   Matches the first slide in index.html so the transition is seamless. */
+#hero {
+  background-color: #0d141a;
+  background-image: url('../images/bg/hero-8.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Cancel the permanent GPU-layer promotion on every .hero-slide
+   (set in style.css). Holding 17 full-screen compositor layers
+   forever caused mobile Chrome to evict & re-upload textures,
+   showing brief black/blank flashes on the S24 Ultra. Letting the
+   browser auto-promote only the active slide is what we want. */
+.hero-slide { will-change: auto; }
 .hero h1, #hero h1 {
   font-family: var(--font-display);
   font-weight: 800;
@@ -243,6 +276,59 @@ textarea {
   transition: background .2s;
 }
 .mobile-nav-toggle:hover { background: rgba(15,29,39,.06); }
+/* When nav is open the toggle becomes the × close button — it floats
+   over the dark overlay so it must be white (our !important above
+   would otherwise force dark navy on it). */
+.mobile-nav-active .mobile-nav-toggle { color: #fff !important; }
+
+/* ── Mobile header: transparent bar · centred logo · logo-only pill ── */
+@media (max-width: 1199px) {
+  /* Strip the dark veil from the header bar when not scrolled.
+     (.scrolled class is added to <body> by main.js at 100px scroll) */
+  body:not(.scrolled) .header {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Centre the logo by absolutely positioning it — navmenu stays in
+     normal flow so its full-screen open state is not disrupted */
+  .header .container {
+    position: relative;
+  }
+  .header .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    /* Neat dark pill so the logo is readable on any hero image */
+    background: rgba(0, 0, 0, 0.42);
+    border-radius: 8px;
+    padding: 6px 14px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* Nav drawer links: the ul card is white (--nav-mobile-background-color),
+     so force dark text — overrides the global white nav-link rule */
+  .navmenu ul {
+    bottom: auto !important; /* override inset: 60px 20px 20px 20px from style.css */
+    height: auto !important;
+  }
+  .navmenu a,
+  .navmenu a:focus,
+  .navmenu li > a {
+    color: var(--mb-heading) !important;
+  }
+  .navmenu a:hover,
+  .navmenu .active,
+  .navmenu .active > a,
+  .navmenu .active:focus {
+    color: var(--mb-accent) !important;
+  }
+}
 
 /* ── Section title (Bootstrap template) refinement ───────── */
 .section-title h2 {
@@ -1149,7 +1235,7 @@ textarea {
   line-height: 1.5;
 }
 
-/* City tags line */
+/* City tags line — BUG-11: allow wrap gracefully on narrow screens */
 .mb-footer-cities {
   font-size: 0.95rem;
   font-weight: 600;
@@ -1157,6 +1243,13 @@ textarea {
   color: rgba(255,255,255,0.9);
   margin: 6px 0 0;
   line-height: 1.6;
+  word-break: break-word;
+}
+@media (max-width: 359px) {
+  .mb-footer-cities {
+    font-size: 0.82rem;
+    letter-spacing: 0.01em;
+  }
 }
 .mb-footer-social {
   display: flex;
@@ -1195,6 +1288,15 @@ textarea {
 .mb-footer-bottom a:hover { color: var(--mb-accent); }
 @media (max-width: 767px) {
   .mb-footer-bottom { justify-content: center; text-align: center; }
+}
+
+/* BUG-13: team cards — 1-up below 480px for better readability */
+@media (max-width: 479px) {
+  #team .col-6 {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1373,6 +1475,20 @@ textarea {
 }
 .mb-subs__cta i { transition: transform .3s var(--ease-out-soft); }
 .mb-subs__card:hover .mb-subs__cta i { transform: translate(3px, -3px); }
+
+/* Responsive collapse — at narrow viewports the strict 3-up grid
+   crushes the cards (logo alone is wider than the cell). Keep 3-up
+   on laptops/tablets-landscape, 2-up on tablets-portrait, 1-up on
+   phones. Padding tightens at the smallest size so the orange bloom
+   doesn't dominate the card. */
+@media (max-width: 991px) {
+  .mb-subs__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575px) {
+  .mb-subs__grid { grid-template-columns: 1fr; gap: 16px; }
+  .mb-subs__card { padding: 26px 22px 24px; }
+  .mb-subs__card::before { width: 96px; height: 96px; right: -48px; bottom: -48px; }
+}
 
 @media (max-width: 575px) {
   .mb-subs { padding: 72px 0 88px; }
@@ -2302,7 +2418,11 @@ img.reveal-clip.in-view {
   gap: 18px;
 }
 @media (max-width: 991px) { .mb-addr-float__grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 767px)  { .mb-addr-float__grid { grid-template-columns: 1fr; gap: 14px; } }
+@media (max-width: 767px)  {
+  /* BUG-12: reset negative overlap so stacked card isn't clipped */
+  .mb-addr-float { margin-top: 0; }
+  .mb-addr-float__grid { grid-template-columns: 1fr; gap: 14px; }
+}
 
 .mb-addr-float__card {
   position: relative;
@@ -2728,6 +2848,104 @@ img.reveal-clip.in-view {
 
 
 /* ══════════════════════════════════════════════════════════
+   TOUCH-DEVICE SOFT MOTION — middle-ground for mobile
+   ──────────────────────────────────────────────────────────
+   Cumulative compositor pressure from ~12 simultaneous infinite
+   loops caused jank on phones (S24 Ultra). Rather than disable
+   them entirely, we keep all the personality but:
+     • roughly double each duration → calmer perceived motion
+     • halve transform amplitudes → cheaper per-frame compositing
+     • simplify the priciest one (mv-watermark-spin-loop's full
+       90° rotateY 3D transform) to a flat fade
+   Desktop is byte-identical — these rules only fire under
+   (hover: none) and (pointer: coarse).
+   ══════════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Softer keyframe variants — global because @keyframes can't be
+     scoped, but the animation-name swaps below only happen on touch. */
+  @keyframes mb-stat-icon-float--soft {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+  }
+  @keyframes mb-svc-card-float--soft {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-2px); }
+  }
+  @keyframes mb-pillar-sway--soft {
+    0%, 100% { transform: translateY(0)    rotate(0deg); }
+    25%      { transform: translateY(-2px) rotate(-0.2deg); }
+    75%      { transform: translateY(-1px) rotate(0.2deg); }
+  }
+  @keyframes mb-pillar-index-pulse--soft {
+    0%, 100% { transform: scale(1);    opacity: 1; }
+    50%      { transform: scale(1.04); opacity: 0.97; }
+  }
+  @keyframes mv-card-float--soft {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+  }
+  /* Drop the 3D rotateY (the most GPU-expensive decorative loop on the
+     page) — phones get a flat opacity pulse instead. Same intent
+     (watermark fades in/out continuously) at a fraction of the cost. */
+  @keyframes mv-watermark-fade-loop--soft {
+    0%   { opacity: 0; }
+    20%  { opacity: 0.09; }
+    70%  { opacity: 0.09; }
+    90%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes mb-founder-kenburns--soft {
+    0%   { transform: scale(1)    translate(0, 0); }
+    50%  { transform: scale(1.05) translate(-1%, -1%); }
+    100% { transform: scale(1)    translate(0, 0); }
+  }
+
+  /* ---- Animation-name + duration swaps ---- */
+  .mb-stats__item.aos-animate .mb-stats__icon {
+    animation-name: mb-stat-icon-float--soft;
+    animation-duration: 8s;
+  }
+  .mb-svc-card.aos-animate,
+  [data-aos].aos-animate .mb-svc-card {
+    animation-name: mb-svc-card-float--soft;
+    animation-duration: 9s;
+  }
+  /* Pillars carry two animations (rise + sway). Keep rise as-is, soften sway. */
+  .mb-about__value.aos-animate {
+    animation-name: mb-pillar-rise, mb-pillar-sway--soft;
+    animation-duration: 900ms, 11s;
+  }
+  .mb-about__value.aos-animate .mb-about__value-index {
+    animation-name: mb-pillar-index-pulse--soft;
+    animation-duration: 6s;
+  }
+  /* Mission/Vision: keep watermark-rise on entry, swap the spin-loop for fade-loop. */
+  .mb-about__mv-card.aos-animate .mb-about__mv-watermark {
+    animation-name: mv-watermark-rise, mv-watermark-fade-loop--soft;
+    animation-duration: 900ms, 14s;
+  }
+  .mb-about__mv-card.aos-animate {
+    animation-name: mv-card-float--soft;
+    animation-duration: 8s;
+  }
+  .founder .founder-image img {
+    animation-name: mb-founder-kenburns--soft;
+    animation-duration: 20s;
+  }
+  /* Hero scan-sweep — full-width line, slowest and least visible win. */
+  .hero-scan { animation-duration: 28s; }
+  /* Hero title drift — already gentle, just slow it down. */
+  #hero h1.hero-title { animation-duration: 14s; }
+  /* Service icon shake — less frequent so all 6 don't fire as often. */
+  .mb-svc-card.aos-animate .svc-icon,
+  [data-aos].aos-animate .mb-svc-card .svc-icon {
+    animation-duration: 12s;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════════
    MEDIUM-IMPACT POLISH — Phase 11b
    ══════════════════════════════════════════════════════════ */
 
@@ -3043,6 +3261,14 @@ img.reveal-clip.in-view {
   justify-content: center;
   align-items: baseline;
   gap: 0.28em;
+  /* Unified fluid sizing — replaces the competing rules in style.css
+     (`48px` desktop / `28px` <=768px step) and the generic h1 clamp
+     in modern.css (line 67) which both targeted this title and caused
+     a visible size jump around 720–768px on tablet-portrait. Specificity
+     `#hero h1.hero-title` beats both. */
+  font-size: clamp(2rem, 7vw, 3.75rem);   /* 32px → 60px fluid */
+  line-height: 1.06;
+  margin: 0 0 12px 0;
   /* Whole-title gentle float starts AFTER all words have landed */
   animation: mb-hero-title-drift 10s ease-in-out 2.2s infinite;
 }
@@ -3207,6 +3433,43 @@ img.reveal-clip.in-view {
     0 0 14px rgba(0,0,0,0.6);
 }
 .hero-slide-num.is-fading { opacity: 0; }
+
+/* Phone-size adjustments — the H1 wraps to 2–3 lines on narrow viewports
+   and the wrapped subtitle was colliding with the bottom-corner labels.
+   Pull labels closer to the bottom edge, tighten in from the sides so
+   they clear the viewfinder corner marks, and shrink the long location
+   captions so they don't take 3 lines. */
+@media (max-width: 575px) {
+  .hero-loc {
+    bottom: 22px;
+    right: 16px;
+    left: auto;
+    max-width: 58%;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hero-loc::before { width: 12px; }
+  .hero-slide-num {
+    bottom: 22px;
+    left: 16px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  /* Viewfinder corner marks slightly shorter so they don't crowd the labels */
+  .hv-tl, .hv-tr, .hv-bl, .hv-br { width: 16px; height: 16px; }
+  .hv-tl { top: 16px;    left: 16px; }
+  .hv-tr { top: 16px;    right: 16px; }
+  .hv-bl { bottom: 56px; left: 16px; }
+  .hv-br { bottom: 56px; right: 16px; }
+  .hv-tl::before, .hv-bl::before,
+  .hv-tr::before, .hv-br::before { width: 16px; }
+  .hv-tl::after, .hv-tr::after,
+  .hv-bl::after, .hv-br::after { height: 16px; }
+}
 
 /* Persistent dark gradient at the very bottom of the hero to ground both labels */
 #hero::after {
@@ -3486,15 +3749,22 @@ body.mb-cursor--hover #mb-cursor-ring {
 }
 
 /* ── Film grain ──────────────────────────────────────────── */
-#mb-grain {
-  position: fixed;
-  inset: 0;
-  z-index: 99985;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 220px 220px;
-  animation: mb-grain 0.9s steps(9) infinite;
+/* Desktop/mouse only — full-screen animated overlay caused
+   compositor flicker on Android (S24 Ultra). Hidden on touch
+   devices and when the user prefers reduced motion. */
+#mb-grain { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  #mb-grain {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99985;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    animation: mb-grain 0.9s steps(9) infinite;
+  }
 }
 @keyframes mb-grain {
   0%   { background-position:   0%   0%  }

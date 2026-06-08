@@ -220,12 +220,21 @@
         void icon.offsetWidth;
         icon.classList.add('is-peak');
       };
+      // Pause the loop when off-screen (BUG-16)
+      const waitVisible = () => new Promise(r => {
+        if (el.dataset.mbLoopVisible === '1') { r(); return; }
+        const poll = setInterval(() => {
+          if (el.dataset.mbLoopVisible === '1') { clearInterval(poll); r(); }
+        }, 200);
+      });
       // First run: count up to end and stay there a little longer
       el.textContent = '0';
       while (true) {
+        await waitVisible();
         await animateCount(el, 0, end, upMs);
         pulse();
         await wait(holdTopMs);
+        await waitVisible();
         await animateCount(el, end, 0, downMs);
         await wait(holdBottomMs);
       }
@@ -233,10 +242,14 @@
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.mbLoopStarted) {
-          entry.target.dataset.mbLoopStarted = '1';
-          runLoop(entry.target);
-          observer.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          entry.target.dataset.mbLoopVisible = '1';
+          if (!entry.target.dataset.mbLoopStarted) {
+            entry.target.dataset.mbLoopStarted = '1';
+            runLoop(entry.target);
+          }
+        } else {
+          entry.target.dataset.mbLoopVisible = '0';
         }
       });
     }, { threshold: 0.4 });
@@ -492,7 +505,7 @@
    * Magnetic CTAs — buttons pull toward cursor when nearby.
    */
   (function initMagneticCTAs() {
-    if (!matchMedia('(hover: hover)').matches) return;
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     document.querySelectorAll('.cta-btn, .btn-getstarted').forEach(btn => {
       btn.addEventListener('mousemove', e => {
         const r = btn.getBoundingClientRect();
@@ -644,7 +657,7 @@
    * 3-D card tilt — perspective lean on ALL card types with dynamic shadow.
    */
   (function initCardTilt() {
-    if (!matchMedia('(hover: hover)').matches) return;
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
     /**
      * @param {string}  selector   CSS selector for cards
@@ -721,7 +734,11 @@
     const video = section.querySelector('.mb-showreel__video');
     if (!video) return;
     const dots   = section.querySelectorAll('.mb-showreel__progress span');
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // BUG-17: don't autoplay on metered/cellular connections
+    const conn    = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const saveData = (conn && conn.saveData) ||
+                     (conn && ['slow-2g','2g'].includes(conn.effectiveType));
     let loaded = false;
 
     function load() {
@@ -747,7 +764,7 @@
       entries.forEach(en => {
         if (en.isIntersecting) {
           load();
-          if (!reduce) video.play().catch(() => {});
+          if (!reduce && !saveData) video.play().catch(() => {});
         } else {
           video.pause();
         }
@@ -755,9 +772,58 @@
     }, { threshold: 0.25 });
     io.observe(section);
 
-    if (reduce) {            // show first frame / poster, no autoplay
+    if (reduce || saveData) {   // show first frame / poster, no autoplay
       load();
       section.classList.add('is-playing');
+    }
+  })();
+
+  /**
+   * Hero slide lazy-loader — promotes data-bg to background-image just in time.
+   *
+   * style.css schedules each .hero-slide's `heroFade` keyframe to start at
+   * N * 5s (animation-delay). We preload each slide ~PRELOAD_LEAD_MS before
+   * its keyframe begins so the JPEG is decoded and in the HTTP cache before
+   * the cross-fade reveals it.
+   *
+   * Slide 0's image is also the #hero poster (modern.css), so by the time
+   * we set its background-image the browser has already cached it.
+   *
+   * Result: initial network burst drops from 17 hero JPEGs to 1, while the
+   * slideshow remains visually identical. After one full 85s cycle every
+   * image is cached, so the `infinite` loop does no further network work.
+   */
+  (function initHeroLazyLoad() {
+    const slides = Array.from(document.querySelectorAll('.hero-slide[data-bg]'));
+    if (!slides.length) return;
+
+    const SLIDE_INTERVAL_MS = 5000;   // matches style.css animation-delay step
+    const PRELOAD_LEAD_MS   = 2000;   // how early to start the fetch
+
+    const applyBg = (slide, src) => {
+      slide.style.backgroundImage = `url('${src}')`;
+      slide.dataset.bgLoaded = '1';
+    };
+
+    const loadSlide = (slide) => {
+      if (slide.dataset.bgLoaded) return;
+      const src = slide.getAttribute('data-bg');
+      if (!src) return;
+      // Use Image() so we only paint once the JPEG is decoded — avoids a
+      // half-painted background flickering in.
+      const img = new Image();
+      img.onload  = () => applyBg(slide, src);
+      img.onerror = () => applyBg(slide, src); // fallback: let the browser handle it
+      img.src = src;
+    };
+
+    // Slide 0 is needed immediately (its keyframe starts at t=0).
+    loadSlide(slides[0]);
+
+    // Stagger the rest so each one is fetched shortly before it's needed.
+    for (let i = 1; i < slides.length; i++) {
+      const delay = Math.max(0, i * SLIDE_INTERVAL_MS - PRELOAD_LEAD_MS);
+      setTimeout(() => loadSlide(slides[i]), delay);
     }
   })();
 
