@@ -162,7 +162,10 @@
   document.addEventListener('scroll', toggleScrollTop);
 
   /**
-   * Animation on scroll function and init
+   * Animation on scroll function and init.
+   * Called immediately — the script runs after the full DOM is parsed
+   * (bottom of <body>), so no need to wait for window.load which blocks
+   * on images/video and left data-aos elements invisible for 5-10s on mobile.
    */
   function aosInit() {
     AOS.init({
@@ -172,7 +175,7 @@
       mirror: false
     });
   }
-  window.addEventListener('load', aosInit);
+  aosInit();
 
   /**
    * Initiate glightbox
