@@ -20,7 +20,7 @@
   }
 
   document.addEventListener('scroll', toggleScrolled);
-  window.addEventListener('load', toggleScrolled);
+  toggleScrolled(); // run immediately — DOM is parsed, no need to wait for load
 
   /**
    * Mobile nav toggle
@@ -158,7 +158,7 @@
     });
   });
 
-  window.addEventListener('load', toggleScrollTop);
+  toggleScrollTop(); // run immediately
   document.addEventListener('scroll', toggleScrollTop);
 
   /**
@@ -327,20 +327,19 @@
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
-  window.addEventListener('load', function(e) {
-    if (window.location.hash) {
-      if (document.querySelector(window.location.hash)) {
-        setTimeout(() => {
-          let section = document.querySelector(window.location.hash);
-          let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
-          window.scrollTo({
-            top: section.offsetTop - parseInt(scrollMarginTop),
-            behavior: 'smooth'
-          });
-        }, 100);
-      }
+  // Hash scroll — DOM is parsed at this point, no need for window.load
+  if (window.location.hash) {
+    const hashTarget = document.querySelector(window.location.hash);
+    if (hashTarget) {
+      setTimeout(() => {
+        let scrollMarginTop = getComputedStyle(hashTarget).scrollMarginTop;
+        window.scrollTo({
+          top: hashTarget.offsetTop - parseInt(scrollMarginTop),
+          behavior: 'smooth'
+        });
+      }, 100);
     }
-  });
+  }
 
   /**
    * Multi-step contact form — step navigation + AJAX submission
@@ -504,7 +503,7 @@
       }
     })
   }
-  window.addEventListener('load', navmenuScrollspy);
+  navmenuScrollspy(); // run immediately
   document.addEventListener('scroll', navmenuScrollspy);
 
   /**
