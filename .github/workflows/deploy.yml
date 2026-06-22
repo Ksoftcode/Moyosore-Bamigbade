@@ -10,8 +10,17 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v4
-    
-    - name: 📂 Sync files
+
+    - name: 📂 Sync files (MBHoldco)
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      with:
+        server: ${{ secrets.MBH_FTP_SERVER }}
+        username: ${{ secrets.MBH_FTP_USERNAME }}
+        password: ${{ secrets.MBH_FTP_CONNECT }}
+        protocol: ftps
+        port: 21
+
+    - name: 📂 Sync files (Moyosore Bamigbade)
       uses: SamKirkland/FTP-Deploy-Action@v4.3.6
       with:
         server: ${{ secrets.MB_FTP_SERVER }}
