@@ -101,17 +101,26 @@
     const el = document.getElementById('preloader');
     if (el) buildPreloader(el);
 
-    // Hide once fonts are ready + a minimum 350ms so the logo animation
-    // has time to breathe. Previously used window 'load' which waited for
-    // every image/video — adding 5-6s on mobile with no benefit.
-    const minShow = new Promise(r => setTimeout(r, 350));
-    const fontTimeout = new Promise(r => setTimeout(r, 1500));
-    Promise.all([Promise.race([document.fonts.ready, fontTimeout]), minShow]).then(() => {
+    // Dismiss the preloader as soon as the DOM is ready, after a short
+    // minimum so the logo animation can breathe. It is deliberately NOT
+    // gated on images, video, or web-font downloads — text renders with
+    // fallback fonts immediately (font-display:swap) and swaps in later.
+    // fonts.ready is raced against a hard 700ms cap purely as a nicety, so
+    // a slow/blocked font CDN can never hold the curtain over the content.
+    const dismiss = () => {
       const loader = document.getElementById('preloader');
       if (!loader) return;
       loader.classList.add('is-hidden');
       setTimeout(() => loader.remove(), 550);
-    });
+    };
+    const minShow = new Promise(r => setTimeout(r, 450));
+    const fontsOrCap = Promise.race([
+      document.fonts ? document.fonts.ready : Promise.resolve(),
+      new Promise(r => setTimeout(r, 700))
+    ]);
+    Promise.all([fontsOrCap, minShow]).then(dismiss);
+    // Absolute backstop: whatever happens, never keep the curtain past 2.5s.
+    setTimeout(dismiss, 2500);
 
     // Show on navigation (acts as exit transition)
     document.addEventListener('click', e => {
@@ -177,6 +186,24 @@
     });
   }
   aosInit();
+
+  /**
+   * Reveal hardening. data-aos elements start at opacity:0 and only show once
+   * AOS triggers them. Two things can leave content stuck hidden:
+   *   1. Lazy-loaded images change the document height AFTER AOS computed its
+   *      trigger offsets, so positions go stale -> recalc on load/resize.
+   *   2. AOS failing to load/run at all -> nothing ever reveals.
+   * The failsafe guarantees content is NEVER left invisible.
+   */
+  const refreshAOS = () => { try { window.AOS && AOS.refreshHard(); } catch (e) {} };
+  window.addEventListener('load', refreshAOS);
+  window.addEventListener('resize', refreshAOS);
+  // Recompute once the webfonts settle (text metrics shift the layout).
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshAOS);
+  // Absolute backstop: if anything above failed, force every data-aos visible.
+  setTimeout(() => {
+    document.querySelectorAll('[data-aos]:not(.aos-animate)').forEach(el => el.classList.add('aos-animate'));
+  }, 3000);
 
   /**
    * Initiate glightbox
