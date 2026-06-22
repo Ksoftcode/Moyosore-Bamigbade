@@ -35,9 +35,7 @@ window.MB_PROJECTS = (function () {
     "bank-branch-rollout", "branded-banking-prototype", "regional-office-development",
     "lekki-villa-cluster", "abuja-villa-2025", "ibadan-villa-2025",
     "noun-mccarthy-lagos", "urban-housing-2025", "residential-urban-development-2025",
-    "infill-housing", "mb-architects-hq", "research-eko-atlantic", "research-ibeju-lekki",
-    // TEMP HIDDEN — folder contains wrong images (St Annes Ibadan); await correct assets from client
-    "affordable-housing"
+    "infill-housing", "mb-architects-hq", "research-eko-atlantic", "research-ibeju-lekki"
   ]);
 
   const _ALL = [
@@ -956,8 +954,9 @@ window.MB_PROJECTS = (function () {
       cost: "$1M",
       costNum: 1_000_000,
       description: "Five detached residential units arranged around shared access and landscaped spaces, balancing privacy with a sense of community.",
-      cover: cov("5-units-detached"),
-      gallery: galFull("5-units-detached", 12)
+      cover: covPhoto("5-units-detached"),
+      gallery: galFull("5-units-detached", 12),
+      photos: phots("5-units-detached", 7)
     },
     {
       slug: "affordable-housing",
@@ -971,8 +970,9 @@ window.MB_PROJECTS = (function () {
       status: "Concept Stage",
       cost: "On Request",
       description: "Affordable housing prototype emphasising material economy, rapid construction and community-scale planning for Nigerian cities.",
-      cover: cov("affordable-housing"),
-      gallery: galFull("affordable-housing", 10)
+      cover: covPhoto("affordable-housing"),
+      gallery: galFull("affordable-housing", 10),
+      photos: phots("affordable-housing", 7)
     },
     {
       slug: "centre-of-excellence-funaab",
@@ -1096,7 +1096,7 @@ window.MB_PROJECTS = (function () {
       costNum: 600_000,
       client: "Mountain Top University",
       description: "A purpose-designed student hostel with efficient room planning and durable materials.",
-      cover: cov("mountain-top-hostel"),
+      cover: covPhoto("mountain-top-hostel"),
       gallery: galFull("mountain-top-hostel", 3)
     },
     {
@@ -1238,8 +1238,9 @@ window.MB_PROJECTS = (function () {
       cost: "$100,000",
       costNum: 100_000,
       description: "A bespoke country retreat blending traditional proportions with modern detailing.",
-      cover: cov("private-client-ogun"),
-      gallery: galFull("private-client-ogun", 4)
+      cover: covPhoto("private-client-ogun"),
+      gallery: galFull("private-client-ogun", 4),
+      photos: phots("private-client-ogun", 3)
     },
     {
       slug: "summerwood-villa",
