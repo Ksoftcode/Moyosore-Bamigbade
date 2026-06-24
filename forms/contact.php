@@ -114,7 +114,7 @@ $sent = mail(RECEIVING_EMAIL, $subject, $body, $headers);
 
 if (!$sent) {
     http_response_code(500);
-    echo json_encode(['status' => 'error', 'message' => 'Mail could not be sent. Please try emailing us directly at info@mbarchitects.ng']);
+    echo json_encode(['status' => 'error', 'message' => 'Mail could not be sent. Please try emailing us directly at mbarchitects@mbholdco.com']);
     exit;
 }
 
